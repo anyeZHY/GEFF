@@ -13,12 +13,12 @@ import cv2
 # from a lot of positive(faces) and negative(non-faces)
 # images.
 path = '/Users/anye_zhenhaoyu/Desktop/机器学习/Project/Gaze_Estimation'
-face_cascade = cv2.CascadeClassifier(path + '/assets/haarcascade_frontalface_default.xml')
+face_cascade = cv2.CascadeClassifier( path + '/assets/haarcascade_frontalface_default.xml' )
 
 # https://github.com/Itseez/opencv/blob/master
 # /data/haarcascades/haarcascade_eye.xml
 # Trained XML file for detecting eyes
-eye_cascade = cv2.CascadeClassifier(path + '/assets/haarcascade_eye.xml')
+eye_cascade = cv2.CascadeClassifier( path + '/assets/haarcascade_eye.xml' )
 
 # capture frames from a camera
 cap = cv2.VideoCapture(0)
