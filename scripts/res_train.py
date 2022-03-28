@@ -4,6 +4,7 @@ import torch.optim as optim
 import torchvision
 from torchvision import transforms
 from model.resnet import ResNet
+from model.resnet import ResBlock
 
 # check gpu
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -31,6 +32,6 @@ transform_test = transforms.Compose([
 ])
 
 # define ResNet18
-net = ResNet().to(device)
+net = ResNet(ResBlock).to(device)
 
 
