@@ -41,11 +41,12 @@ class ResNet(nn.Module):
             nn.BatchNorm2d(64),
             nn.ReLU()
         )
-        self.layer1 = self.make_layer(ResBlock, 64, 2, stride=1)
-        self.layer2 = self.make_layer(ResBlock, 128, 2, stride=2)
-        self.layer3 = self.make_layer(ResBlock, 256, 2, stride=2)
-        self.layer4 = self.make_layer(ResBlock, 512, 2, stride=2)
-        self.fc = nn.Linear(512, out_channel)
+        channel = [16, 16, 16, 16]
+        self.layer1 = self.make_layer(ResBlock, channel[0], 2, stride=1)
+        self.layer2 = self.make_layer(ResBlock, channel[1], 2, stride=2)
+        self.layer3 = self.make_layer(ResBlock, channel[2], 2, stride=2)
+        self.layer4 = self.make_layer(ResBlock, channel[3], 2, stride=2)
+        self.fc = nn.Linear(784, out_channel)
 
     # 这个函数主要是用来，重复同一个残差块
     def make_layer(self, block, channels, num_blocks, stride):
