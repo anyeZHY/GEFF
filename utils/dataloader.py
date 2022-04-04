@@ -75,7 +75,7 @@ class MPII(Dataset):
             image = self.transform(image)
         if self.target_transform:
             label = self.target_transform(label)
-        return image, label
+        return image.float(), label.astype(float)
 
 def load_data_naive(BATCH_SIZE):
     # df_data = procees_data(0)
