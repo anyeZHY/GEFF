@@ -3,7 +3,6 @@ import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
-
 # 定义残差块ResBlock
 class ResBlock(nn.Module):
     def __init__(self, inchannel, outchannel, stride=1):
@@ -34,7 +33,7 @@ class ResBlock(nn.Module):
 
 
 class ResNet(nn.Module):
-    def __init__(self, ResBlock, out_channel=10):
+    def __init__(self, ResBlock, out_channel = 2):
         super(ResNet, self).__init__()
         self.inchannel = 64
         self.conv1 = nn.Sequential(
