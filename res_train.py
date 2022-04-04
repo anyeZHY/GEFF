@@ -1,8 +1,9 @@
-import pandas as pd
+# import pandas as pd
 import torch
 import torch.nn as nn
 import torch.optim as optim
-import torchvision
+import torch.nn.functional as F
+# import torchvision
 from utils.dataloader import load_data_naive
 from model.resnet import ResNet, ResBlock
 
@@ -11,7 +12,7 @@ from model.resnet import ResNet, ResBlock
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 # set hyperparameter
-EPOCH = 1
+EPOCH = 10
 pre_epoch = 0
 BATCH_SIZE = 128
 LR = 0.01
@@ -22,7 +23,7 @@ trainloader, testloader = load_data_naive(BATCH_SIZE)
 # define ResNet18
 net = ResNet(ResBlock).to(device)
 
-criterion = nn.CrossEntropyLoss()
+criterion = nn.BCELoss()
 optimizer = optim.Adam(net.parameters())
 
 for epoch in range(pre_epoch, EPOCH):
@@ -32,8 +33,9 @@ for epoch in range(pre_epoch, EPOCH):
     correct = 0.0
     total = 0.0
     for i, data in enumerate(trainloader, 0):
-        if i==1:
-            break
+    # for i, data in enumerate(testloader, 0):
+    #     if i==1:
+    #         break
         # prepare dataset
         length = len(trainloader)
         inputs, labels = data
@@ -41,31 +43,35 @@ for epoch in range(pre_epoch, EPOCH):
         optimizer.zero_grad()
         # forward & backward
         outputs = net(inputs)
-        loss = criterion(outputs, labels)
+        # loss = criterion(outputs, labels.float())
+        loss = F.binary_cross_entropy_with_logits(outputs, labels)
+        # loss = torch.sum((labels-outputs)**2, dim=1)
+        # print(loss.item())
         loss.backward()
         optimizer.step()
 
         # print ac & loss in each batch
         sum_loss += loss.item()
-        _, predicted = torch.max(outputs.data, 1)
-        total += labels.size(0)
-        correct += predicted.eq(labels.data).cpu().sum()
-        print('[epoch:%d, iter:%d] Loss: %.03f | Acc: %.3f%% '
-              % (epoch + 1, (i + 1 + epoch * length), sum_loss / (i + 1), 100. * correct / total))
+        print('[epoch:%d, iter:%d] Loss: %.03f '
+              % (epoch + 1, (i + 1 + epoch * length), loss.item()))
 
     # get the ac with testdataset in each epoch
     print('Waiting Test...')
     with torch.no_grad():
         correct = 0
         total = 0
+        # i = 0
         for data in testloader:
+            # i += 1
+            # if i==5:
+            #     break
             net.eval()
             images, labels = data
             images, labels = images.to(device), labels.to(device)
             outputs = net(images)
-            _, predicted = torch.max(outputs.data, 1)
             total += labels.size(0)
-            correct += (predicted == labels).sum()
-        print('Test\'s ac is: %.3f%%' % (100 * correct / total))
+            loss = F.binary_cross_entropy_with_logits(outputs, labels)
+            correct += loss.item()
+        print('Test\'s loss is: %.03f' % (correct / total))
 
 print('Train has finished, total epoch is %d' % EPOCH)
