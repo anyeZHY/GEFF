@@ -33,7 +33,7 @@ assets
     └── ...
 ```
 
-Also you should preprocess your by following command:
+Also you could preprocess your by following command:
 
 ```shell
 $ python utils/dataloader.py
