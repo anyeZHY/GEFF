@@ -4,6 +4,7 @@ opencv-master/
 MPIIFaceGaze/
 ColumbiaGazeDataSet/
 *.csv
+*.sh
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
