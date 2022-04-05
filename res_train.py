@@ -23,7 +23,7 @@ trainloader, testloader = load_data_naive(BATCH_SIZE)
 # define ResNet18
 net = ResNet(ResBlock).to(device)
 
-criterion = nn.BCELoss()
+criterion = nn.MSELoss(reduction='mean')
 optimizer = optim.Adam(net.parameters())
 
 for epoch in range(pre_epoch, EPOCH):
@@ -32,10 +32,10 @@ for epoch in range(pre_epoch, EPOCH):
     sum_loss = 0.0
     correct = 0.0
     total = 0.0
-    for i, data in enumerate(trainloader, 0):
-    # for i, data in enumerate(testloader, 0):
-    #     if i==1:
-    #         break
+    # for i, data in enumerate(trainloader, 0):
+    for i, data in enumerate(testloader, 0):
+        if i==2:
+            break
         # prepare dataset
         length = len(trainloader)
         inputs, labels = data
@@ -43,9 +43,8 @@ for epoch in range(pre_epoch, EPOCH):
         optimizer.zero_grad()
         # forward & backward
         outputs = net(inputs)
-        # loss = criterion(outputs, labels.float())
-        loss = F.binary_cross_entropy_with_logits(outputs, labels)
-        # loss = torch.sum((labels-outputs)**2, dim=1)
+        loss = criterion(outputs, labels.float())
+        # loss = F.binary_cross_entropy_with_logits(outputs, labels)
         # print(loss.item())
         loss.backward()
         optimizer.step()
@@ -60,11 +59,11 @@ for epoch in range(pre_epoch, EPOCH):
     with torch.no_grad():
         correct = 0
         total = 0
-        # i = 0
+        i = 0
         for data in testloader:
-            # i += 1
-            # if i==5:
-            #     break
+            i += 1
+            if i==2:
+                break
             net.eval()
             images, labels = data
             images, labels = images.to(device), labels.to(device)
