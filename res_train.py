@@ -63,8 +63,8 @@ for epoch in range(pre_epoch, EPOCH):
             images, labels = images.to(device), labels.to(device)
             outputs = net(images)
             total += labels.size(0)
-            loss = F.binary_cross_entropy_with_logits(outputs, labels)
+            loss = criterion(outputs, labels.float())
             correct += loss.item()
-        print('Test\'s loss is: %.03f' % (correct / total))
+        print('Test\'s loss is: %.03f' % (correct))
 
 print('Train has finished, total epoch is %d' % EPOCH)
