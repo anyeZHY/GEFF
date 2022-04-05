@@ -4,7 +4,7 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 # import torchvision
-from utils.dataloader import load_data_naive
+from utils_GE.dataloader import load_data_naive
 from model.resnet import ResNet, ResBlock
 
 
