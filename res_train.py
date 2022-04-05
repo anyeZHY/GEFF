@@ -23,7 +23,7 @@ trainloader, testloader = load_data_naive(BATCH_SIZE)
 # define ResNet18
 net = ResNet(ResBlock).to(device)
 
-criterion = nn.MSELoss(reduction='mean')
+criterion = nn.MSELoss()
 optimizer = optim.Adam(net.parameters())
 
 for epoch in range(pre_epoch, EPOCH):
@@ -34,8 +34,6 @@ for epoch in range(pre_epoch, EPOCH):
     total = 0.0
     # for i, data in enumerate(trainloader, 0):
     for i, data in enumerate(testloader, 0):
-        if i==2:
-            break
         # prepare dataset
         length = len(trainloader)
         inputs, labels = data
@@ -59,11 +57,7 @@ for epoch in range(pre_epoch, EPOCH):
     with torch.no_grad():
         correct = 0
         total = 0
-        i = 0
         for data in testloader:
-            i += 1
-            if i==2:
-                break
             net.eval()
             images, labels = data
             images, labels = images.to(device), labels.to(device)
