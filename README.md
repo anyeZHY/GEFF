@@ -36,7 +36,7 @@ assets
 Also you could preprocess your by following command:
 
 ```shell
-$ python utils/dataloader.py
+$ python gaze_estimation/utils/dataloader.py
 ```
 
 ```shell
@@ -45,6 +45,8 @@ assets
 │   └── ...
 ├── ColumbiaGazeDataSet/
 │   └── ...
-└── MPIIFaceGazeData.csv
+├── MPII_data
+├── MPII_test.csv
+└── ...
 ```
 
