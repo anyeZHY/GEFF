@@ -69,6 +69,7 @@ def train():
             print('Test\'s loss is: %.03f' % (correct))
 
     print('Train has finished, total epoch is %d' % EPOCH)
+    torch.save(net.state_dict(), 'assets/model_scripted.pt')
 
 if __name__ == '__main__':
     train()
