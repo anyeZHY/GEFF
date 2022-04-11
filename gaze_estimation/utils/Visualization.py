@@ -14,7 +14,9 @@ class Arrow3D(FancyArrowPatch):
         self.set_positions((xs[0],ys[0]),(xs[1],ys[1]))
         FancyArrowPatch.draw(self, renderer)
 
-def gaze_visual(alpha, beta):
+def gaze_visual(gaze):
+    alpha = gaze[0]
+    beta = gaze[1]
     ax = plt.figure().add_subplot(projection='3d')
     ax.set_box_aspect([1,1,1])
 
@@ -56,4 +58,4 @@ def gaze_visual(alpha, beta):
     plt.show()
 
 if __name__=='__main__':
-    gaze_visual(-0.5, 0.5)
+    gaze_visual([-0.5, 0.5])
