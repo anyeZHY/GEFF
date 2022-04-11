@@ -16,6 +16,8 @@ EPOCH = 10
 pre_epoch = 0
 BATCH_SIZE = 128
 LR = 0.01
+# out_channel = 2
+# channels = (1, 1, 1, 1)
 
 # prepare dataset and preprocessing
 trainloader, testloader = load_data_naive(BATCH_SIZE)
@@ -32,8 +34,7 @@ for epoch in range(pre_epoch, EPOCH):
     sum_loss = 0.0
     correct = 0.0
     total = 0.0
-    # for i, data in enumerate(trainloader, 0):
-    for i, data in enumerate(testloader, 0):
+    for i, data in enumerate(trainloader, 0):
         # prepare dataset
         length = len(trainloader)
         inputs, labels = data
