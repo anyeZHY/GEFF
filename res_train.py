@@ -4,8 +4,8 @@ import torch.nn as nn
 import torch.optim as optim
 import torch.nn.functional as F
 # import torchvision
-from utils_GE.dataloader import load_data_naive
-from model_GE.resnet import ResNet, ResBlock
+from gaze_estimation.utils.dataloader import load_data_naive
+from gaze_estimation.model.resnet import ResNet, ResBlock
 
 
 # check gpu
