@@ -1,11 +1,12 @@
 # import pandas as pd
 import argparse
 import torch
-import torch.nn as nn
+# import torch.nn as nn
 import torch.optim as optim
-import torch.nn.functional as F
+# import torch.nn.functional as F
 # import torchvision
 from gaze_estimation.utils.dataloader import load_data_naive
+from gaze_estimation.utils.make_loss import angular_error
 from gaze_estimation.model.resnet import ResNet, ResBlock
 
 def train(args):
@@ -26,15 +27,13 @@ def train(args):
     # define ResNet18
     net = ResNet(ResBlock, out_channel=out_channel, channels=res_channels).to(device)
 
-    criterion = nn.MSELoss()
+    # criterion = nn.SmoothL1Loss(reduction='mean')
     optimizer = optim.Adam(net.parameters(), lr=LR)
 
     for epoch in range(pre_epoch, EPOCH):
         print('\nEpoch: %d' % (epoch + 1))
         net.train()
         sum_loss = 0.0
-        correct = 0.0
-        total = 0.0
         for i, data in enumerate(trainloader, 0):
             # prepare dataset
             length = len(trainloader)
@@ -43,9 +42,9 @@ def train(args):
             optimizer.zero_grad()
             # forward & backward
             outputs = net(inputs)
-            loss = criterion(outputs, labels.float())
-            # loss = F.binary_cross_entropy_with_logits(outputs, labels)
-            # print(loss.item())
+            loss = angular_error(outputs, labels.float())
+            # loss = criterion(yaw_pitch_to_vec(outputs), yaw_pitch_to_vec(labels.float()))
+            # loss = torch.mean(angular_error(outputs, labels.float()))
             loss.backward()
             optimizer.step()
 
@@ -65,9 +64,10 @@ def train(args):
                 images, labels = images.to(device), labels.to(device)
                 outputs = net(images)
                 total += labels.size(0)
-                loss = criterion(outputs, labels.float())
+                loss = angular_error(outputs, labels.float())
+                # loss = criterion(yaw_pitch_to_vec(outputs), yaw_pitch_to_vec(labels.float()))
                 correct += loss.item()
-            print('Test\'s loss is: %.03f' % (correct))
+            print('Test\'s loss is: %.03f' % correct)
 
     print('Train has finished, total epoch is %d' % EPOCH)
     filename = 'assets/model' + args.name +\
