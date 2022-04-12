@@ -86,5 +86,5 @@ if __name__ == '__main__':
     parser.add_argument("--lr", default=0.01, type=float)
     parser.add_argument("--out_channel", default=2, type=int)
     parser.add_argument("--res_channels", nargs='+', default=[16, 32, 64, 128], type=int)
-    parser.add_argument("--name", default="_", type=str, help='The file name to save model')
+    parser.add_argument("--name", default="_Name", type=str, help='The file name to save model')
     train(parser.parse_args())
