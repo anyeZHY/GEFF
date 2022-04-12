@@ -50,9 +50,9 @@ def train(args):
 
             # print ac & loss in each batch
             sum_loss += loss.item()
-	    if (i+1+epoch*length)%100 == 0:
-            print('[epoch:%d, iter:%d] Loss: %.03f '
-                  % (epoch + 1, (i + 1 + epoch * length), loss.item()))
+            if (i+1+epoch*length)%50 == 0:
+                print('[epoch:%d, iter:%d] Loss: %.03f '
+                    % (epoch + 1, (i + 1 + epoch * length), loss.item()))
 
         # get the ac with testdataset in each epoch
         print('Waiting Test...')
@@ -70,15 +70,27 @@ def train(args):
                 correct += loss.item() * (labels.size(0))
             print('Test\'s loss is: %.03f' % correct/total)
 
+        filename = 'assets/model_' + args.name + \
+                   ':lr={lr},' \
+                   'total_epoch={epoch},' \
+                   'epoch_save={now},' \
+                   'res_channels={res_channels}' \
+                   '.pt'.format(
+                       lr=LR, epoch=EPOCH, res_channels=res_channels, now=epoch
+                   )
+        torch.save(net.state_dict(), filename)
+
     print('Train has finished, total epoch is %d' % EPOCH)
-    filename = 'assets/model_' + args.name +\
+    filename = 'assets/model_' + args.name + \
                ':lr={lr},' \
-               'epoch={epoch},' \
+               'total_epoch={epoch},' \
+               'epoch_save={now},' \
                'res_channels={res_channels}' \
                '.pt'.format(
-                   lr=LR, epoch=EPOCH, res_channels=res_channels
+                   lr=LR, epoch=EPOCH, res_channels=res_channels, now=epoch
                )
     torch.save(net.state_dict(), filename)
+
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Training Congfiguration')
