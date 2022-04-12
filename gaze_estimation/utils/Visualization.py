@@ -14,14 +14,9 @@ class Arrow3D(FancyArrowPatch):
         self.set_positions((xs[0],ys[0]),(xs[1],ys[1]))
         FancyArrowPatch.draw(self, renderer)
 
-def gaze_visual(gaze):
-    alpha = gaze[0]
-    beta = gaze[1]
-    ax = plt.figure().add_subplot(projection='3d')
-    ax.set_box_aspect([1,1,1])
-
+def get_frame(ax):
     side_length = 2
-    ax.axes.set_xlim3d(left=-side_length/2, right=side_length)
+    ax.axes.set_xlim3d(left=-side_length / 2, right=side_length)
     ax.axes.set_ylim3d(bottom=-side_length, top=side_length)
     ax.axes.set_zlim3d(bottom=-side_length, top=side_length)
 
@@ -43,6 +38,14 @@ def gaze_visual(gaze):
     ax.plot(z, x, y, '--k')
     ax.plot(z, -x, -y, '--k')
 
+def gaze_visual(gaze):
+    alpha = gaze[0]
+    beta = gaze[1]
+    ax = plt.figure().add_subplot(projection='3d')
+    ax.set_box_aspect([1,1,1])
+
+    get_frame(ax = ax)
+
     arrow = Arrow3D(
         [0, np.cos(beta)*np.cos(alpha)],
         [0, np.cos(beta)*np.sin(alpha)],
@@ -58,4 +61,4 @@ def gaze_visual(gaze):
     plt.show()
 
 if __name__=='__main__':
-    gaze_visual([-0.5, 0.5])
+    gaze_visual([-np.pi/2, 0.5])
