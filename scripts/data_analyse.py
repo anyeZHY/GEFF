@@ -22,7 +22,7 @@ def get_postion():
     gaze = convert_str_to_float(gaze_joined)
     gaze_x = gaze[0::2]
     gaze_y = gaze[1::2]
-    return gaze_x, gaze_y
+    return -gaze_x[0:1000], gaze_y[0:1000]
 
 def draw_gaze_distribution_2d():
     gaze_x, gaze_y = get_postion()
