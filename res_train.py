@@ -50,6 +50,7 @@ def train(args):
 
             # print ac & loss in each batch
             sum_loss += loss.item()
+	    if (i+1+epoch*length)%100 == 0:
             print('[epoch:%d, iter:%d] Loss: %.03f '
                   % (epoch + 1, (i + 1 + epoch * length), loss.item()))
 
@@ -66,8 +67,8 @@ def train(args):
                 total += labels.size(0)
                 loss = angular_error(outputs, labels.float())
                 # loss = criterion(yaw_pitch_to_vec(outputs), yaw_pitch_to_vec(labels.float()))
-                correct += loss.item()
-            print('Test\'s loss is: %.03f' % correct)
+                correct += loss.item() * (labels.size(0))
+            print('Test\'s loss is: %.03f' % correct/total)
 
     print('Train has finished, total epoch is %d' % EPOCH)
     filename = 'assets/model_' + args.name +\
