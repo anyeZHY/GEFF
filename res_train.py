@@ -1,4 +1,5 @@
 # import pandas as pd
+import argparse
 import torch
 import torch.nn as nn
 import torch.optim as optim
@@ -7,26 +8,26 @@ import torch.nn.functional as F
 from gaze_estimation.utils.dataloader import load_data_naive
 from gaze_estimation.model.resnet import ResNet, ResBlock
 
-def train():
+def train(args):
     # check gpu
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # set hyperparameter
-    EPOCH = 10
+    EPOCH = args.epoch
     pre_epoch = 0
-    BATCH_SIZE = 128
-    LR = 0.01
-    # out_channel = 2
-    # channels = (1, 1, 1, 1)
+    BATCH_SIZE = args.batch
+    LR = args.lr
+    out_channel = args.out_channel
+    res_channels = args.res_channels
 
     # prepare dataset and preprocessing
     trainloader, testloader = load_data_naive(BATCH_SIZE)
 
     # define ResNet18
-    net = ResNet(ResBlock).to(device)
+    net = ResNet(ResBlock, out_channel=out_channel, channels=res_channels).to(device)
 
     criterion = nn.MSELoss()
-    optimizer = optim.Adam(net.parameters())
+    optimizer = optim.Adam(net.parameters(), lr=LR)
 
     for epoch in range(pre_epoch, EPOCH):
         print('\nEpoch: %d' % (epoch + 1))
@@ -69,7 +70,21 @@ def train():
             print('Test\'s loss is: %.03f' % (correct))
 
     print('Train has finished, total epoch is %d' % EPOCH)
-    torch.save(net.state_dict(), 'assets/model_scripted.pt')
+    filename = 'assets/model' + args.name +\
+               ':lr={lr},' \
+               'epoch={epoch},' \
+               'res_channels={res_channels}' \
+               '.pt'.format(
+                   lr=LR, epoch=EPOCH, res_channels=res_channels
+               )
+    torch.save(net.state_dict(), filename)
 
 if __name__ == '__main__':
-    train()
+    parser = argparse.ArgumentParser(description='Training Congfiguration')
+    parser.add_argument("--epoch", default=10, type=int)
+    parser.add_argument("--batch", default=128, type=int)
+    parser.add_argument("--lr", default=0.01, type=float)
+    parser.add_argument("--out_channel", default=2, type=int)
+    parser.add_argument("--res_channels", nargs='+', default=[16, 32, 64, 128], type=int)
+    parser.add_argument("--name", default="_", type=str, help='The file name to save model')
+    train(parser.parse_args())
