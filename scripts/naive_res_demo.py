@@ -20,7 +20,7 @@ model = ResNet(ResBlock).to(device)
 model.load_state_dict(torch.load(path + '/assets/model_scripted.pt', map_location=device))
 model.eval()
 
-img = Image.open(path + '/assets/test/mine.jpg')
+img = Image.open(path + '/assets/test/mine_left.jpg')
 transform = transforms.Compose([
         transforms.ToTensor(),
         transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
@@ -30,5 +30,6 @@ transform = transforms.Compose([
 img = transform(img)
 img = torch.unsqueeze(img, 0)
 result = model(img)[0].detach().numpy()
+result[0] = -result[0]
 print(result)
 gaze_visual(result)
