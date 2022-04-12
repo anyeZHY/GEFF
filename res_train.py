@@ -70,7 +70,7 @@ def train(args):
             print('Test\'s loss is: %.03f' % correct)
 
     print('Train has finished, total epoch is %d' % EPOCH)
-    filename = 'assets/model' + args.name +\
+    filename = 'assets/model_' + args.name +\
                ':lr={lr},' \
                'epoch={epoch},' \
                'res_channels={res_channels}' \
@@ -86,5 +86,5 @@ if __name__ == '__main__':
     parser.add_argument("--lr", default=0.01, type=float)
     parser.add_argument("--out_channel", default=2, type=int)
     parser.add_argument("--res_channels", nargs='+', default=[16, 32, 64, 128], type=int)
-    parser.add_argument("--name", default="_Name", type=str, help='The file name to save model')
+    parser.add_argument("--name", default="Name", type=str, help='The file name to save model')
     train(parser.parse_args())
