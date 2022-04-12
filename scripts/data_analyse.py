@@ -10,6 +10,9 @@ from gaze_estimation.utils.Visualization import get_frame
 
 
 def convert_str_to_float(x):
+    """
+    convert the string to a darray
+    """
     return np.array(list(map(float, x.split(','))))
 
 def get_postion():
