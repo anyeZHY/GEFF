@@ -68,7 +68,7 @@ def train(args):
                 loss = angular_error(outputs, labels.float())
                 # loss = criterion(yaw_pitch_to_vec(outputs), yaw_pitch_to_vec(labels.float()))
                 correct += loss.item() * (labels.size(0))
-            print('Test\'s loss is: %.03f' % correct/total)
+            print('Test\'s loss is: %.03f' % (correct/total))
 
         filename = 'assets/model_' + args.name + \
                    ':lr={lr},' \

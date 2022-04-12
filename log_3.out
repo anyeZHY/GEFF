@@ -1,0 +1,128 @@
+
+Epoch: 1
+[epoch:1, iter:50] Loss: 46.365 
+[epoch:1, iter:100] Loss: 63.475 
+[epoch:1, iter:150] Loss: 42.159 
+Waiting Test...
+Test's loss is: 31.525
+
+Epoch: 2
+[epoch:2, iter:200] Loss: 38.976 
+[epoch:2, iter:250] Loss: 29.452 
+[epoch:2, iter:300] Loss: 20.898 
+[epoch:2, iter:350] Loss: 14.005 
+Waiting Test...
+Test's loss is: 10.060
+
+Epoch: 3
+[epoch:3, iter:400] Loss: 31.619 
+[epoch:3, iter:450] Loss: 19.494 
+[epoch:3, iter:500] Loss: 15.282 
+[epoch:3, iter:550] Loss: 13.489 
+Waiting Test...
+Test's loss is: 16.736
+
+Epoch: 4
+[epoch:4, iter:600] Loss: 19.045 
+[epoch:4, iter:650] Loss: 15.560 
+[epoch:4, iter:700] Loss: 35.447 
+[epoch:4, iter:750] Loss: 14.077 
+Waiting Test...
+Test's loss is: 20.834
+
+Epoch: 5
+[epoch:5, iter:800] Loss: 24.576 
+[epoch:5, iter:850] Loss: 21.318 
+[epoch:5, iter:900] Loss: 27.981 
+Waiting Test...
+Test's loss is: 10.572
+
+Epoch: 6
+[epoch:6, iter:950] Loss: 14.171 
+[epoch:6, iter:1000] Loss: 32.682 
+[epoch:6, iter:1050] Loss: 14.954 
+[epoch:6, iter:1100] Loss: 15.481 
+Waiting Test...
+Test's loss is: 23.736
+
+Epoch: 7
+[epoch:7, iter:1150] Loss: 29.652 
+[epoch:7, iter:1200] Loss: 14.989 
+[epoch:7, iter:1250] Loss: 15.037 
+[epoch:7, iter:1300] Loss: 16.084 
+Waiting Test...
+Test's loss is: 11.980
+
+Epoch: 8
+[epoch:8, iter:1350] Loss: 11.408 
+[epoch:8, iter:1400] Loss: 17.575 
+[epoch:8, iter:1450] Loss: 14.489 
+[epoch:8, iter:1500] Loss: 17.934 
+Waiting Test...
+Test's loss is: 21.680
+
+Epoch: 9
+[epoch:9, iter:1550] Loss: 14.006 
+[epoch:9, iter:1600] Loss: 12.848 
+[epoch:9, iter:1650] Loss: 10.610 
+Waiting Test...
+Test's loss is: 10.402
+
+Epoch: 10
+[epoch:10, iter:1700] Loss: 9.774 
+[epoch:10, iter:1750] Loss: 9.488 
+[epoch:10, iter:1800] Loss: 8.388 
+[epoch:10, iter:1850] Loss: 9.631 
+Waiting Test...
+Test's loss is: 10.614
+
+Epoch: 11
+[epoch:11, iter:1900] Loss: 8.380 
+[epoch:11, iter:1950] Loss: 13.180 
+[epoch:11, iter:2000] Loss: 10.818 
+[epoch:11, iter:2050] Loss: 8.512 
+Waiting Test...
+Test's loss is: 11.098
+
+Epoch: 12
+[epoch:12, iter:2100] Loss: 7.719 
+[epoch:12, iter:2150] Loss: 8.050 
+[epoch:12, iter:2200] Loss: 8.112 
+[epoch:12, iter:2250] Loss: 7.667 
+Waiting Test...
+Test's loss is: 9.252
+
+Epoch: 13
+[epoch:13, iter:2300] Loss: 7.270 
+[epoch:13, iter:2350] Loss: 7.931 
+[epoch:13, iter:2400] Loss: 8.286 
+Waiting Test...
+Test's loss is: 8.520
+
+Epoch: 14
+[epoch:14, iter:2450] Loss: 15.090 
+[epoch:14, iter:2500] Loss: 7.038 
+[epoch:14, iter:2550] Loss: 5.714 
+[epoch:14, iter:2600] Loss: 7.265 
+Waiting Test...
+Test's loss is: 8.362
+
+Epoch: 15
+[epoch:15, iter:2650] Loss: 5.891 
+[epoch:15, iter:2700] Loss: 8.207 
+[epoch:15, iter:2750] Loss: nan 
+[epoch:15, iter:2800] Loss: nan 
+Waiting Test...
+Test's loss is: nan
+
+Epoch: 16
+[epoch:16, iter:2850] Loss: nan 
+[epoch:16, iter:2900] Loss: nan 
+[epoch:16, iter:2950] Loss: nan 
+[epoch:16, iter:3000] Loss: nan 
+Waiting Test...
+Test's loss is: nan
+
+Epoch: 17
+[epoch:17, iter:3050] Loss: nan 
+[epoch:17, iter:3100] Loss: nan 

@@ -1,0 +1,3 @@
+/cluster/home/it_stu27/.local/lib/python3.7/site-packages/pandas/compat/_optional.py:138: UserWarning: Pandas requires version '2.7.0' or newer of 'numexpr' (version '2.6.9' currently installed).
+  warnings.warn(msg, UserWarning)
+slurmstepd: error: *** JOB 1491852 ON node11 CANCELLED AT 2022-04-12T20:56:22 ***
