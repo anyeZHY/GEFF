@@ -81,7 +81,7 @@ def train(args):
                     break
             print('Test\'s loss is: %.03f' % (correct/total))
 
-        filename = 'assets/model_' + args.name + \
+        filename = 'assets/model_saved/model_' + args.name + \
                    ':lr={lr},' \
                    'total_epoch={epoch},' \
                    'epoch_save={now},' \
@@ -92,7 +92,7 @@ def train(args):
         torch.save(model.state_dict(), filename)
 
     print('Train has finished, total epoch is %d' % EPOCH)
-    filename = 'assets/model_' + args.name + \
+    filename = 'assets/model_saved/model_' + args.name + \
                ':lr={lr},' \
                'total_epoch={epoch},' \
                'res_channels={res_channels}' \
