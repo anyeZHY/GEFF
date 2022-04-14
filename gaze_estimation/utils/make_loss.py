@@ -17,9 +17,9 @@ def yaw_pitch_to_vec(gaze: torch.Tensor):
 # ============== Angular Error >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 def angular_error(a, b):
     """
-    :param a: of size (N,2) or (N,3)
-    :param b: of size (N,2) or (N,3)
-    :return:
+    Input:
+    -a: of size (N,2) or (N,3)
+    -b: of size (N,2) or (N,3)
     .. math:: \frac{1}{N} \sum_{i=1}^N \arccos(\langle a_i, b_i \rangle)
     """
     a = yaw_pitch_to_vec(a) if a.shape[1]==2 else a

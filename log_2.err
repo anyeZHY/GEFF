@@ -1,4 +1,0 @@
-  File "res_train.py", line 53
-    if (i+1+epoch*length)%100 == 0:
-                                  ^
-TabError: inconsistent use of tabs and spaces in indentation

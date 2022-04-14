@@ -13,7 +13,11 @@ datapath = 'assets/MPIIFaceGaze/'
 colomn = ['Face', 'Left', 'Right', '3DGaze', '2DGaze', '3DHead', '2DHead']
 
 # ============== Process .label >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-def split_data(test_length = 1000):
+def split_data(test_length = 1000, val_length = 5000):
+    """
+    Split/resplit the data into training set, validation set and test set.
+    Nota Bene: we will shuffle the dataset first.
+    """
     data = pd.DataFrame(columns=colomn)
     for i_label in range(10):
         labelpath = datapath + 'Label/p' + str(i_label).zfill(2) + '.label'
@@ -32,12 +36,17 @@ def split_data(test_length = 1000):
         data = pd.concat([data, df])
     data = data[colomn].sample(frac = 1).reset_index(drop=True)
     # print(data.head())
-    data.head(test_length).to_csv('assets/MPII_test.csv')
-    data.tail(len(data)-test_length).reset_index(drop=True).to_csv('assets/MPII_data.csv')
+    data.iloc[0:test_length].to_csv('assets/MPII_test.csv')
+    data.iloc[test_length+1:test_length+val_length].to_csv('assets/MPII_val.csv')
+    data.tail(len(data)-test_length-val_length).reset_index(drop=True).to_csv('assets/MPII_train.csv')
     return data
 
 # ============== Data Process >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 class MPII(Dataset):
+    """
+    Use torch.utils.data.Dataset to process MPII dataset.
+    Naive version: label is '2DGaze'.
+    """
     def __init__(self, annotations_file, img_dir, transform=None, target_transform=None):
         self.img_labels = pd.read_csv(annotations_file)
         self.img_dir = img_dir
@@ -59,37 +68,40 @@ class MPII(Dataset):
             label = self.target_transform(label)
         return image.float(), label.astype(float)
 
-def load_data_naive(BATCH_SIZE):
+def load_data(BATCH_SIZE, transform_train=None):
     # df_data = procees_data(0)
     # df_data = pd.read_pickle('assets/MPII_2D_annoataion.csv')
-    if not os.path.isfile('assets/MPII_3D_test.csv'):
+    if not os.path.isfile('assets/MPII_test.csv'):
         split_data()
-    annotations_file = 'assets/MPII_data.csv'
+    train_file = 'assets/MPII_train.csv'
+    val_file = 'assets/MPII_val.csv'
     img_dir = 'assets/MPIIFaceGaze/Image'
 
-    transform_train = transforms.Compose([
+    if transform_train is None:
+        transform_train = transforms.Compose([
+            transforms.ToPILImage(),
+            transforms.Resize((224, 224)),
+            transforms.ToTensor(),
+            transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
+            # transforms.RandomApply([
+            #     transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)
+            # ], p=0.8)
+        ])
+
+    transform_val = transforms.Compose([
         transforms.ToPILImage(),
         transforms.Resize((224, 224)),
         transforms.ToTensor(),
         transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
-        # transforms.RandomApply([
-        #     transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)
-        # ], p=0.8)
     ])
 
-    transform_test = transforms.Compose([
-        transforms.ToTensor(),
-        transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
-    ])
+    train_set = MPII(train_file, img_dir, transform_train)
+    val_set = MPII(val_file, img_dir, transform_val)
 
-    data = MPII(annotations_file, img_dir, transform_train)
+    train_loader = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
+    val_loader = torch.utils.data.DataLoader(val_set, batch_size=100, shuffle=True)
 
-    train_set, val_set = torch.utils.data.random_split(data, [len(data) - 5000, 5000])
-
-    trainloader = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
-    testloader = torch.utils.data.DataLoader(val_set, batch_size=100, shuffle=True)
-
-    return trainloader, testloader
+    return train_loader, val_loader
 
 if __name__ == '__main__':
     # load_data_naive(128)
