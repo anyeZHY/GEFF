@@ -15,27 +15,27 @@ def yaw_pitch_to_vec(gaze: torch.Tensor):
     return xyz
 
 # ============== Angular Error >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-def angular_error(a, b):
+def angular_error(alpha, beta):
     """
     Input:
     -a: of size (N,2) or (N,3)
     -b: of size (N,2) or (N,3)
     .. math:: \frac{1}{N} \sum_{i=1}^N \arccos(\langle a_i, b_i \rangle)
     """
-    a = yaw_pitch_to_vec(a) if a.shape[1]==2 else a
-    b = yaw_pitch_to_vec(b) if b.shape[1]==2 else b
-    ab =torch.sum(torch.multiply(a, b), dim=1)
-    a_norm = torch.linalg.norm(a, axis=1)
-    b_norm = torch.linalg.norm(b, axis=1)
+    alpha = yaw_pitch_to_vec(alpha) if alpha.shape[1] == 2 else alpha
+    beta = yaw_pitch_to_vec(beta) if beta.shape[1] == 2 else beta
+    ab =torch.sum(torch.multiply(alpha, beta), dim=1)
+    a_norm = torch.linalg.norm(alpha, axis=1)
+    b_norm = torch.linalg.norm(beta, axis=1)
     a_norm = torch.clip(a_norm, min=1e-7, max=None)
-    b_norm = torch.clip(b_norm, min=1e-6, max=None)
+    b_norm = torch.clip(b_norm, min=1e-7, max=None)
 
     similarity = torch.divide(ab, torch.multiply(a_norm, b_norm))
     similarity = similarity.clamp(min=-1, max=1)
     return torch.mean(torch.arccos(similarity) * 180.0 / np.pi)
 
 if __name__ == '__main__':
-    a = torch.tensor([[0.5, 0.5],[0.1,0.3]])
-    b = torch.tensor([[0.1, 0.4],[0.1,0.299999]])
+    a = torch.tensor([[0.5, 0.5],[0.1,0.3],[0,0]])
+    b = torch.tensor([[0.1, 0.4],[0.1,0.3],[0,0]])
     print(yaw_pitch_to_vec(a)-yaw_pitch_to_vec(b))
     print(angular_error(a, b))
