@@ -1,13 +1,13 @@
 # import pandas as pd
 import argparse
 import torch
-# import torch.nn as nn
+import torch.nn as nn
 import torch.optim as optim
 # import torch.nn.functional as F
 # import torchvision
 from gaze_estimation.utils.dataloader import load_data
 from gaze_estimation.utils.make_loss import angular_error
-from gaze_estimation.model.resnet import ResNet, ResBlock
+from gaze_estimation.model.resnet import resnet18
 
 def train(args):
     """
@@ -23,23 +23,23 @@ def train(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
     # set hyperparameter
-    EPOCH = args.epoch
-    pre_epoch = 0
-    BATCH_SIZE = args.batch
+    print_every = args.print_every if (not args.debug) else 1
+    EPOCH = args.epoch if (not args.debug) else 1
+    BATCH_SIZE = args.batch if (not args.debug) else 16
     LR = args.lr
     out_channel = args.out_channel
-    res_channels = args.res_channels
+    res_channels = args.res_channels if (not args.debug) else [1,1,1,1]
 
     # prepare dataset and preprocessing
     train_loader, val_loader = load_data(BATCH_SIZE)
 
     # define ResNet18
-    model = ResNet(ResBlock, out_channel=out_channel, channels=res_channels).to(device)
+    model = resnet18(num_classes = out_channel).to(device)
 
-    # criterion = nn.SmoothL1Loss(reduction='mean')
+    L1 = nn.SmoothL1Loss(reduction='mean')
     optimizer = optim.Adam(model.parameters(), lr=LR)
 
-    for epoch in range(pre_epoch, EPOCH):
+    for epoch in range(0, EPOCH):
         print('\nEpoch: %d' % (epoch + 1))
         model.train()
         sum_loss = 0.0
@@ -51,14 +51,16 @@ def train(args):
             optimizer.zero_grad()
             # forward & backward
             outputs = model(inputs)
-            loss = angular_error(outputs, labels.float())
+            ang_loss = angular_error(outputs, labels.float())
+            L1_loss = L1(outputs, labels.float())
+            loss = ang_loss + 0.5 * L1_loss
             loss.backward()
             optimizer.step()
-            torch.nn.utils.clip_grad_norm_(model.parameters(), 5) #
+            # torch.nn.utils.clip_grad_norm_(model.parameters(), 5) #
 
             # print ac & loss in each batch
-            sum_loss += loss.item()
-            if (i+1+epoch*length)%args.print_every == 0:
+            sum_loss += ang_loss.item()
+            if (i+1+epoch*length)%print_every == 0:
                 print('[epoch:%d, iter:%d] Loss: %.03f '
                     % (epoch + 1, (i + 1 + epoch * length), loss.item()))
             if args.debug:
@@ -81,6 +83,8 @@ def train(args):
                     break
             print('Test\'s loss is: %.03f' % (correct/total))
 
+        if args.debug:
+            break
         filename = 'assets/model_saved/model_' + args.name + \
                    ':lr={lr},' \
                    'total_epoch={epoch},' \
@@ -99,7 +103,8 @@ def train(args):
                '.pt'.format(
                    lr=LR, epoch=EPOCH, res_channels=res_channels
                )
-    torch.save(model.state_dict(), filename)
+    if not args.debug:
+        torch.save(model.state_dict(), filename)
 
 
 if __name__ == '__main__':
