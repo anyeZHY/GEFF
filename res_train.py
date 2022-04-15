@@ -51,7 +51,7 @@ def train(args):
             optimizer.zero_grad()
             # forward & backward
             outputs = model(inputs)
-            ang_loss = angular_error(outputs, labels.float())
+            ang_loss = angular_error(outputs, labels)
             L1_loss = L1(outputs, labels.float())
             loss = ang_loss + 0.5 * L1_loss
             loss.backward()
