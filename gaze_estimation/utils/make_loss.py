@@ -31,7 +31,7 @@ def angular_error(a, b):
     b_norm = torch.clip(b_norm, min=1e-6, max=None)
 
     similarity = torch.divide(ab, torch.multiply(a_norm, b_norm))
-    pi = torch.acos(torch.zeros(1)).item() * 2
+    similarity = similarity.clamp(min=-1, max=1)
     return torch.mean(torch.arccos(similarity) * 180.0 / np.pi)
 
 if __name__ == '__main__':
