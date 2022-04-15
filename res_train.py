@@ -85,23 +85,21 @@ def train(args):
 
         if args.debug:
             break
-        filename = 'assets/model_saved/model_' + args.name + \
-                   ':lr={lr},' \
+        filename = 'assets/model_saved/' + args.name + \
+                   ',lr={lr},' \
                    'total_epoch={epoch},' \
                    'epoch_save={now},' \
-                   'res_channels={res_channels}' \
                    '.pt'.format(
-                       lr=LR, epoch=EPOCH, res_channels=res_channels, now=epoch
+                       lr=LR, epoch=EPOCH, now=epoch
                    )
         torch.save(model.state_dict(), filename)
 
     print('Train has finished, total epoch is %d' % EPOCH)
-    filename = 'assets/model_saved/model_' + args.name + \
-               ':lr={lr},' \
+    filename = 'assets/model_saved/' + args.name + \
+               ',lr={lr},' \
                'total_epoch={epoch},' \
-               'res_channels={res_channels}' \
                '.pt'.format(
-                   lr=LR, epoch=EPOCH, res_channels=res_channels
+                   lr=LR, epoch=EPOCH
                )
     if not args.debug:
         torch.save(model.state_dict(), filename)
