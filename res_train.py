@@ -53,7 +53,7 @@ def train(args):
             outputs = model(inputs)
             ang_loss = angular_error(outputs, labels)
             L1_loss = L1(outputs, labels.float())
-            loss = ang_loss + 0.5 * L1_loss
+            loss = ang_loss + 0.05 * L1_loss
             loss.backward()
             optimizer.step()
             # torch.nn.utils.clip_grad_norm_(model.parameters(), 5) #
