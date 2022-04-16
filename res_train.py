@@ -68,6 +68,7 @@ def train(args):
 
         # get the ac with testdataset in each epoch
         print('Waiting Test...')
+        model.eval()
         with torch.no_grad():
             correct = 0
             total = 0
