@@ -1,5 +1,6 @@
 import numpy as np
 import torch
+from torch.linalg import norm
 
 def yaw_pitch_to_vec(gaze: torch.Tensor):
     """
@@ -25,8 +26,8 @@ def angular_error(alpha, beta):
     alpha = yaw_pitch_to_vec(alpha) if alpha.shape[1] == 2 else alpha
     beta = yaw_pitch_to_vec(beta) if beta.shape[1] == 2 else beta
     ab =torch.sum(torch.multiply(alpha, beta), dim=1)
-    a_norm = torch.linalg.norm(alpha, axis=1)
-    b_norm = torch.linalg.norm(beta, axis=1)
+    a_norm = norm(alpha, dim=1)
+    b_norm = norm(beta, dim=1)
     a_norm = torch.clip(a_norm, min=1e-7, max=None)
     b_norm = torch.clip(b_norm, min=1e-7, max=None)
 
