@@ -5,6 +5,7 @@ MPIIFaceGaze/
 ColumbiaGazeDataSet/
 *.csv
 *.sh
+assets/model_saved/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
