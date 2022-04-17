@@ -5,6 +5,7 @@
 import torch
 import torch.nn as nn
 from torch import Tensor
+import torchvision.models as models
 
 class ResnetEncoder(nn.Module):
     def __init__(self, append_layers=None):
@@ -58,8 +59,10 @@ class EyeResEncoder(nn.Module):
         self.bn = nn.BatchNorm2d(3)
         self.relu = nn.ReLU(inplace=True)
         self.res = resnet18(num_classes=dim_features)
+        self.res = models.vgg16(num_classes=dim_features)
     def forward(self, x: Tensor) -> Tensor:
-        out = self.conv(x)
+        out = x
+        out = self.conv(out)
         out = self.bn(out)
         out = self.relu(out)
         out = self.res(out)
