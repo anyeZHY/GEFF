@@ -5,6 +5,8 @@ MPIIFaceGaze/
 ColumbiaGazeDataSet/
 *.csv
 *.sh
+*.out
+*.err
 assets/model_saved/
 
 # Byte-compiled / optimized / DLL files
