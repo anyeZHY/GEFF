@@ -2,13 +2,14 @@
 # https://github.com/YadiraF/PIXIE/blob/master/pixielib/models/encoders.py
 
 # import numpy as np
-import torch.nn as nn
 import torch
+import torch.nn as nn
+from torch import Tensor
 
 class ResnetEncoder(nn.Module):
     def __init__(self, append_layers=None):
         super(ResnetEncoder, self).__init__()
-        from . import resnet
+        import resnet
         # feature_size = 2048
         self.feature_dim = 2048
         self.encoder = resnet.resnet18()  # out: 2048
@@ -21,8 +22,9 @@ class ResnetEncoder(nn.Module):
         self.register_buffer('STD', torch.tensor(STD)[None, :, None, None])
 
     def forward(self, inputs):
-        ''' inputs: [bz, 3, h, w], range: [0,1]
-        '''
+        """
+        inputs: [bz, 3, h, w], range: [0,1]
+        """
         inputs = (inputs - self.MEAN) / self.STD
         features = self.encoder(inputs)
         if self.append_layers:
@@ -48,4 +50,18 @@ class MLP(nn.Module):
         outs = self.layers(inputs)
         return outs
 
+class EyeResEncoder(nn.Module):
+    def __init__(self, dim_features, in_channels=1):
+        from .resnet import resnet18
+        super().__init__()
+        self.conv = nn.Conv2d(in_channels, 3, 3, padding=1)
+        self.bn = nn.BatchNorm2d(3)
+        self.relu = nn.ReLU(inplace=True)
+        self.res = resnet18(num_classes=dim_features)
+    def forward(self, x: Tensor) -> Tensor:
+        out = self.conv(x)
+        out = self.bn(out)
+        out = self.relu(out)
+        out = self.res(out)
+        return out
 
