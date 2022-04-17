@@ -12,6 +12,16 @@ import torch.utils.data
 datapath = 'assets/MPIIFaceGaze/'
 colomn = ['Face', 'Left', 'Right', '3DGaze', '2DGaze', '3DHead', '2DHead']
 
+# ============== Useful functions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+def convert_str_to_float(string):
+    """
+    convert the string to a darray
+    """
+    return np.array(list(map(float, string.split(','))))
+def get_img(dir, path):
+    path = os.path.join(dir, path)
+    return read_image(path)
+
 # ============== Process .label >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 def split_data(test_length = 1000, val_length = 5000):
     """
@@ -47,26 +57,31 @@ class MPII(Dataset):
     Use torch.utils.data.Dataset to process MPII dataset.
     Naive version: label is '2DGaze'.
     """
-    def __init__(self, annotations_file, img_dir, transform=None, target_transform=None):
+    def __init__(self, annotations_file, img_dir,
+                 transform=None, transform_eye=None, target_transform=None):
         self.img_labels = pd.read_csv(annotations_file)
         self.img_dir = img_dir
         self.transform = transform
         self.target_transform = target_transform
+        self.transform_eye = transform_eye
 
     def __len__(self):
         return len(self.img_labels)
 
     def __getitem__(self, idx):
-        # print(self.img_labels['Face'].iloc[idx])
-        img_path = os.path.join(self.img_dir, self.img_labels['Face'].iloc[idx])
-        image = read_image(img_path)
-        # label = self.img_labels.iloc[idx, 1]
-        label = np.array(list(map(float, self.img_labels['2DGaze'].iloc[idx].split(','))))
+        img_face = get_img(self.img_dir, self.img_labels['Face'].iloc[idx])
+        img_left= get_img(self.img_dir, self.img_labels['Left'].iloc[idx])
+        img_right = get_img(self.img_dir, self.img_labels['Right'].iloc[idx])
+        label = convert_str_to_float(self.img_labels['2DGaze'].iloc[idx])
         if self.transform:
-            image = self.transform(image)
+            img_face = self.transform(img_face)
+        if self.transform_eye:
+            img_left = self.transform_eye(img_left)
+            img_right = self.transform_eye(img_right)
         if self.target_transform:
             label = self.target_transform(label)
-        return image.float(), label.astype(float)
+        images = {'Face': img_face.float(), 'Left': img_left.float(), 'Right': img_right.float()}
+        return images, label.astype(float)
 
 def load_data(BATCH_SIZE, transform_train=None):
     # df_data = procees_data(0)
@@ -87,6 +102,12 @@ def load_data(BATCH_SIZE, transform_train=None):
             #     transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)
             # ], p=0.8)
         ])
+    transform_eye = transforms.Compose([
+        transforms.ToPILImage(),
+        transforms.Resize((60, 36)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=0.5, std=0.2),
+    ])
 
     transform_val = transforms.Compose([
         transforms.ToPILImage(),
@@ -95,8 +116,8 @@ def load_data(BATCH_SIZE, transform_train=None):
         transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
     ])
 
-    train_set = MPII(train_file, img_dir, transform_train)
-    val_set = MPII(val_file, img_dir, transform_val)
+    train_set = MPII(train_file, img_dir, transform_train, transform_eye)
+    val_set = MPII(val_file, img_dir, transform_val, transform_eye)
 
     train_loader = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
     val_loader = torch.utils.data.DataLoader(val_set, batch_size=100, shuffle=True)
