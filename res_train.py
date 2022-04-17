@@ -42,8 +42,8 @@ def train(args):
     train_loader, val_loader = load_data(BATCH_SIZE)
 
     # define ResNet18
-    dim_face = 4
-    dim_eyes = 2
+    dim_face = 512
+    dim_eyes = 128
     encoder_face = resnet18(num_classes=dim_face).to(device)
     encoder_eye = EyeResEncoder(dim_features=dim_eyes).to(device)
     MLP_channels = (dim_face + dim_eyes * 2, out_channel)
