@@ -8,10 +8,19 @@ import torch.optim as optim
 from gaze_estimation.utils.dataloader import load_data
 from gaze_estimation.utils.make_loss import angular_error
 from gaze_estimation.model.resnet import resnet18
+from gaze_estimation.model.encoders import MLP, EyeResEncoder
+
+def get_hlr(data, device):
+    """
+    Get Hand, Left eyes and Right eyes.
+    A function used in trainning part to process data.
+    """
+    images, labels = data
+    faces, lefts, rights = images['Face'], images['Left'], images['Right']
+    return faces.to(device), lefts.to(device), rights.to(device), labels.to(device)
 
 def train(args):
     """
-    # naive trainnig part
     Input
     - arg: Arguments of:
         - epoch: Default = 10
@@ -28,35 +37,45 @@ def train(args):
     BATCH_SIZE = args.batch if (not args.debug) else 16
     LR = args.lr
     out_channel = args.out_channel
-    res_channels = args.res_channels if (not args.debug) else [1,1,1,1]
 
     # prepare dataset and preprocessing
     train_loader, val_loader = load_data(BATCH_SIZE)
 
     # define ResNet18
-    model = resnet18(num_classes = out_channel).to(device)
+    dim_face = 512
+    dim_eyes = 128
+    encoder_face = resnet18(num_classes=dim_face).to(device)
+    encoder_eye = EyeResEncoder(dim_features=dim_eyes).to(device)
+    MLP_channels = (dim_face + dim_eyes * 2, 32, out_channel)
+    decoder = MLP(channels=MLP_channels)
 
     L1 = nn.SmoothL1Loss(reduction='mean')
-    optimizer = optim.Adam(model.parameters(), lr=LR)
+    optimizer = optim.Adam(encoder_face.parameters(), lr=LR)
 
     for epoch in range(0, EPOCH):
         print('\nEpoch: %d' % (epoch + 1))
-        model.train()
+        encoder_face.train()
+        encoder_eye.train()
+        decoder.train()
         sum_loss = 0.0
         length = len(train_loader)
         for i, data in enumerate(train_loader, 0):
             # prepare dataset
-            inputs, labels = data
-            inputs, labels = inputs.to(device), labels.to(device)
+            faces, lefts, rights, labels =  get_hlr(data, device)
             optimizer.zero_grad()
             # forward & backward
-            outputs = model(inputs)
-            ang_loss = angular_error(outputs, labels)
-            L1_loss = L1(outputs, labels.float())
+            F_face = encoder_face(faces) # Feature_face
+            F_left = encoder_eye(lefts)
+            F_right = encoder_eye(rights)
+            features = torch.cat((F_face, F_left, F_right), dim=1)
+            gaze = decoder(features)
+
+            ang_loss = angular_error(gaze, labels)
+            L1_loss = L1(gaze, labels.float())
             loss = ang_loss + 0.05 * L1_loss
             loss.backward()
             optimizer.step()
-            # torch.nn.utils.clip_grad_norm_(model.parameters(), 5) #
+            # torch.nn.utils.clip_grad_norm_(encoder_face.parameters(), 5) #
 
             # print ac & loss in each batch
             sum_loss += ang_loss.item()
@@ -68,17 +87,23 @@ def train(args):
 
         # get the ac with testdataset in each epoch
         print('Waiting Test...')
-        model.eval()
+        encoder_face.eval()
+        encoder_eye.eval()
+        decoder.eval()
         with torch.no_grad():
             correct = 0
             total = 0
             for data in val_loader:
-                images, labels = data
-                images, labels = images.to(device), labels.to(device)
-                outputs = model(images)
+                faces, lefts, rights, labels = get_hlr(data, device)
+                F_face = encoder_face(faces)  # Feature_face
+                F_left = encoder_eye(lefts)
+                F_right = encoder_eye(rights)
+                features = torch.cat((F_face, F_left, F_right), dim=1)
+                gaze = decoder(features)
                 total += labels.size(0)
-                loss = angular_error(outputs, labels.float())
-                # loss = criterion(yaw_pitch_to_vec(outputs), yaw_pitch_to_vec(labels.float()))
+
+                loss = angular_error(gaze, labels.float())
+                # loss = criterion(yaw_pitch_to_vec(F_face), yaw_pitch_to_vec(labels.float()))
                 correct += loss.item() * (labels.size(0))
                 if args.debug:
                     break
@@ -91,9 +116,10 @@ def train(args):
                    'total_epoch={epoch},' \
                    'epoch_save={now},' \
                    '.pt'.format(
-                       lr=LR, epoch=EPOCH, now=epoch
+                       lr=LR, epoch=EPOCH, now=epoch+1
                    )
-        torch.save(model.state_dict(), filename)
+        if args.save_every:
+            torch.save(encoder_face.state_dict(), filename)
 
     print('Train has finished, total epoch is %d' % EPOCH)
     filename = 'assets/model_saved/' + args.name + \
@@ -103,7 +129,7 @@ def train(args):
                    lr=LR, epoch=EPOCH
                )
     if not args.debug:
-        torch.save(model.state_dict(), filename)
+        torch.save(encoder_face.state_dict(), filename)
 
 
 if __name__ == '__main__':
