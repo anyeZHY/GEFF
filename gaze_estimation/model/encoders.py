@@ -58,6 +58,7 @@ class EyeResEncoder(nn.Module):
         self.conv = nn.Conv2d(in_channels, 3, 3, padding=1)
         self.bn = nn.BatchNorm2d(3)
         self.relu = nn.ReLU(inplace=True)
+        # self.backbone = models.vgg16(num_classes=dim_features)
         self.res = resnet18(num_classes=dim_features)
     def forward(self, x: Tensor) -> Tensor:
         out = x
