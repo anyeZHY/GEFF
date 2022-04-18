@@ -41,6 +41,7 @@ class MLP(nn.Module):
         for l in range(0, len(channels) - 1):
             layers.append(nn.Linear(channels[l], channels[l + 1]))
             if l < len(channels) - 2:
+                layers.append(nn.BatchNorm1d(channels[l+1]))
                 layers.append(nn.ReLU())
         if last_op:
             layers.append(last_op)
@@ -55,16 +56,18 @@ class EyeResEncoder(nn.Module):
     def __init__(self, dim_features, in_channels=1):
         from .resnet import resnet18
         super().__init__()
-        self.conv = nn.Conv2d(in_channels, 3, 3, padding=1)
-        self.bn = nn.BatchNorm2d(3)
-        self.relu = nn.ReLU(inplace=True)
-        # self.backbone = models.vgg16(num_classes=dim_features)
-        self.res = resnet18(num_classes=dim_features)
+        channel_conv = 1
+        # self.conv = nn.Conv2d(in_channels, channel_conv, 3, padding=1)
+        # self.bn = nn.BatchNorm2d(channel_conv)
+        # self.relu = nn.ReLU(inplace=True)
+        self.backbone = MLP((60*36*channel_conv, 1024, dim_features))
+        # self.res = resnet18(num_classes=dim_features)
     def forward(self, x: Tensor) -> Tensor:
         out = x
-        out = self.conv(out)
-        out = self.bn(out)
-        out = self.relu(out)
-        out = self.res(out)
+        # out = self.conv(out)
+        # out = self.bn(out)
+        # out = self.relu(out)
+        out = out.view(len(out), -1)
+        out = self.backbone(out)
         return out
 
