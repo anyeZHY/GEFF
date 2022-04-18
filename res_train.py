@@ -44,12 +44,12 @@ def train(args):
     train_loader, val_loader = load_data(BATCH_SIZE)
 
     # define ResNet18
-    dim_face = 32
-    dim_eyes = 16
+    dim_face = 512
+    dim_eyes = int(dim_face / 4)
     encoder_face = resnet18(num_classes=dim_face).to(device)
     encoder_left = EyeResEncoder(dim_features=dim_eyes).to(device)
     encoder_right = EyeResEncoder(dim_features=dim_eyes).to(device)
-    MLP_channels = (dim_face + dim_eyes * 2, out_channel)
+    MLP_channels = (dim_face, 128, out_channel)
     decoder = MLP(channels=MLP_channels).to(device)
 
     L1 = nn.SmoothL1Loss(reduction='mean')
@@ -69,9 +69,10 @@ def train(args):
             optimizer.zero_grad()
             # forward & backward
             F_face = encoder_face(faces) # Feature_face
-            F_left = encoder_left(lefts)
-            F_right = encoder_right(rights)
-            features = torch.cat((F_face, F_left, F_right), dim=1)
+            F_left = encoder_left(lefts)*0.2 + F_face[:,0:128]*0.8
+            F_right = encoder_right(rights)*0.2 + F_face[:,128:256]*0.8
+            features = torch.cat((F_face[:,256:512], F_left, F_right), dim=1)
+
             gaze = decoder(features)
 
             ang_loss = angular_error(gaze, labels)
@@ -101,9 +102,9 @@ def train(args):
             for data in val_loader:
                 faces, lefts, rights, labels = get_hlr(data, device)
                 F_face = encoder_face(faces)  # Feature_face
-                F_left = encoder_left(lefts)
-                F_right = encoder_right(rights)
-                features = torch.cat((F_face, F_left, F_right), dim=1)
+                F_left = encoder_left(lefts)*0.2 + F_face[:, 0:128]*0.8
+                F_right = encoder_right(rights)*0.2 + F_face[:, 128:256]*0.8
+                features = torch.cat((F_face[:, 256:512], F_left, F_right), dim=1)
                 gaze = decoder(features)
                 total += labels.size(0)
 
