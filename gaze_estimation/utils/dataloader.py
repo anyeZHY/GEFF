@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 from PIL import Image
 import torch
-from torchvision.io import read_image
+from torchvision.io import read_image, image
 from torch.utils.data import Dataset
 from torchvision import transforms
 # from sklearn.utils import shuffle
@@ -18,9 +18,12 @@ def convert_str_to_float(string):
     convert the string to a darray
     """
     return np.array(list(map(float, string.split(','))))
-def get_img(dir, path):
+def get_img(dir, path, mode='rgb'):
     path = os.path.join(dir, path)
-    return read_image(path)
+    if mode=='rgb':
+        return read_image(path)
+    else:
+        return read_image(path, mode=image.ImageReadMode.GRAY)
 
 # ============== Process .label >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 def split_data(test_length = 1000, val_length = 5000):
@@ -70,8 +73,8 @@ class MPII(Dataset):
 
     def __getitem__(self, idx):
         img_face = get_img(self.img_dir, self.img_labels['Face'].iloc[idx])
-        img_left= get_img(self.img_dir, self.img_labels['Left'].iloc[idx])
-        img_right = get_img(self.img_dir, self.img_labels['Right'].iloc[idx])
+        img_left= get_img(self.img_dir, self.img_labels['Left'].iloc[idx])/255
+        img_right = get_img(self.img_dir, self.img_labels['Right'].iloc[idx])/255
         label = convert_str_to_float(self.img_labels['2DGaze'].iloc[idx])
         if self.transform:
             img_face = self.transform(img_face)
@@ -106,7 +109,7 @@ def load_data(BATCH_SIZE, transform_train=None):
         transforms.ToPILImage(),
         transforms.Resize((60, 36)),
         transforms.ToTensor(),
-        transforms.Normalize(mean=0.5, std=0.2),
+        transforms.Normalize(mean=0.505, std=0.084),
     ])
 
     transform_val = transforms.Compose([
