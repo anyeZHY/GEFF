@@ -37,15 +37,18 @@ def train(args):
     BATCH_SIZE = args.batch if (not args.debug) else 16
     LR = args.lr
     out_channel = args.out_channel
+    print('lr={lr},total_epoch={epoch}'.format(lr=LR, epoch=EPOCH))
+
 
     # prepare dataset and preprocessing
     train_loader, val_loader = load_data(BATCH_SIZE)
 
     # define ResNet18
-    dim_face = 512
-    dim_eyes = 128
+    dim_face = 32
+    dim_eyes = 16
     encoder_face = resnet18(num_classes=dim_face).to(device)
-    encoder_eye = EyeResEncoder(dim_features=dim_eyes).to(device)
+    encoder_left = EyeResEncoder(dim_features=dim_eyes).to(device)
+    encoder_right = EyeResEncoder(dim_features=dim_eyes).to(device)
     MLP_channels = (dim_face + dim_eyes * 2, out_channel)
     decoder = MLP(channels=MLP_channels).to(device)
 
@@ -55,7 +58,8 @@ def train(args):
     for epoch in range(0, EPOCH):
         print('\nEpoch: %d' % (epoch + 1))
         encoder_face.train()
-        encoder_eye.train()
+        encoder_left.train()
+        encoder_right.train()
         decoder.train()
         sum_loss = 0.0
         length = len(train_loader)
@@ -65,8 +69,8 @@ def train(args):
             optimizer.zero_grad()
             # forward & backward
             F_face = encoder_face(faces) # Feature_face
-            F_left = encoder_eye(lefts)
-            F_right = encoder_eye(rights)
+            F_left = encoder_left(lefts)
+            F_right = encoder_right(rights)
             features = torch.cat((F_face, F_left, F_right), dim=1)
             gaze = decoder(features)
 
@@ -88,7 +92,8 @@ def train(args):
         # get the ac with testdataset in each epoch
         print('Waiting Test...')
         encoder_face.eval()
-        encoder_eye.eval()
+        encoder_left.eval()
+        encoder_right.eval()
         decoder.eval()
         with torch.no_grad():
             correct = 0
@@ -96,8 +101,8 @@ def train(args):
             for data in val_loader:
                 faces, lefts, rights, labels = get_hlr(data, device)
                 F_face = encoder_face(faces)  # Feature_face
-                F_left = encoder_eye(lefts)
-                F_right = encoder_eye(rights)
+                F_left = encoder_left(lefts)
+                F_right = encoder_right(rights)
                 features = torch.cat((F_face, F_left, F_right), dim=1)
                 gaze = decoder(features)
                 total += labels.size(0)
