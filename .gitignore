@@ -8,6 +8,7 @@ ColumbiaGazeDataSet/
 *.out
 *.err
 assets/model_saved/
+gaze_estimation/tutorials/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
