@@ -10,6 +10,9 @@ ColumbiaGazeDataSet/
 assets/model_saved/
 gaze_estimation/tutorials/
 
+# MAC OS
+.DS_Store
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
