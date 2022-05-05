@@ -72,6 +72,7 @@ class MPII(Dataset):
         return len(self.img_labels)
 
     def __getitem__(self, idx):
+        print(self.img_labels['Face'].iloc[idx])
         img_face = get_img(self.img_dir, self.img_labels['Face'].iloc[idx])
         img_left= get_img(self.img_dir, self.img_labels['Left'].iloc[idx])/255
         img_right = get_img(self.img_dir, self.img_labels['Right'].iloc[idx])/255
@@ -124,9 +125,8 @@ def load_data(BATCH_SIZE, transform_train=None):
 
     train_loader = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
     val_loader = torch.utils.data.DataLoader(val_set, batch_size=100, shuffle=True)
-
     return train_loader, val_loader
 
 if __name__ == '__main__':
-    # load_data_naive(128)
-    split_data()
+    load_data(128)
+    # split_data()

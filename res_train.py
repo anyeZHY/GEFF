@@ -5,10 +5,10 @@ import torch.nn as nn
 import torch.optim as optim
 # import torch.nn.functional as F
 # import torchvision
-from gaze_estimation.utils.dataloader import load_data
-from gaze_estimation.utils.make_loss import angular_error
-from gaze_estimation.model.resnet import resnet18
-from gaze_estimation.model.encoders import MLP, EyeResEncoder
+from ge.utils.dataloader import load_data
+from ge.utils.make_loss import angular_error
+from ge.model.resnet import resnet18
+from ge.model.encoders import MLP, EyeResEncoder
 
 def get_hlr(data, device):
     """

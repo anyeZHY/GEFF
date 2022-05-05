@@ -8,7 +8,7 @@ ColumbiaGazeDataSet/
 *.out
 *.err
 assets/model_saved/
-gaze_estimation/tutorials/
+ge/tutorials/
 
 # MAC OS
 .DS_Store

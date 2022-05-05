@@ -6,11 +6,11 @@ import torch
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
-from gaze_estimation.model.resnet import resnet18
-from gaze_estimation.utils.Visualization import gaze_visual
+from ge.model.resnet import resnet18
+from ge.utils.Visualization import gaze_visual
 from torchvision import transforms
-from gaze_estimation.utils.dataloader import load_data
-from gaze_estimation.utils.make_loss import angular_error
+from ge.utils.dataloader import load_data
+from ge.utils.make_loss import angular_error
 
 def get_hlr(data, device):
     """
