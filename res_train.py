@@ -4,6 +4,7 @@ import math
 import torch
 import torch.nn as nn
 import torch.optim as optim
+from simclr.contrastive_loss import simclr_loss
 from ge.utils.dataloader import load_data
 from ge.utils.make_loss import angular_error
 from ge.model.model_zoo import get_model, gen_geff
@@ -34,7 +35,7 @@ def train(args):
     # ===== Model Configuration >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     dim_face = args.dim_face
     models = gen_geff(args,channels={'Face':dim_face, 'Out':out_channel}, device=device)
-    model = get_model(args, models).to(device)
+    model = get_model(args, models, args.useres).to(device)
     L1 = nn.SmoothL1Loss(reduction='mean')
     optimizer = optim.Adam(model.parameters(), lr=LR)
 
@@ -55,7 +56,7 @@ def train(args):
             gaze = model(imgs)
             ang_loss = angular_error(gaze, labels)
             L1_loss = L1(gaze, labels.float())
-            loss = ang_loss + 0.5 * L1_loss
+            loss = ang_loss + 10 * L1_loss
             loss.backward()
             optimizer.step()
 
@@ -103,7 +104,7 @@ def train(args):
     print('Train has finished, total epoch is %d' % EPOCH)
     filename = 'assets/model_saved/' + args.model + ',lr={lr}.pt'.format(lr=LR)
     if not args.debug:
-        torch.save(best_model.state_dict(), filename)
+        torch.save(best_model, filename)
 
 
 if __name__ == '__main__':
@@ -120,6 +121,6 @@ if __name__ == '__main__':
     parser.add_argument("--lr", default=0.001, type=float)
     parser.add_argument("--out_channel", default=2, type=int)
     parser.add_argument("--dim_face", default=512, type=int)
-    parser.add_argument("--res_channels", nargs='+', default=[16, 32, 64, 128], type=int)
     parser.add_argument("--model", default="baseline", choices=['baseline','fuse' ,'geff'] ,type=str)
+    parser.add_argument("--useres", action="store_true")
     train(parser.parse_args())
