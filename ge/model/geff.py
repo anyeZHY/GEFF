@@ -1,8 +1,4 @@
-import torch
 import torch.nn as nn
-import torchvision
-import resnet
-import encoders
 
 """
 models = {
@@ -35,11 +31,11 @@ class GEFF(nn.Module):
         #### Your code here
         pass
         self.face_en = models['face_en']
-        self.t_l = torch.tensor(something ,requires_grad=True)
         self.share_eye=share_eye
         if share_eye:
-            self.eye_en=models[]
+            self.eye_en=models['eye_en']
         else:
+            pass
 
     def forward(self, imags):
         pass

@@ -1,11 +1,9 @@
 # Reference:
 # https://github.com/YadiraF/PIXIE/blob/master/pixielib/models/encoders.py
 
-# import numpy as np
 import torch
 import torch.nn as nn
 from torch import Tensor
-import torchvision.models as models
 
 class ResnetEncoder(nn.Module):
     def __init__(self, append_layers=None):
@@ -52,7 +50,7 @@ class MLP(nn.Module):
         outs = self.layers(inputs)
         return outs
 
-class EyeResEncoder(nn.Module):
+class EyeEncoder(nn.Module):
     def __init__(self, dim_features, in_channels=1):
         from .resnet import resnet18
         super().__init__()

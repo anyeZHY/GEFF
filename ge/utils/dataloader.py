@@ -72,10 +72,9 @@ class MPII(Dataset):
         return len(self.img_labels)
 
     def __getitem__(self, idx):
-        print(self.img_labels['Face'].iloc[idx])
         img_face = get_img(self.img_dir, self.img_labels['Face'].iloc[idx])
-        img_left= get_img(self.img_dir, self.img_labels['Left'].iloc[idx])/255
-        img_right = get_img(self.img_dir, self.img_labels['Right'].iloc[idx])/255
+        img_left= get_img(self.img_dir, self.img_labels['Left'].iloc[idx])
+        img_right = get_img(self.img_dir, self.img_labels['Right'].iloc[idx])
         label = convert_str_to_float(self.img_labels['2DGaze'].iloc[idx])
         if self.transform:
             img_face = self.transform(img_face)
@@ -101,7 +100,7 @@ def load_data(BATCH_SIZE, transform_train=None):
             transforms.ToPILImage(),
             transforms.Resize((224, 224)),
             transforms.ToTensor(),
-            transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
+            transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
             # transforms.RandomApply([
             #     transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)
             # ], p=0.8)
@@ -110,14 +109,14 @@ def load_data(BATCH_SIZE, transform_train=None):
         transforms.ToPILImage(),
         transforms.Resize((60, 36)),
         transforms.ToTensor(),
-        transforms.Normalize(mean=0.505, std=0.084),
+        transforms.Normalize(mean=0.5071, std=0.2889),
     ])
 
     transform_val = transforms.Compose([
         transforms.ToPILImage(),
         transforms.Resize((224, 224)),
         transforms.ToTensor(),
-        transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010)),
+        transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
     ])
 
     train_set = MPII(train_file, img_dir, transform_train, transform_eye)
