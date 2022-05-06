@@ -83,7 +83,11 @@ class MPII(Dataset):
             img_right = self.transform_eye(img_right)
         if self.target_transform:
             label = self.target_transform(label)
-        images = {'Face': img_face.float(), 'Left': img_left.float(), 'Right': img_right.float()}
+        images = {
+            'Face': img_face.float(),
+            'Left': img_left.float(),
+            'Right': img_right.float()
+        }
         return images, label.astype(float)
 
 def load_data(BATCH_SIZE, transform_train=None):
