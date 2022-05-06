@@ -18,6 +18,7 @@ def train(args):
         - res_channels: The channels of ResNet, of shape (4, ). Default = (16, 32, 64, 128)
     """
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(device)
 
     # ===== set hyperparameter >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     print_every = args.print_every if (not args.debug) else 1
@@ -33,7 +34,7 @@ def train(args):
     # ===== Model Configuration >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     dim_face = args.dim_face
     models = gen_geff(args,channels={'Face':dim_face, 'Out':out_channel}, device=device)
-    model = get_model(args, models)
+    model = get_model(args, models).to(device)
     L1 = nn.SmoothL1Loss(reduction='mean')
     optimizer = optim.Adam(model.parameters(), lr=LR)
 
@@ -48,6 +49,8 @@ def train(args):
         for i, data in enumerate(train_loader, 0):
             # prepare dataset
             imgs, labels = data
+            imgs = {name: imgs[name].to(device) for name in imgs}
+            labels = labels.to(device)
             optimizer.zero_grad()
             gaze = model(imgs)
             ang_loss = angular_error(gaze, labels)
@@ -70,6 +73,8 @@ def train(args):
         with torch.no_grad():
             for data in val_loader:
                 imgs, labels = data
+                imgs = {name: imgs[name].to(device) for name in imgs}
+                labels = labels.to(device)
                 gaze = model(imgs)
                 total += labels.size(0)
 
