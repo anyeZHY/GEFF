@@ -86,23 +86,17 @@ def train(args):
 
         if args.debug:
             break
-        filename = 'assets/model_saved/' + args.name + \
+        filename = 'assets/model_saved/' + args.model + \
                    ',lr={lr},' \
-                   'total_epoch={epoch},' \
                    'epoch_save={now},' \
                    '.pt'.format(
-                       lr=LR, epoch=EPOCH, now=epoch+1
+                       lr=LR, now=epoch+1
                    )
         if args.save_every:
             torch.save(model.state_dict(), filename)
 
     print('Train has finished, total epoch is %d' % EPOCH)
-    filename = 'assets/model_saved/' + args.name + \
-               ',lr={lr},' \
-               'total_epoch={epoch},' \
-               '.pt'.format(
-                   lr=LR, epoch=EPOCH
-               )
+    filename = 'assets/model_saved/' + args.model + ',lr={lr}.pt'.format(lr=LR)
     if not args.debug:
         torch.save(best_model.state_dict(), filename)
 
