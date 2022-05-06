@@ -3,6 +3,7 @@ opencv-master/
 .idea/
 MPIIFaceGaze/
 ColumbiaGazeDataSet/
+ColumbiaGazeCutSet/
 *.csv
 *.sh
 *.out
