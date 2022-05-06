@@ -7,7 +7,7 @@ import torch
 import torch.nn as nn
 from ge.model.resnet import resnet18
 from ge.model.geff import GEFF
-from ge.model.encoders import MLP, EyeEncoder
+from ge.model.encoders import MLP, EyeEncoder, EyeResEncoder
 
 class ResGazeNaive(nn.Module):
     def __init__(self):
@@ -21,34 +21,47 @@ class ResGazeNaive(nn.Module):
 
 
 class Fuse(nn.Module):
-    def __init__(self, models, weight=0.2):
+    def __init__(self, models, weight=0.2, share_eye=False):
         super().__init__()
         self.face_en = models['Face']
-        self.left_en = models['Left']
-        self.right_en = models['Right']
+        self.share_eye = share_eye
+        if share_eye:
+            self.eye = models['Eye']
+        else:
+            self.left_en = models['Left']
+            self.right_en = models['Right']
         self.decoder = models['Decoder']
         self.w = weight
 
-    def forward(self, imgs):
+    def forward(self, imgs, similarity=False):
         faces, lefts, rights = imgs['Face'], imgs['Left'], imgs['Right']
         # forward & backward
         F_face = self.face_en(faces)  # Feature_face
         _, D = F_face.shape
-        F_left = self.left_en(lefts) * self.w + F_face[:, :D//4] * (1 - self.w)
-        F_right = self.right_en(rights) * self.w + F_face[:, D//4:D//2] * (1-self.w)
-        features = torch.cat((F_face[:, D//2:], F_left, F_right), dim=1)
+        if self.share_eye:
+            F_left = self.eye(lefts)
+            F_right = self.eye(lefts)
+        else:
+            F_left = self.left_en(lefts)
+            F_right = self.right_en(rights)
+        F_lf = F_left * self.w + F_face[:, :D//4] * (1 - self.w)
+        F_rf = F_right * self.w + F_face[:, D // 4:D // 2] * (1 - self.w)
+        features = torch.cat((F_face[:, D//2:], F_lf, F_rf), dim=1)
         gaze = self.decoder(features)
-        return gaze
+        if similarity:
+            return gaze, F_left, F_right, F_face[:, :D//4], F_face[:, D // 4:D // 2]
+        else:
+            return gaze
 
 
-def get_model(args, models=None):
+def get_model(args, models=None, share_eye=False):
     name = args.model
     if name == 'baseline':
         return ResGazeNaive()
     if name == 'geff':
-        return GEFF(models)
+        return GEFF(models, share_eye=share_eye)
     if name == 'fuse':
-        return Fuse(models)
+        return Fuse(models, share_eye=share_eye)
 
 
 def gen_geff(args, channels = None, device=None):
@@ -83,12 +96,14 @@ def gen_geff(args, channels = None, device=None):
             'Left': EyeEncoder(dim_features=eyes_dim).to(device),
             'Right': EyeEncoder(dim_features=eyes_dim).to(device),
             'Decoder': MLP(channels = decoder_channel).to(device),
+            'Eye': EyeResEncoder(eyes_dim).to(device),
         }
     if name == 'geff':
         models = {
             'Face': resnet18(num_classes=face_dim).to(device),
             'Left': EyeEncoder(dim_features=eyes_dim).to(device),
             'Right': EyeEncoder(dim_features=eyes_dim).to(device),
+            'Eye': EyeResEncoder(eyes_dim).to(device),
             'Extractor': MLP(face_dim, eyes_dim).to(device),
             'Fussion_l': MLP(channels=fussion_channel).to(device),
             'Fussion_r': MLP(channels=fussion_channel).to(device),
