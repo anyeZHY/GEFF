@@ -4,6 +4,7 @@
 import torch
 import torch.nn as nn
 from torch import Tensor
+from torchvision.models.resnet import resnet18
 
 class ResnetEncoder(nn.Module):
     def __init__(self, append_layers=None):
@@ -52,20 +53,32 @@ class MLP(nn.Module):
 
 class EyeEncoder(nn.Module):
     def __init__(self, dim_features, in_channels=1):
-        from .resnet import resnet18
         super().__init__()
         channel_conv = 1
-        # self.conv = nn.Conv2d(in_channels, channel_conv, 3, padding=1)
-        # self.bn = nn.BatchNorm2d(channel_conv)
-        # self.relu = nn.ReLU(inplace=True)
         self.backbone = MLP((60*36*channel_conv, 1024, dim_features))
-        # self.res = resnet18(num_classes=dim_features)
     def forward(self, x: Tensor) -> Tensor:
         out = x
-        # out = self.conv(out)
-        # out = self.bn(out)
-        # out = self.relu(out)
         out = out.view(len(out), -1)
         out = self.backbone(out)
         return out
 
+class EyeResEncoder(nn.Module):
+    def __init__(self, eyes_dim=128):
+        super().__init__()
+        self.f = []
+        for name, module in resnet18(num_classes=eyes_dim).named_children():
+            if name=='conv1':
+                module = nn.Conv2d(1, 64, kernel_size=(7, 7),
+                                   stride=(1, 1), padding=(3, 3), bias=False)
+            if name=='maxpool':
+                continue
+            if name=='fc':
+                self.f.append(nn.Flatten())
+                module = nn.Linear(in_features=512, out_features=eyes_dim, bias=True)
+            self.f.append(module)
+        self.f = nn.Sequential(*self.f)
+    def forward(self, x):
+        out = self.f(x)
+        return out
+
+EyeResEncoder()
