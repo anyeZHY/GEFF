@@ -18,7 +18,6 @@ def make_transform(flip=0.6, jitter=0.6, gray=0.2):
         transforms.RandomApply([color_jitter, ], jitter),
         transforms.RandomRotation(degrees=(0, 180)),
         transforms.RandomGrayscale(p=gray),
-
     ])
     return transform
 
@@ -37,3 +36,4 @@ if __name__ == '__main__':
 
     animation = camera.animate()
     animation.save('simclr/test.gif', writer='PillowWriter', fps=3)
+
