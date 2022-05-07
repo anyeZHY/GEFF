@@ -4,7 +4,7 @@ import math
 import torch
 import torch.nn as nn
 import torch.optim as optim
-from simclr.contrastive_loss import simclr_loss
+from simclr.data_utils import make_transform
 from ge.utils.dataloader import load_data
 from ge.utils.make_loss import angular_error
 from ge.model.model_zoo import get_model, gen_geff
@@ -30,7 +30,7 @@ def train(args):
     print('lr={lr},total_epoch={epoch}'.format(lr=LR, epoch=EPOCH))
 
     # prepare dataset and preprocessing
-    train_loader, val_loader = load_data(BATCH_SIZE)
+    train_loader, val_loader = load_data(BATCH_SIZE, make_transform())
 
     # ===== Model Configuration >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     dim_face = args.dim_face
@@ -38,6 +38,7 @@ def train(args):
     model = get_model(args, models, args.useres).to(device)
     L1 = nn.SmoothL1Loss(reduction='mean')
     optimizer = optim.Adam(model.parameters(), lr=LR)
+    scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.5)
 
     best_model = None
     best_loss = math.inf
@@ -66,6 +67,7 @@ def train(args):
                     % (epoch + 1, (i + 1 + epoch * length), loss.item()))
             if args.debug:
                 break
+        scheduler.step()
         # ===== Evaluation >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         print('Waiting Test...')
         model.eval()
