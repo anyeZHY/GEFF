@@ -81,4 +81,3 @@ class EyeResEncoder(nn.Module):
         out = self.f(x)
         return out
 
-EyeResEncoder()
