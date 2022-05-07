@@ -61,7 +61,7 @@ def get_model(args, models=None, share_eye=False):
     if name == 'geff':
         return GEFF(models, share_eye=share_eye)
     if name == 'fuse':
-        return Fuse(models, share_eye=share_eye)
+        return Fuse(models, share_eye=share_eye, weight=args.weight)
 
 
 def gen_geff(args, channels = None, device=None):
