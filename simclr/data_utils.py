@@ -13,10 +13,10 @@ def make_transform(flip=0.6, jitter=0.6, gray=0.2):
         transforms.ToPILImage(),
         transforms.Resize((224,224)),
         transforms.ToTensor(),
-        transforms.RandomHorizontalFlip(flip),
-        transforms.RandomVerticalFlip(flip),
+        # transforms.RandomHorizontalFlip(flip),
+        # transforms.RandomVerticalFlip(flip),
         transforms.RandomApply([color_jitter, ], jitter),
-        transforms.RandomRotation(degrees=(0, 180)),
+        # transforms.RandomRotation(degrees=(0, 180)),
         transforms.RandomGrayscale(p=gray),
     ])
     return transform
