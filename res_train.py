@@ -27,10 +27,11 @@ def train(args):
     BATCH_SIZE = args.batch if (not args.debug) else 16
     LR = args.lr
     out_channel = args.out_channel
-    print('lr={lr},total_epoch={epoch}'.format(lr=LR, epoch=EPOCH))
+    print(str(args)[10:-1])
 
     # prepare dataset and preprocessing
-    train_loader, val_loader = load_data(BATCH_SIZE, make_transform())
+    T = make_transform(jitter=args.jitter, gray=args.gray) if args.data_aug else None
+    train_loader, val_loader = load_data(BATCH_SIZE, T)
 
     # ===== Model Configuration >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     dim_face = args.dim_face
@@ -38,7 +39,7 @@ def train(args):
     model = get_model(args, models, args.useres).to(device)
     L1 = nn.SmoothL1Loss(reduction='mean')
     optimizer = optim.Adam(model.parameters(), lr=LR)
-    scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=10, gamma=0.5)
+    scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=args.lr_step, gamma=args.lr_gamma)
 
     best_model = None
     best_loss = math.inf
@@ -91,20 +92,15 @@ def train(args):
             best_loss = sum_loss / total
             best_model = model
 
-
-        if args.debug:
-            break
-        filename = 'assets/model_saved/' + args.model + \
-                   ',lr={lr},' \
-                   'epoch_save={now},' \
-                   '.pt'.format(
-                       lr=LR, now=epoch+1
-                   )
+        filename = 'assets/model_saved/' + str(args)[10:-1] + 'epoch_save={now}.pt'.format(now=epoch+1)
         if args.save_every:
             torch.save(model.state_dict(), filename)
+        if args.debug:
+            break
 
     print('Train has finished, total epoch is %d' % EPOCH)
-    filename = 'assets/model_saved/' + args.model + ',lr={lr}.pt'.format(lr=LR)
+    filename = str(args)[10:-1] + '.pt'
+    print(filename)
     if not args.debug:
         torch.save(best_model, filename)
 
@@ -116,13 +112,20 @@ if __name__ == '__main__':
     parser.add_argument("--debug", action="store_true", help="Train concisely and roughly")
     parser.add_argument("--save_every", action="store_true", help="Save models after every epoch")
     parser.add_argument("--print_every", default=50, type=int, help="Print loss")
+    parser.add_argument("--out_channel", default=2, type=int)
 
     # hyperparameters in Trainnig part
+    parser.add_argument("--model", default="baseline", choices=['baseline','fuse' ,'geff'] ,type=str)
     parser.add_argument("--epoch", default=10, type=int)
     parser.add_argument("--batch", default=128, type=int)
     parser.add_argument("--lr", default=0.001, type=float)
-    parser.add_argument("--out_channel", default=2, type=int)
     parser.add_argument("--dim_face", default=512, type=int)
-    parser.add_argument("--model", default="baseline", choices=['baseline','fuse' ,'geff'] ,type=str)
-    parser.add_argument("--useres", action="store_true")
+    parser.add_argument("--weight", default=0.2, type=float, help="Weight in Vanilla Fusion model")
+    parser.add_argument("--t", default=0.2, type=float, help="Weight in GEFF model")
+    parser.add_argument("--useres", action="store_true", help="Use resnet as eyes' encoder")
+    parser.add_argument("--data_aug", action="store_true", help="Augment data")
+    parser.add_argument("--jitter", default=0.2, type=float, help="Possibility of Jitter in data transformation")
+    parser.add_argument("--gray", default=0.2, type=float, help="Possibility of converting the image into a Gray one")
+    parser.add_argument("--lr_step", default=500, type=int)
+    parser.add_argument("--lr_gamma", default=0.5, type=float)
     train(parser.parse_args())
