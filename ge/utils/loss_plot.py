@@ -17,7 +17,7 @@ def generate_loss_logs(files):
         df = pd.read_table(path + file, header=None, skiprows=0)
         for i in range(len(df)):
             if str(df[0][i])[0:4] == "Test":
-                loss_log.append(float(str(df[0][i])[-5:]))
+                loss_log.append(float(str(df[0][i])[16:]))
         logs.append(loss_log)
     return logs
 
@@ -52,6 +52,7 @@ if __name__ == '__main__':
     log_files = ['/log/baseline.txt', '/log/naive fuse.txt',
                  '/log/fuse lr=1e-4.txt', '/log/fuse lr=5e-4.txt']
     loss_logs = generate_loss_logs(log_files)
+    print(loss_logs)
     loss_logs = smooth_log(loss_logs)
     plot_loss(log_files, loss_logs)
 
