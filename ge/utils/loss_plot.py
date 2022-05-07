@@ -49,11 +49,16 @@ def generate_log_files(file_dir):
 
 
 if __name__ == '__main__':
-    log_files = ['/log/baseline.txt', '/log/naive fuse.txt',
-                 '/log/fuse lr=1e-4.txt', '/log/fuse lr=5e-4.txt']
+    log_files = [
+        '/log/baseline.txt',
+        '/log/naive fuse.txt',
+        '/log/fuse lr=1e-4.txt',
+        '/log/fuse lr=5e-4.txt'
+    ]
     loss_logs = generate_loss_logs(log_files)
-    print(loss_logs)
-    loss_logs = smooth_log(loss_logs)
+    loss_logs = np.array(loss_logs)
+    # start = 34
+    # loss_logs = smooth_log(loss_logs[:, start:])
     plot_loss(log_files, loss_logs)
 
 
