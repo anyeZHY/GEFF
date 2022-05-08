@@ -59,7 +59,7 @@ def get_model(args, models=None, share_eye=False):
     if name == 'baseline':
         return ResGazeNaive()
     if name == 'geff':
-        return GEFF(models, share_eye=share_eye)
+        return GEFF(models, t=args.t, share_eye=share_eye)
     if name == 'fuse':
         return Fuse(models, share_eye=share_eye, weight=args.weight)
 
@@ -87,9 +87,9 @@ def gen_geff(args, channels = None, device=None):
         face_dim = channels['Face']
         eyes_dim = face_dim // 4
         out_channel = channels['Out']
-        decoder_channel = (face_dim, 128, out_channel)
+        decoder_channel = (face_dim+eyes_dim*2, 128, out_channel)
         if name == 'geff':
-            fussion_channel = channels['Fussion']
+            fussion_channel = channels['Fusion']
     if name == 'fuse':
         models = {
             'Face': resnet18(num_classes = face_dim).to(device),
@@ -104,9 +104,10 @@ def gen_geff(args, channels = None, device=None):
             'Left': EyeEncoder(dim_features=eyes_dim).to(device),
             'Right': EyeEncoder(dim_features=eyes_dim).to(device),
             'Eye': EyeResEncoder(eyes_dim).to(device),
-            'Extractor': MLP(face_dim, eyes_dim).to(device),
-            'Fussion_l': MLP(channels=fussion_channel).to(device),
-            'Fussion_r': MLP(channels=fussion_channel).to(device),
+            'Extractor': MLP(channels=(face_dim, 2*eyes_dim),
+                             last_op=nn.Sequential(nn.BatchNorm1d(2*eyes_dim),nn.ReLU())).to(device),
+            'Fusion_l': MLP(channels=fussion_channel).to(device),
+            'Fusion_r': MLP(channels=fussion_channel).to(device),
             'Decoder': MLP(channels=decoder_channel).to(device),
         }
     return models

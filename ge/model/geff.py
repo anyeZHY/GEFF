@@ -68,7 +68,7 @@ class GEFF(nn.Module):
         F_lfused = F_left * (1-w_l) + F_lf * w_l
         F_rfused = F_right * (1-w_r) + F_rf * w_r
         features = torch.cat((F_face, F_lfused, F_rfused), dim=1)
-        gaze = self.defoder(features)
+        gaze = self.decoder(features)
         if similarity:
             return gaze, F_lf, F_rf, F_left, F_right, F_face
         else:

@@ -35,7 +35,11 @@ def train(args):
 
     # ===== Model Configuration >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     dim_face = args.dim_face
-    models = gen_geff(args,channels={'Face':dim_face, 'Out':out_channel}, device=device)
+    dim_eyes = dim_face//4
+    models = gen_geff(
+        args, device=device,
+        channels={'Face':dim_face,'Out':out_channel,'Fusion':[2*dim_eyes, dim_eyes, 1]}
+    )
     model = get_model(args, models, args.useres).to(device)
     L1 = nn.SmoothL1Loss(reduction='mean')
     optimizer = optim.Adam(model.parameters(), lr=LR)
@@ -99,7 +103,7 @@ def train(args):
             break
 
     print('Train has finished, total epoch is %d' % EPOCH)
-    filename = str(args)[10:-1] + '.pt'
+    filename = 'assets/model_saved/' + str(args)[10:-1] + '.pt'
     print(filename)
     if not args.debug:
         torch.save(best_model, filename)
