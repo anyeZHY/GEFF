@@ -24,6 +24,7 @@ def generate_loss_logs():
             names.append(file[:-4])
     return logs, names
 
+
 def smooth_log(logs):
     logs = np.array(logs)
     result = []
@@ -61,11 +62,23 @@ def plot_loss_multi_graph(files, logs):
         plt.savefig(f'../../figs/loss/{files[i]}.pdf')
 
 
-def mean_loss(files, loss, position):
+def show_mean_loss(files, loss, position):
+    path = str(Path.cwd().parent.parent) + '/log/'
     mean = np.mean(loss[:, position:], axis=1)
     print(f'mean validation loss on epoches {position} to 100')
     for i in range(len(files)):
-        print(files[i], round(mean[i], 4))
+        df = pd.read_table(path + files[i] + '.txt', header=None, skiprows=0)
+        print(round(mean[i], 4), '\n', df[0][1], '\n')
+
+
+def show_mean_loss_2(files, loss, position1, position2):
+    path = str(Path.cwd().parent.parent) + '/log/'
+    mean1 = np.mean(loss[:, position1:], axis=1)
+    mean2 = np.mean(loss[:, position2:], axis=1)
+    print(f'mean validation loss on epoches {position1} to 100 and {position2} to 100')
+    for i in range(len(files)):
+        df = pd.read_table(path + files[i] + '.txt', header=None, skiprows=0)
+        print('(40,100)', round(mean1[i], 4), '(80,100)', round(mean2[i], 4), '\n', df[0][1], '\n')
 
 
 if __name__ == '__main__':
@@ -75,5 +88,4 @@ if __name__ == '__main__':
     # loss_logs = smooth_log(loss_logs[:, start:])
     # plot_loss_one_graph(file_names, loss_logs)
     # plot_loss_multi_graph(file_names, loss_logs)
-    mean_loss(file_names, loss_logs, 40)
-    mean_loss(file_names, loss_logs, 80)
+    show_mean_loss_2(file_names, loss_logs, 40, 80)
