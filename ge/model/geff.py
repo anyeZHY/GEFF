@@ -8,8 +8,8 @@ models = {
             'Right': EyeEncoder(dim_features=eyes_dim).to(device),
             'Eye': EyeResEncoder(eyes_dim).to(device),
             'Extractor': MLP(face_dim, eyes_dim).to(device),
-            'Fusion_l': MLP(channels=fussion_channel).to(device),
-            'Fusion_r': MLP(channels=fussion_channel).to(device),
+            'Fusion_l': MLP(channels=fusion_channel).to(device),
+            'Fusion_r': MLP(channels=fusion_channel).to(device),
             'Decoder': MLP(channels=decoder_channel).to(device),
         }
 GEFF(models)
@@ -49,7 +49,7 @@ class GEFF(nn.Module):
         self.right_fusion = models['Fusion_r']
         self.decoder = models['Decoder']
 
-    def forward(self, imgs, similarity = False ):
+    def forward(self, imgs, similarity=False):
         faces, lefts, rights = imgs['Face'], imgs['Left'], imgs['Right']
         F_face = self.face_en(faces)
         if self.share_eye:
