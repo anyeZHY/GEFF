@@ -12,7 +12,7 @@ def generate_loss_logs():
     path = str(Path.cwd().parent.parent)+'/log/'
     files = os.listdir(path)
     logs = []
-    file_names = []
+    names = []
     for file in files:
         if file.endswith(".txt"):
             loss_log = []
@@ -21,8 +21,8 @@ def generate_loss_logs():
                 if str(df[0][i])[0:4] == "Test":
                     loss_log.append(float(str(df[0][i])[16:]))
             logs.append(loss_log)
-            file_names.append(file[:-4])
-    return logs, file_names
+            names.append(file[:-4])
+    return logs, names
 
 def smooth_log(logs):
     logs = np.array(logs)
@@ -36,20 +36,36 @@ def smooth_log(logs):
         result.append(subresult)
     return result
 
+
 def plot_loss_one_graph(files, logs):
     plt.title("Validation losses with various models")
     for i in range(len(files)):
-        plt.plot(logs[i], label=files[i], linewidth=1.1, )
+        plt.plot(logs[i], label=files[i], linewidth=0.5,)
     plt.legend()
     plt.xlabel('Train epoches')
     plt.ylabel('Validation loss')
+    plt.ylim([0, 10])
     # plt.show()
-    plt.savefig('../../figs/Validation_losses.pdf')
+    plt.savefig('../../figs/loss/Validation_losses.pdf')
 
 
-def generate_log_files(file_dir):
+def plot_loss_multi_graph(files, logs):
+    for i in range(len(files)):
+        plt.title("Validation losses with various models")
+        plt.cla()
+        plt.plot(logs[i], label=files[i], linewidth=1.1, )
+        plt.legend()
+        plt.xlabel('Train epoches')
+        plt.ylabel('Validation loss')
+        # plt.show()
+        plt.savefig(f'../../figs/loss/{files[i]}.pdf')
 
-    pass
+
+def mean_loss(files, loss, position):
+    mean = np.mean(loss[:, position:], axis=1)
+    print(f'mean validation loss on epoches {position} to 100')
+    for i in range(len(files)):
+        print(files[i], round(mean[i], 4))
 
 
 if __name__ == '__main__':
@@ -57,7 +73,7 @@ if __name__ == '__main__':
     loss_logs = np.array(loss_logs)
     # start = 34
     # loss_logs = smooth_log(loss_logs[:, start:])
-    plot_loss_one_graph(file_names, loss_logs)
-
-
-
+    # plot_loss_one_graph(file_names, loss_logs)
+    # plot_loss_multi_graph(file_names, loss_logs)
+    mean_loss(file_names, loss_logs, 40)
+    mean_loss(file_names, loss_logs, 80)
