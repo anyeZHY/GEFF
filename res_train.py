@@ -41,8 +41,8 @@ def train(args):
         channels={'Face':dim_face,'Out':out_channel,'Fusion':[2*dim_eyes, dim_eyes, 1]}
     )
     model = get_model(args, models, args.useres).to(device)
-    if args.debug:
-        print(model.face_en.state_dict().items())
+    # if args.debug:
+    #     print(model.face_en.state_dict().items())
     L1 = nn.SmoothL1Loss(reduction='mean')
     optimizer = optim.Adam(model.parameters(), lr=LR)
     scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=args.lr_step, gamma=args.lr_gamma)
