@@ -22,10 +22,10 @@ transform = transforms.Compose([
         transforms.ToTensor(),
         transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
     ])
-_, val_loader = load_data(128)
+_, val_loader = load_data(128, val_size=1, flip=1)
 for data in val_loader:
     imgs, labels = data
-    result = model(imgs)
+    result = model(imgs, None)
 
     # print(torch.cat([result, labels], dim=1))
     print(angular_error(result, labels, every=True))
@@ -46,7 +46,7 @@ for data in val_loader:
     gaze_visual(gaze, show=False)
     plt.title('Result: %.03f, %.03f' % (-result[0][0], result[0][1]))
     plt.savefig('figs/3dgaze.pdf')
-    # time.sleep(2)
+    time.sleep(50)
 
 # plt.figimage(np.array(img))
 img = transform(img)
