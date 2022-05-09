@@ -73,12 +73,13 @@ def show_mean_loss(files, loss, position):
 
 def show_mean_loss_2(files, loss, position1, position2):
     path = str(Path.cwd().parent.parent) + '/log/'
+    min = np.min(loss, axis=1)
     mean1 = np.mean(loss[:, position1:], axis=1)
     mean2 = np.mean(loss[:, position2:], axis=1)
     print(f'mean validation loss on epoches {position1} to 100 and {position2} to 100')
     for i in range(len(files)):
         df = pd.read_table(path + files[i] + '.txt', header=None, skiprows=0)
-        print('(40,100)', round(mean1[i], 4), '(80,100)', round(mean2[i], 4), '\n', df[0][1], '\n')
+        print('min', round(min[i], 4),'(40,100)', round(mean1[i], 4), '(80,100)', round(mean2[i], 4), '\n', df[0][1], '\n')
 
 
 if __name__ == '__main__':

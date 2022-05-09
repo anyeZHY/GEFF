@@ -41,6 +41,8 @@ def train(args):
         channels={'Face':dim_face,'Out':out_channel,'Fusion':[2*dim_eyes, dim_eyes, 1]}
     )
     model = get_model(args, models, args.useres).to(device)
+    if args.debug:
+        print(model.face_en.state_dict().items())
     L1 = nn.SmoothL1Loss(reduction='mean')
     optimizer = optim.Adam(model.parameters(), lr=LR)
     scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=args.lr_step, gamma=args.lr_gamma)
@@ -59,7 +61,7 @@ def train(args):
             imgs = {name: imgs[name].to(device) for name in imgs}
             labels = labels.to(device)
             optimizer.zero_grad()
-            gaze = model(imgs)
+            gaze = model(imgs, args)
             ang_loss = angular_error(gaze, labels)
             L1_loss = L1(gaze, labels.float())
             loss = ang_loss + 10 * L1_loss
@@ -83,7 +85,7 @@ def train(args):
                 imgs, labels = data
                 imgs = {name: imgs[name].to(device) for name in imgs}
                 labels = labels.to(device)
-                gaze = model(imgs)
+                gaze = model(imgs, args)
                 total += labels.size(0)
 
                 loss = angular_error(gaze, labels.float())
@@ -120,6 +122,7 @@ if __name__ == '__main__':
 
     # hyperparameters in Trainnig part
     parser.add_argument("--model", default="baseline", choices=['baseline','fuse' ,'geff'] ,type=str)
+    parser.add_argument("--pretrain", action="store_true")
     parser.add_argument("--epoch", default=10, type=int)
     parser.add_argument("--batch", default=128, type=int)
     parser.add_argument("--lr", default=0.001, type=float)

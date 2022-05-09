@@ -16,7 +16,7 @@ def yaw_pitch_to_vec(gaze: torch.Tensor):
     return xyz
 
 # ============== Angular Error >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-def angular_error(alpha, beta):
+def angular_error(alpha, beta, every=False):
     """
     Input:
     -a: of size (N,2) or (N,3)
@@ -33,7 +33,10 @@ def angular_error(alpha, beta):
 
     similarity = torch.divide(ab, torch.multiply(a_norm, b_norm))
     similarity = similarity.clamp(min=-1, max=1)
-    return torch.mean(torch.arccos(similarity) * 180.0 / np.pi)
+    if every:
+        return torch.arccos(similarity) * 180.0 / np.pi
+    else:
+        return torch.mean(torch.arccos(similarity) * 180.0 / np.pi)
 
 if __name__ == '__main__':
     a = torch.tensor([[0.5, 0.5],[0.1,0.3],[0,0]])

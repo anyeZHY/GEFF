@@ -14,7 +14,7 @@ class ResGazeNaive(nn.Module):
         super().__init__()
         self.res = resnet18(num_classes=2)
 
-    def forward(self, imgs):
+    def forward(self, imgs, args):
         face = imgs['Face']
         out = self.res(face)
         return out
@@ -33,10 +33,12 @@ class Fuse(nn.Module):
         self.decoder = models['Decoder']
         self.w = weight
 
-    def forward(self, imgs, similarity=False):
+    def forward(self, imgs, args, similarity=False):
         faces, lefts, rights = imgs['Face'], imgs['Left'], imgs['Right']
         # forward & backward
         F_face = self.face_en(faces)  # Feature_face
+        if args.pretrain:
+            F_face = F_face.detach()
         _, D = F_face.shape
         if self.share_eye:
             F_left = self.eye(lefts)
@@ -63,6 +65,18 @@ def get_model(args, models=None, share_eye=False):
     if name == 'fuse':
         return Fuse(models, share_eye=share_eye, weight=args.weight)
 
+class ResPretrain(nn.Module):
+    def __init__(self, args):
+        super(ResPretrain, self).__init__()
+        device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        if args.pretrain:
+            res = torch.load('assets/model_saved/baseline/BaseLr.pt', map_location=torch.device(device)).res
+        else:
+            res = resnet18()
+        res.fc = nn.Flatten()
+        self.res = res
+    def forward(self, x):
+        return self.res(x)
 
 def gen_geff(args, channels = None, device=None):
     """
@@ -87,12 +101,14 @@ def gen_geff(args, channels = None, device=None):
         face_dim = channels['Face']
         eyes_dim = face_dim // 4
         out_channel = channels['Out']
-        decoder_channel = (face_dim+eyes_dim*2, 128, out_channel)
+        decoder_channel = (face_dim, 128, out_channel)
         if name == 'geff':
+            decoder_channel = (face_dim + eyes_dim * 2, 128, out_channel)
             fussion_channel = channels['Fusion']
+    face = ResPretrain(args)
     if name == 'fuse':
         models = {
-            'Face': resnet18(num_classes = face_dim).to(device),
+            'Face': face,
             'Left': EyeEncoder(dim_features=eyes_dim).to(device),
             'Right': EyeEncoder(dim_features=eyes_dim).to(device),
             'Decoder': MLP(channels = decoder_channel).to(device),
@@ -100,7 +116,7 @@ def gen_geff(args, channels = None, device=None):
         }
     if name == 'geff':
         models = {
-            'Face': resnet18(num_classes=face_dim).to(device),
+            'Face': face,
             'Left': EyeEncoder(dim_features=eyes_dim).to(device),
             'Right': EyeEncoder(dim_features=eyes_dim).to(device),
             'Eye': EyeResEncoder(eyes_dim).to(device),

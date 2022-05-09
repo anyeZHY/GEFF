@@ -49,9 +49,11 @@ class GEFF(nn.Module):
         self.right_fusion = models['Fusion_r']
         self.decoder = models['Decoder']
 
-    def forward(self, imgs, similarity=False):
+    def forward(self, imgs, args, similarity=False):
         faces, lefts, rights = imgs['Face'], imgs['Left'], imgs['Right']
         F_face = self.face_en(faces)
+        if args.pretrain:
+            F_face = F_face.detach()
         if self.share_eye:
             F_left = self.eye_en(lefts)
             F_right = self.eye_en(lefts)
