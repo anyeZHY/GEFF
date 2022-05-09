@@ -86,8 +86,8 @@ class MPII(Dataset):
             label = self.target_transform(label)
         if torch.rand(1)<self.flip:
             label[:][0] = - label[:][0]
-            img_face = transforms.F.hflip(img_face)
-            img_right, img_left = transforms.F.hflip(img_left), transforms.F.hflip(img_right)
+            img_face = transforms.RandomHorizontalFlip(1)(img_face)
+            img_right, img_left = transforms.RandomHorizontalFlip(1)(img_left), transforms.RandomHorizontalFlip(1)(img_right)
         images = {
             'Face': img_face.float(),
             'Left': img_left.float(),
