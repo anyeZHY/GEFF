@@ -26,8 +26,10 @@ transform = transforms.Compose([
 
 cap = cv2.VideoCapture(0)
 # loop runs if capturing has been initialized.
+decay = 0.2
+weight = 0
+smooth = 0
 while 1:
-
     # reads frames from a camera
     ret, img = cap.read()
     W = img.shape[0]
@@ -52,7 +54,9 @@ while 1:
     plt.imshow(img_fed)
 
     plt.savefig('figs/face.pdf')
-    gaze_visual(result*5, show=False)
+    weight = weight * decay + 1
+    smooth = (smooth * decay + result )/ weight
+    gaze_visual(smooth*5, show=False)
     plt.title('{}'.format(result))
     plt.savefig('figs/3dgaze.pdf')
     cv2.imshow('img', img[:,:,[2,1,0]])
