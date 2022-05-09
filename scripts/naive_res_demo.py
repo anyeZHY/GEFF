@@ -6,45 +6,53 @@ import torch
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
-from ge.model.resnet import resnet18
 from ge.utils.Visualization import gaze_visual
 from torchvision import transforms
 from ge.utils.dataloader import load_data
 from ge.utils.make_loss import angular_error
+import time
 
-def get_hlr(data, device):
-    """
-    Get Hand, Left eyes and Right eyes.
-    A function used in trainning part to process data.
-    """
-    images, labels = data
-    faces, lefts, rights = images['Face'], images['Left'], images['Right']
-    return faces.to(device), lefts.to(device), rights.to(device), labels.to(device)
-
-# model = torch.load(path + '/assets/model_scripted.pt')
-# model.eval()
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = resnet18(num_classes = 2).to(device).to(device)
-model.load_state_dict(torch.load(path + '/assets/model_saved/0.001.pt', map_location=device))
+model = torch.load(path + '/assets/model_saved/baseline/BaseLr.pt', map_location=torch.device(device))
 model.eval()
 
-img = Image.open(path + '/assets/test/mine_mid.jpg')
+img = Image.open(path + '/assets/test/mine_left.jpg')
 transform = transforms.Compose([
         transforms.ToTensor(),
-        transforms.Normalize((0.4914, 0.4822, 0.4465), (0.2023, 0.1994, 0.2010))
+        transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225))
     ])
 _, val_loader = load_data(128)
 for data in val_loader:
-    faces, lefts, rights, labels = get_hlr(data, device)
-    result = model(faces)
-    print(torch.cat([result, labels], dim=1))
-    print(angular_error(result, labels))
+    imgs, labels = data
+    result = model(imgs)
+
+    # print(torch.cat([result, labels], dim=1))
+    print(angular_error(result, labels, every=True))
+    labels = labels.detach().numpy()
+    result = result.detach().numpy()
+    print(result)
+    print(labels)
+
+    face = imgs['Face'].reshape(3,224,224).permute(1,2,0).detach().numpy()
+    face *= [0.229, 0.224, 0.225]
+    face += [0.485, 0.456, 0.406]
+    plt.figure()
+    plt.imshow(face)
+    plt.title('Gaze: %.03f, %.03f'% (labels[0][0], labels[0][1]))
+    plt.savefig('figs/face.pdf')
+    gaze = result[0]
+    gaze[0] = -gaze[0]
+    gaze_visual(gaze, show=False)
+    plt.title('Result: %.03f, %.03f' % (-result[0][0], result[0][1]))
+    plt.savefig('figs/3dgaze.pdf')
+    # time.sleep(2)
 
 # plt.figimage(np.array(img))
 img = transform(img)
 img = torch.unsqueeze(img, 0)
+img = {'Face': img}
 result = model(img)[0].detach().numpy()
 result[0] = -result[0]
 print(result)
-gaze_visual(result)
+

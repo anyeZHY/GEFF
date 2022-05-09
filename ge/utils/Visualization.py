@@ -38,7 +38,7 @@ def get_frame(ax):
     ax.plot(z, x, y, '--k')
     ax.plot(z, -x, -y, '--k')
 
-def gaze_visual(gaze):
+def gaze_visual(gaze, show=True):
     alpha = gaze[0]
     beta = gaze[1]
     ax = plt.figure().add_subplot(projection='3d')
@@ -55,10 +55,11 @@ def gaze_visual(gaze):
     ax.add_artist(arrow)
 
     ax.legend()
-    ax.view_init(elev=8., azim=21.)
+    ax.view_init(elev=0, azim=0.)
     # ax.set_axis_off()
     # ax.grid(False)
-    plt.show()
+    if show:
+        plt.show()
 
 if __name__=='__main__':
     gaze_visual([-np.pi/2, 0.5])
