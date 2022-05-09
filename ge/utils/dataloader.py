@@ -61,12 +61,13 @@ class MPII(Dataset):
     Naive version: label is '2DGaze'.
     """
     def __init__(self, annotations_file, img_dir,
-                 transform=None, transform_eye=None, target_transform=None):
+                 transform=None, transform_eye=None, target_transform=None, flip=0):
         self.img_labels = pd.read_csv(annotations_file)
         self.img_dir = img_dir
         self.transform = transform
         self.target_transform = target_transform
         self.transform_eye = transform_eye
+        self.flip = flip
 
     def __len__(self):
         return len(self.img_labels)
@@ -83,6 +84,10 @@ class MPII(Dataset):
             img_right = self.transform_eye(img_right)
         if self.target_transform:
             label = self.target_transform(label)
+        # if torch.rand(1)<self.flip:
+        #     label[:][0] = - label[:][0]
+        #     img_face = transforms.F.hflip(img_face)
+        #     img_right, img_left = transforms.F.hflip(img_left), transforms.F.hflip(img_right)
         images = {
             'Face': img_face.float(),
             'Left': img_left.float(),
@@ -90,7 +95,7 @@ class MPII(Dataset):
         }
         return images, label.astype(float)
 
-def load_data(BATCH_SIZE, transform_train=None):
+def load_data(BATCH_SIZE, val_size=100, transform_train=None, flip=0):
     # df_data = procees_data(0)
     # df_data = pd.read_pickle('assets/MPII_2D_annoataion.csv')
     if not os.path.isfile('assets/MPII_test.csv'):
@@ -105,9 +110,6 @@ def load_data(BATCH_SIZE, transform_train=None):
             transforms.Resize((224, 224)),
             transforms.ToTensor(),
             transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
-            # transforms.RandomApply([
-            #     transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)
-            # ], p=0.8)
         ])
     transform_eye = transforms.Compose([
         transforms.ToPILImage(),
@@ -123,11 +125,11 @@ def load_data(BATCH_SIZE, transform_train=None):
         transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
     ])
 
-    train_set = MPII(train_file, img_dir, transform_train, transform_eye)
-    val_set = MPII(val_file, img_dir, transform_val, transform_eye)
+    train_set = MPII(train_file, img_dir, transform_train, transform_eye, flip=flip)
+    val_set = MPII(val_file, img_dir, transform_val, transform_eye, flip=flip)
 
     train_loader = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
-    val_loader = torch.utils.data.DataLoader(val_set, batch_size=100, shuffle=True)
+    val_loader = torch.utils.data.DataLoader(val_set, batch_size=val_size, shuffle=True)
     return train_loader, val_loader
 
 if __name__ == '__main__':
