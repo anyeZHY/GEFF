@@ -8,6 +8,7 @@ The "contributions" of this project are as follows:
 
 - Transfer PIXIE model from human body reconstruction to gaze estimation. Now the features of head fuse with that of eyes.
 - Implement SimCLR framework for training deep and complicated network.
+- Transform datas: Flip the images horizontally! Swap the left eyes and the right eyes. 👀
 
 ## Installation
 
