@@ -2,6 +2,13 @@
 
  Project of AI2611, Shanghai Jiao Tong University.
 
+## Introduction
+
+The "contributions" of this project are as follows:
+
+- Transfer PIXIE model from human body reconstruction to gaze estimation. Now features of head fuse with that of eye.
+- Implement SimCLR framework for training deep and complicated network.
+
 ## Installation
 
 ### getting start
