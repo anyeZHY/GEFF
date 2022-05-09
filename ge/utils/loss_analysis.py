@@ -6,13 +6,32 @@ import os
 
 
 def generate_loss_logs():
-    """
-        The file tree should be the same as project GE
-    """
-    path = str(Path.cwd().parent.parent)+'/log/'
-    files = os.listdir(path)
     logs = []
     names = []
+    path = str(Path.cwd()) + '/log/baseline/'
+    files = os.listdir(path)
+    for file in files:
+        if file.endswith(".txt"):
+            loss_log = []
+            df = pd.read_table(path + file, header=None, skiprows=0)
+            for i in range(len(df)):
+                if str(df[0][i])[0:4] == "Test":
+                    loss_log.append(float(str(df[0][i])[16:]))
+            logs.append(loss_log)
+            names.append(file[:-4])
+    path = str(Path.cwd()) + '/log/fuse/'
+    files = os.listdir(path)
+    for file in files:
+        if file.endswith(".txt"):
+            loss_log = []
+            df = pd.read_table(path + file, header=None, skiprows=0)
+            for i in range(len(df)):
+                if str(df[0][i])[0:4] == "Test":
+                    loss_log.append(float(str(df[0][i])[16:]))
+            logs.append(loss_log)
+            names.append(file[:-4])
+    path = str(Path.cwd()) + '/log/geff/'
+    files = os.listdir(path)
     for file in files:
         if file.endswith(".txt"):
             loss_log = []
@@ -89,4 +108,4 @@ if __name__ == '__main__':
     # loss_logs = smooth_log(loss_logs[:, start:])
     # plot_loss_one_graph(file_names, loss_logs)
     # plot_loss_multi_graph(file_names, loss_logs)
-    show_mean_loss_2(file_names, loss_logs, 40, 80)
+    # show_mean_loss_2(file_names, loss_logs, 40, 80)
