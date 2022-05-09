@@ -31,7 +31,7 @@ def train(args):
 
     # prepare dataset and preprocessing
     T = make_transform(jitter=args.jitter, gray=args.gray) if args.data_aug else None
-    train_loader, val_loader = load_data(BATCH_SIZE, T)
+    train_loader, val_loader = load_data(BATCH_SIZE, transform_train=T, val_size=100, flip=args.flip)
 
     # ===== Model Configuration >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     dim_face = args.dim_face
@@ -135,4 +135,5 @@ if __name__ == '__main__':
     parser.add_argument("--gray", default=0.2, type=float, help="Possibility of converting the image into a Gray one")
     parser.add_argument("--lr_step", default=500, type=int)
     parser.add_argument("--lr_gamma", default=0.5, type=float)
+    parser.add_argument("--flip", default=0.5, type=float)
     train(parser.parse_args())
