@@ -8,7 +8,7 @@ import os
 def generate_loss_logs():
     logs = []
     names = []
-    path = str(Path.cwd()) + '/log/baseline/'
+    path = str(Path.cwd()) + '/log/base/'
     files = os.listdir(path)
     for file in files:
         if file.endswith(".txt"):
@@ -91,21 +91,23 @@ def show_mean_loss(files, loss, position):
 
 
 def show_mean_loss_2(files, loss, position1, position2):
-    path = str(Path.cwd().parent.parent) + '/log/'
+    path = str(Path.cwd()) + '/log/'
     min = np.min(loss, axis=1)
     mean1 = np.mean(loss[:, position1:], axis=1)
     mean2 = np.mean(loss[:, position2:], axis=1)
-    print(f'mean validation loss on epoches {position1} to 100 and {position2} to 100')
+    print(f'mean loss on epoches {position1} to 100 and {position2} to 100 and global min loss')
     for i in range(len(files)):
-        df = pd.read_table(path + files[i] + '.txt', header=None, skiprows=0)
-        print('min', round(min[i], 4),'(40,100)', round(mean1[i], 4), '(80,100)', round(mean2[i], 4), '\n', df[0][1], '\n')
+        df = pd.read_table(path + files[i][:4] +'/' + files[i] + '.txt', header=None, skiprows=0)
+        print('min', round(min[i], 4),'(40,100)', round(mean1[i], 4), '(80,100)', round(mean2[i], 4), files[i], '\n', df[0][1], '\n')
 
 
 if __name__ == '__main__':
     loss_logs, file_names = generate_loss_logs()
     loss_logs = np.array(loss_logs)
+    # print(len(file_names))
+    # print(len(loss_logs))
     # start = 34
     # loss_logs = smooth_log(loss_logs[:, start:])
     # plot_loss_one_graph(file_names, loss_logs)
     # plot_loss_multi_graph(file_names, loss_logs)
-    # show_mean_loss_2(file_names, loss_logs, 40, 80)
+    show_mean_loss_2(file_names, loss_logs, 40, 80)
