@@ -41,7 +41,6 @@ def train(args):
         channels={'Face':dim_face,'Out':out_channel,'Fusion':[2*dim_eyes, 1]}
     )
     model = get_model(args, models, args.useres).to(device)
-    print(model)
     # if args.debug:
     #     print(model.face_en.state_dict().items())
     L1 = nn.SmoothL1Loss(reduction='mean')
