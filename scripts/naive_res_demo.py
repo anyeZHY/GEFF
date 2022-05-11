@@ -43,10 +43,10 @@ for data in val_loader:
     plt.savefig('figs/face.pdf')
     gaze = result[0]
     gaze[0] = -gaze[0]
-    gaze_visual(gaze, show=False)
+    gaze_visual(2*gaze, show=False)
     plt.title('Result: %.03f, %.03f' % (-result[0][0], result[0][1]))
     plt.savefig('figs/3dgaze.pdf')
-    time.sleep(50)
+    time.sleep(5)
 
 # plt.figimage(np.array(img))
 img = transform(img)
