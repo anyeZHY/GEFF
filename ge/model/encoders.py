@@ -4,7 +4,7 @@
 import torch
 import torch.nn as nn
 from torch import Tensor
-from torchvision.models.resnet import resnet18
+from ge.model.resnet import resnet18
 
 class ResnetEncoder(nn.Module):
     def __init__(self, append_layers=None):
@@ -51,7 +51,7 @@ class MLP(nn.Module):
         outs = self.layers(inputs)
         return outs
 
-class EyeEncoder(nn.Module):
+class EyeMLPEncoder(nn.Module):
     def __init__(self, dim_features, in_channels=1):
         super().__init__()
         channel_conv = 1
@@ -66,15 +66,14 @@ class EyeResEncoder(nn.Module):
     def __init__(self, eyes_dim=128):
         super().__init__()
         self.f = []
-        for name, module in resnet18(num_classes=eyes_dim).named_children():
+        for name, module in resnet18(num_classes=eyes_dim, channel = [eyes_dim//8, eyes_dim//4, eyes_dim//2, eyes_dim]).named_children():
             if name=='conv1':
                 module = nn.Conv2d(1, 64, kernel_size=(7, 7),
                                    stride=(1, 1), padding=(3, 3), bias=False)
             if name=='maxpool':
                 continue
             if name=='fc':
-                self.f.append(nn.Flatten())
-                module = nn.Linear(in_features=512, out_features=eyes_dim, bias=True)
+                module = nn.Flatten()
             self.f.append(module)
         self.f = nn.Sequential(*self.f)
     def forward(self, x):
