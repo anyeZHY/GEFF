@@ -66,6 +66,7 @@ class GEFF(nn.Module):
         F_rf = F_eyes[:, D//2:]
         out_l = self.left_fusion(torch.cat((F_left, F_lf), dim=1))
         out_r = self.right_fusion(torch.cat((F_right, F_rf), dim=1))
+        out_r, out_l = torch.abs(out_r), torch.abs(out_l)
         w_l, w_r = 1/(1+torch.exp(-self.t*out_l)), 1/(1+torch.exp(-self.t*out_r))
         F_lfused = F_left * (1-w_l) + F_lf * w_l
         F_rfused = F_right * (1-w_r) + F_rf * w_r
