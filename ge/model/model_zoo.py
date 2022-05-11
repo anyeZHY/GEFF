@@ -7,7 +7,7 @@ import torch
 import torch.nn as nn
 from ge.model.resnet import resnet18
 from ge.model.geff import GEFF
-from ge.model.encoders import MLP, EyeEncoder, EyeResEncoder
+from ge.model.encoders import MLP, EyeMLPEncoder, EyeResEncoder
 
 class ResGazeNaive(nn.Module):
     def __init__(self):
@@ -95,7 +95,7 @@ def gen_geff(args, channels = None, device=None):
         face_dim = 512
         eyes_dim = face_dim // 4
         out_channel = 2
-        fussion_channel = (face_dim//2, 128, 1)
+        fussion_channel = (face_dim//2, 1)
         decoder_channel = (face_dim, 128, out_channel)
     else:
         face_dim = channels['Face']
@@ -103,25 +103,24 @@ def gen_geff(args, channels = None, device=None):
         out_channel = channels['Out']
         decoder_channel = (face_dim, 128, out_channel)
         if name == 'geff':
-            decoder_channel = (face_dim + eyes_dim * 2, 128, out_channel)
+            decoder_channel = (face_dim + eyes_dim * 2, out_channel)
             fussion_channel = channels['Fusion']
     face = ResPretrain(args)
     if name == 'fuse':
         models = {
             'Face': face,
-            'Left': EyeEncoder(dim_features=eyes_dim).to(device),
-            'Right': EyeEncoder(dim_features=eyes_dim).to(device),
+            'Left': EyeMLPEncoder(dim_features=eyes_dim).to(device),
+            'Right': EyeMLPEncoder(dim_features=eyes_dim).to(device),
             'Decoder': MLP(channels = decoder_channel).to(device),
             'Eye': EyeResEncoder(eyes_dim).to(device),
         }
     if name == 'geff':
         models = {
             'Face': face,
-            'Left': EyeEncoder(dim_features=eyes_dim).to(device),
-            'Right': EyeEncoder(dim_features=eyes_dim).to(device),
+            'Left': EyeMLPEncoder(dim_features=eyes_dim).to(device),
+            'Right': EyeMLPEncoder(dim_features=eyes_dim).to(device),
             'Eye': EyeResEncoder(eyes_dim).to(device),
-            'Extractor': MLP(channels=(face_dim, 2*eyes_dim),
-                             last_op=nn.Sequential(nn.BatchNorm1d(2*eyes_dim),nn.ReLU())).to(device),
+            'Extractor': MLP(channels=(face_dim, 2*eyes_dim)).to(device),
             'Fusion_l': MLP(channels=fussion_channel).to(device),
             'Fusion_r': MLP(channels=fussion_channel).to(device),
             'Decoder': MLP(channels=decoder_channel).to(device),
