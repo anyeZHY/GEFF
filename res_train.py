@@ -103,6 +103,9 @@ def train(args):
             torch.save(model.state_dict(), filename)
         # if args.debug:
         #     break
+        filename = 'assets/model_saved/mid:' + str(args)[10:-1] + '.pt'
+        if not args.debug and epoch==99:
+            torch.save(best_model, filename)
 
     print('Train has finished, total epoch is %d' % EPOCH)
     filename = 'assets/model_saved/' + str(args)[10:-1] + '.pt'
