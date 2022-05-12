@@ -23,7 +23,7 @@ def train(args):
 
     # ===== set hyperparameter >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     print_every = args.print_every if (not args.debug) else 1
-    EPOCH = args.epoch if (not args.debug) else 1
+    EPOCH = args.epoch if (not args.debug) else 5
     BATCH_SIZE = args.batch if (not args.debug) else 16
     LR = args.lr
     out_channel = args.out_channel
@@ -38,7 +38,7 @@ def train(args):
     dim_eyes = dim_face//4
     models = gen_geff(
         args, device=device,
-        channels={'Face':dim_face,'Out':out_channel,'Fusion':[2*dim_eyes, dim_eyes, 1]}
+        channels={'Face':dim_face,'Out':out_channel,'Fusion':[2*dim_eyes, 1]}
     )
     model = get_model(args, models, args.useres).to(device)
     # if args.debug:
@@ -61,7 +61,7 @@ def train(args):
             imgs = {name: imgs[name].to(device) for name in imgs}
             labels = labels.to(device)
             optimizer.zero_grad()
-            gaze = model(imgs, args)
+            gaze = model(imgs, args) if args.model!='geff' else model(imgs, args, cur_epoch=epoch)
             ang_loss = angular_error(gaze, labels)
             L1_loss = L1(gaze, labels.float())
             loss = ang_loss + 10 * L1_loss
@@ -101,8 +101,8 @@ def train(args):
         filename = 'assets/model_saved/' + str(args)[10:-1] + 'epoch_save={now}.pt'.format(now=epoch+1)
         if args.save_every:
             torch.save(model.state_dict(), filename)
-        if args.debug:
-            break
+        # if args.debug:
+        #     break
 
     print('Train has finished, total epoch is %d' % EPOCH)
     filename = 'assets/model_saved/' + str(args)[10:-1] + '.pt'

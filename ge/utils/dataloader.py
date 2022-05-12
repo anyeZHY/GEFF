@@ -126,7 +126,7 @@ def load_data(BATCH_SIZE, val_size=100, transform_train=None, flip=0):
     ])
 
     train_set = MPII(train_file, img_dir, transform_train, transform_eye, flip=flip)
-    val_set = MPII(val_file, img_dir, transform_val, transform_eye, flip=flip)
+    val_set = MPII(val_file, img_dir, transform_val, transform_eye, flip=0)
 
     train_loader = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
     val_loader = torch.utils.data.DataLoader(val_set, batch_size=val_size, shuffle=True)
