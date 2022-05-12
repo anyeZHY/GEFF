@@ -61,7 +61,7 @@ def train(args):
             imgs = {name: imgs[name].to(device) for name in imgs}
             labels = labels.to(device)
             optimizer.zero_grad()
-            gaze = model(imgs, args)
+            gaze = model(imgs, args) if args.model!='geff' else model(imgs, args, cur_epoch=epoch)
             ang_loss = angular_error(gaze, labels)
             L1_loss = L1(gaze, labels.float())
             loss = ang_loss + 10 * L1_loss
