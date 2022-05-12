@@ -7,9 +7,9 @@ import os
 
 def generate_loss_logs():
     logs1 = []
-    names1 = [] # store 100 training epoch
+    names1 = []  # store 100 training epoch
     logs2 = []
-    names2 = [] # store 200 training epoch
+    names2 = []  # store 200 training epoch
     path = str(Path.cwd()) + '/log/base/'
     files = os.listdir(path)
     for file in files:
