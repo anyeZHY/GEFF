@@ -98,17 +98,14 @@ def train(args):
             best_loss = sum_loss / total
             best_model = model
 
-        filename = 'assets/model_saved/' + str(args)[10:-1] + 'epoch_save={now}.pt'.format(now=epoch+1)
-        if args.save_every:
-            torch.save(model.state_dict(), filename)
         # if args.debug:
         #     break
-        filename = 'assets/model_saved/mid:' + args.name + '.pt'
+        filename = 'assets/model_saved/mid:' + args.model + args.name + '.pt'
         if not args.debug and epoch==99:
             torch.save(best_model, filename)
 
     print('Train has finished, total epoch is %d' % EPOCH)
-    filename = 'assets/model_saved/' + args.name + '.pt'
+    filename = 'assets/model_saved/' + args.model + args.name + '.pt'
     print(filename)
     if not args.debug:
         torch.save(best_model, filename)
