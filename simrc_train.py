@@ -6,7 +6,6 @@ import torch.nn as nn
 import torch.optim as optim
 from simclr.data_utils import make_transform
 from ge.utils.dataloader import load_data
-from ge.utils.make_loss import angular_error
 from ge.model.model_zoo import get_model, gen_geff
 from simclr.contrastive_loss import simclr_loss
 
