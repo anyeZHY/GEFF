@@ -1,6 +1,4 @@
-# GEFF
-
-👀 GEFF: Gaze Estimation with Fused Features
+# GEFF： Gaze Estimation with Fused Features
 
 Project of AI2611 Machine Learning, Shanghai Jiao Tong University.
 
