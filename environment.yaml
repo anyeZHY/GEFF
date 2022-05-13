@@ -1,0 +1,16 @@
+name: geff
+
+channels:
+  - pytorch
+  - conda-forge
+  - defaults
+
+dependencies:
+  - pip
+  - pytorch
+  - torchvision
+  - matplotlib
+  - numpy
+  - pandas
+  - scipy
+  - face_recognition
