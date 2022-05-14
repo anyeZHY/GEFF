@@ -1,12 +1,11 @@
-from torchvision import transforms
 import os
 import pandas as pd
 import torch
 from torch.utils.data import Dataset
 from torchvision import transforms
 import torch.utils.data
-from ge.utils.dataloader import get_img, convert_str_to_float
-
+from ge.utils.dataloader import get_img
+import matplotlib.pyplot as plt
 
 def make_transform(jitter=0.6, gray=0.2):
     color_jitter = transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)
@@ -43,30 +42,39 @@ class SimData(Dataset):
         img_face_j = self.transform(img_face)
         img_left_j = self.transform_eye(img_left)
         img_right_j = self.transform_eye(img_right)
-
         if torch.rand(1)<self.flip:
-            flip = transforms.RandomHorizontalFlip(1)
-            img_face_i = flip(img_face)
-            img_right_i, img_left_i = flip(img_left), flip(img_right)
-            img_face_j = flip(img_face)
-            img_right_j, img_left_j = flip(img_left), flip(img_right)
-
-        images_i = {'Face': img_face_i.float(),'Left': img_left_i.float(),'Right': img_right_i.float()}
-        images_j = {'Face': img_face_j.float(),'Left': img_left_j.float(),'Right': img_right_j.float()}
+            flip  = transforms.RandomHorizontalFlip(1)
+            img_face_i = flip(img_face_i)
+            img_right_i, img_left_i = flip(img_left_i), flip(img_right_i)
+            img_face_j = flip(img_face_j)
+            img_right_j, img_left_j = flip(img_left_j), flip(img_right_j)
+        images_i = {
+            'Face': img_face_i.float(),
+            'Left': img_left_i.float(),
+            'Right': img_right_i.float()
+        }
+        images_j = {
+            'Face': img_face_j.float(),
+            'Left': img_left_j.float(),
+            'Right': img_right_j.float()
+        }
 
         return images_i, images_j
 
-def load_data_sim(BATCH_SIZE=1024):
+def load_data_sim(args, BATCH_SIZE=1024):
     train_file = 'assets/MPII_train.csv'
     img_dir = 'assets/MPIIFaceGaze/Image'
 
-    transform_train = make_transform()
+    transform_train = make_transform(args.jitter, args.gray)
+
+    color_jitter = transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)
 
     transform_eye = transforms.Compose([
         transforms.ToPILImage(),
-        transforms.Resize((60, 36)),
+        transforms.Resize((36, 60)),
         transforms.ToTensor(),
         transforms.Normalize(mean=0.5071, std=0.2889),
+        transforms.RandomApply([color_jitter, ], args.jitter),
     ])
 
     train_set = SimData(train_file, img_dir, transform_train, transform_eye)
