@@ -93,7 +93,7 @@ $ python res_train.py --epoch 100 --lr 0.001 --print_every 10 \
 Train the Vanilla Fusion
 
 ```shell
-$ python res_train.py --lr 0.0005 --epoch 100 --print_every 10 --name 'MFP'
+$ python res_train.py --lr 0.001 --epoch 100 --print_every 10 --name 'MFP'
 		--model 'fuse' --wight 0.2\ 
 		--data_aug --flip 0.5 \
 		--lr_step 20 --lr_gamma 0.5 \
