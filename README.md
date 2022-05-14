@@ -17,7 +17,7 @@ The "contributions" of this project are as follows:
 ### getting start
 
 ```shell
-$ git clone --recursive https://github.com/anyeZHY/Gaze_Estimation.git
+$ git clone --recursive https://github.com/anyeZHY/GEFF.git
 $ cd Gaze_Estimation
 ```
 
