@@ -113,7 +113,7 @@ def load_data(BATCH_SIZE, val_size=100, transform_train=None, flip=0):
         ])
     transform_eye = transforms.Compose([
         transforms.ToPILImage(),
-        transforms.Resize((60, 36)),
+        transforms.Resize((36, 60)),
         transforms.ToTensor(),
         transforms.Normalize(mean=0.5071, std=0.2889),
     ])
