@@ -69,7 +69,7 @@ Then you need to crop figures for Columbia Data Set:
 $ python .py
 ```
 
-## Demo
+## Demo (update soon)
 
 We save our model at `assets/model_saved/`. You could run the demo to see the results on validation set.
 
@@ -114,34 +114,33 @@ $ python res_train.py --lr 0.0005 --epoch 200 --print_every 10 --name 'MFP'
 
 You could add command `--useres` to use ResNet as Eyes' encoder. The best model will be saved in path `assets/model_saved/`.
 
-### ColumbiaGaze
+### ColumbiaGaze (update soon)
 
 Similarly.
 
-To be continued.
-
 ### SimCLR
 
-We implement a strong augmentation for datas, especially for the images of faces. Here's some examples:
+We implement a stronger augmentation for datas, especially for the images of faces. Here's some examples:
 
 <figure align="center">
-	<img src="figs/simclr_tran.png" style="zoom:55%;" align="center"/>
+  <img src="figs/simclr_tran.png" style="zoom:55%;" align="center"/>
 	<figcaption>
 	Augmented Images
   </figcaption>
 </figure>
 
+
 Run the following command to get our pre-trained model:
 
 ```shell
-$ python simclr_train.py --tau 0.5 --epoch 500 --batch 1024
+$ python simclr_train.py --batch 256 --tau 0.5 --epoch 500 --multi_gpu
+or
+$ python simclr_train.py --batch 128 --tau 0.5 --epoch 500
 ```
 
-Large batch size and long training time matters. The training in this part could take ~50 hours.
+Since large batch size and long training time matters, we use 2 GPUs when training. This could take ~40 hours.
 
-## Result
-
-To be continued.
+## Results (update soon)
 
 ## Development Team
 

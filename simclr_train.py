@@ -15,8 +15,8 @@ def train(args):
 
     # ===== set hyperparameter >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     LR = args.lr
-    EPOCH = args.epoch if (not args.debug) else 1
-    BATCH_SIZE = args.batch if (not args.debug) else 16
+    EPOCH = args.epoch if (not args.debug) else 100
+    BATCH_SIZE = args.batch if (not args.debug) else 2
     tau = args.tau
     print(str(args)[10:-1])
 
@@ -57,13 +57,15 @@ def train(args):
                 print('[epoch:%d, iter:%d] Loss: %.03f '% (epoch + 1, (i + 1 + epoch * length), loss.item()))
             if args.debug:
                 break
+        if (epoch+1)%100==0:
+            filename = 'assets/model_saved/' + args.name + 'simclr{}.pt'.format(epoch+1)
+            print(filename)
+            if args.multi_gpu:
+                torch.save(model.module, filename)
+            else:
+                torch.save(model, filename)
     print('Train has finished, total epoch is %d' % EPOCH)
-    filename = 'assets/model_saved/'+ args.name + 'simclr.pt'
-    print(filename)
-    if args.multi_gpu:
-        torch.save(model.modulem, filename)
-    else:
-        torch.save(model, filename)
+
 
 
 if __name__ == '__main__':
