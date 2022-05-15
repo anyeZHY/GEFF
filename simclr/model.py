@@ -10,7 +10,7 @@ class SimCLR(nn.Module):
         res.fc = nn.Flatten()
         self.face_en = res
         self.eye_en = EyeResEncoder()
-        self.p_f = nn.Linear(512,512)
+        self.p_f = nn.Linear(512,512+256)
         self.p_l = nn.Linear(128,128)
         self.p_r = nn.Linear(128,128)
     def forward(self,images):

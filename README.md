@@ -4,7 +4,7 @@ Project of AI2611 Machine Learning, Shanghai Jiao Tong University.
 
 ## Introduction
 
-The report of this project is available at: [GEFF](somwhere).
+The report (PDF) of this project is available at: [GEFF](somwhere).
 
 The "contributions" of this project are as follows:
 
@@ -14,14 +14,16 @@ The "contributions" of this project are as follows:
 
 ## Installation
 
-### getting start
+### Getting start
+
+Clone our repository:
 
 ```shell
 $ git clone --recursive https://github.com/anyeZHY/GEFF.git
-$ cd Gaze_Estimation
+$ cd GEFF
 ```
 
-### Set up new environment:
+Set up a new environment:
 
 ```shell
 $ conda env create -f environment.yaml
@@ -114,9 +116,30 @@ You could add command `--useres` to use ResNet as Eyes' encoder. The best model 
 
 ### ColumbiaGaze
 
+Similarly.
+
 To be continued.
 
 ### SimCLR
+
+We implement a strong augmentation for datas, especially for the images of faces. Here's some examples:
+
+<figure align="center">
+	<img src="figs/simclr_tran.png" style="zoom:55%;" align="center"/>
+	<figcaption>
+	Augmented Images
+  </figcaption>
+</figure>
+
+Run the following command to get our pre-trained model:
+
+```shell
+$ python simclr_train.py --tau 0.5 --epoch 500 --batch 1024
+```
+
+Large batch size and long training time matters. The training in this part could take ~50 hours.
+
+## Result
 
 To be continued.
 

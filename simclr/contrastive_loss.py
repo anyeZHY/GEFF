@@ -160,7 +160,8 @@ def simclr_loss(out_left, out_right, tau, device='cuda'):
 
 def simclr_fe(f_i, l_i, r_i, f_j, l_j, r_j, tau=0.5):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    _, D = f_i.shape
+    _, D = l_i.shape
+    D *= 4
     sim_loss_fl = 0
     sim_loss_fl += simclr_loss(f_i[:, 0:D//4], l_i, tau=tau, device=device)
     sim_loss_fl += simclr_loss(f_i[:, D//4:D//2], r_i, tau=tau, device=device)

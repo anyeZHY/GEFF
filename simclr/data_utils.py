@@ -5,16 +5,19 @@ from torch.utils.data import Dataset
 from torchvision import transforms
 import torch.utils.data
 from ge.utils.dataloader import get_img
-import matplotlib.pyplot as plt
 
-def make_transform(jitter=0.6, gray=0.2):
-    color_jitter = transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)
+def make_transform(jitter=0.6, gray=0.2, blur=0.2, sharp=0.2, posterize=0.2):
+    color_jitter = transforms.ColorJitter(0.2, 0.2, 0.2, 0.1)
+    gaussian_blur = transforms.GaussianBlur(kernel_size=(3,5))
     transform = transforms.Compose([
         transforms.ToPILImage(),
         transforms.Resize((224,224)),
+        transforms.RandomPosterize(2, p=posterize),
         transforms.ToTensor(),
         transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
         transforms.RandomApply([color_jitter, ], jitter),
+        transforms.RandomApply([gaussian_blur, ], blur),
+        transforms.RandomAdjustSharpness(sharpness_factor=2, p=sharp),
         transforms.RandomGrayscale(p=gray),
     ])
     return transform
@@ -74,7 +77,8 @@ def load_data_sim(args, BATCH_SIZE=1024):
         transforms.Resize((36, 60)),
         transforms.ToTensor(),
         transforms.Normalize(mean=0.5071, std=0.2889),
-        transforms.RandomApply([color_jitter, ], args.jitter),
+        transforms.RandomApply([color_jitter, ], args.jitter/2),
+        transforms.RandomAdjustSharpness(sharpness_factor=2, p=args.sharp),
     ])
 
     train_set = SimData(train_file, img_dir, transform_train, transform_eye)
