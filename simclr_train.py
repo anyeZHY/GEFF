@@ -22,7 +22,10 @@ def train(args):
 
     # prepare dataset and preprocessing
     train_loader = load_data_sim(args, BATCH_SIZE)
-    model = SimCLR().to(device)
+    model = SimCLR()
+    if args.multi_gpu:
+        model = nn.DataParallel(model)
+    model = model.to(device)
     model.train()
 
     # ===== Model Configuration >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
@@ -55,15 +58,20 @@ def train(args):
             if args.debug:
                 break
     print('Train has finished, total epoch is %d' % EPOCH)
-    filename = 'assets/model_saved/simclr.pt'
+    filename = 'assets/model_saved/'+ args.name + 'simclr.pt'
     print(filename)
-    torch.save(model, filename)
+    if args.multi_gpu:
+        torch.save(model.modulem, filename)
+    else:
+        torch.save(model, filename)
 
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='Training Congfiguration')
 
     parser.add_argument("--debug", action="store_true", help="Train concisely and roughly")
+    parser.add_argument("--multi_gpu", action="store_true")
+    parser.add_argument("--name", default="", type=str)
 
     # hyperparameters in Trainnig part
     parser.add_argument("--lr", default=0.001, type=float)
