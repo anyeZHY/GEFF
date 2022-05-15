@@ -45,14 +45,13 @@ def train(args):
             loss_left = simclr_loss(l_i, l_j, tau=tau, device=device)
             loss_right = simclr_loss(r_i, r_j, tau=tau, device=device)
             loss_fe = simclr_fe(f_i, l_i, r_i, f_j, l_j, r_j, tau=tau)
-            print('face and eye: %.3f' % loss_fe.item())
-            print('face: %.3f, left: % .3f, right: %.3f' % (loss_face.item(), loss_left.item(), loss_right.item()))
             loss = loss_face + loss_left + loss_right + 0.5 * loss_fe
             loss.backward()
             optimizer.step()
 
             # print ac & loss in each batch
-            print('[epoch:%d, iter:%d] Loss: %.03f '% (epoch + 1, (i + 1 + epoch * length), loss.item()))
+            if i%20==0:
+                print('[epoch:%d, iter:%d] Loss: %.03f '% (epoch + 1, (i + 1 + epoch * length), loss.item()))
             if args.debug:
                 break
     print('Train has finished, total epoch is %d' % EPOCH)
