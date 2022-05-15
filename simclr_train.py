@@ -56,6 +56,8 @@ def train(args):
             if i%20==0:
                 print('[epoch:%d, iter:%d] Loss: %.03f '% (epoch + 1, (i + 1 + epoch * length), loss.item()))
             if args.debug:
+                print('face: %3f, left: %3f, right: %3f, fe: %3f'
+                      % (loss_face.item(), loss_left.item(), loss_right.item(), loss_fe.item()))
                 break
         if (epoch+1)%100==0:
             filename = 'assets/model_saved/' + args.name + 'simclr{}.pt'.format(epoch+1)
