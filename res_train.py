@@ -24,7 +24,7 @@ def train(args):
     # ===== set hyperparameter >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     print_every = args.print_every if (not args.debug) else 1
     EPOCH = args.epoch if (not args.debug) else 5
-    BATCH_SIZE = args.batch if (not args.debug) else 16
+    BATCH_SIZE = args.batch if (not args.debug) else 2
     LR = args.lr
     out_channel = args.out_channel
     print(str(args)[10:-1])
@@ -40,7 +40,7 @@ def train(args):
         args, device=device,
         channels={'Face':dim_face,'Out':out_channel,'Fusion':[2*dim_eyes, 1]}
     )
-    model = get_model(args, models, args.useres).to(device)
+    model = get_model(args, models).to(device)
     # if args.debug:
     #     print(model.face_en.state_dict().items())
     L1 = nn.SmoothL1Loss(reduction='mean')
@@ -61,10 +61,11 @@ def train(args):
             imgs = {name: imgs[name].to(device) for name in imgs}
             labels = labels.to(device)
             optimizer.zero_grad()
-            gaze = model(imgs, args) if args.model!='geff' else model(imgs, args, cur_epoch=epoch)
+            gaze = model(imgs, args.pretrain) if args.model!='geff' \
+                else model(imgs, args.name, args.pretrain, args.warm, cur_epoch=epoch)
             ang_loss = angular_error(gaze, labels)
-            L1_loss = L1(gaze, labels.float())
-            loss = ang_loss + 10 * L1_loss
+            L1_loss = L1(gaze, labels.float()) if i<10 else 0
+            loss = ang_loss + 50 * L1_loss
             loss.backward()
             optimizer.step()
 
@@ -121,19 +122,20 @@ if __name__ == '__main__':
     parser.add_argument("--out_channel", default=2, type=int)
 
     # hyperparameters in Trainnig part
-    parser.add_argument("--model", default="baseline", choices=['baseline','fuse' ,'geff'] ,type=str)
+    parser.add_argument("--model", default="baseline", choices=['baseline','fuse' ,'geff', 'simclr'] ,type=str)
     parser.add_argument("--pretrain", action="store_true")
-    parser.add_argument("--epoch", default=10, type=int)
+    parser.add_argument("--warm", default=30, type=int)
+    parser.add_argument("--epoch", default=100, type=int)
     parser.add_argument("--batch", default=128, type=int)
     parser.add_argument("--lr", default=0.001, type=float)
     parser.add_argument("--dim_face", default=512, type=int)
     parser.add_argument("--weight", default=0.2, type=float, help="Weight in Vanilla Fusion model")
-    parser.add_argument("--t", default=0.2, type=float, help="Weight in GEFF model")
+    parser.add_argument("--t", default=1, type=float, help="Weight in GEFF model")
     parser.add_argument("--useres", action="store_true", help="Use resnet as eyes' encoder")
     parser.add_argument("--data_aug", action="store_true", help="Augment data")
     parser.add_argument("--jitter", default=0.2, type=float, help="Possibility of Jitter in data transformation")
     parser.add_argument("--gray", default=0.2, type=float, help="Possibility of converting the image into a Gray one")
-    parser.add_argument("--lr_step", default=500, type=int)
+    parser.add_argument("--lr_step", default=20, type=int)
     parser.add_argument("--lr_gamma", default=0.5, type=float)
     parser.add_argument("--flip", default=0.0, type=float)
     train(parser.parse_args())
