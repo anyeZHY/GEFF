@@ -130,16 +130,18 @@ Similarly, just add `--Columbia` behind the commands above.
 
 We design the framework of SimCLR in gaze estimation task:
 
-<img src="figs/SimCLR.png" style="zoom:30%;" />
+<p align="center">
+  <img src="figs/SimCLR.png", width="40%"/></br>
+	SimCLR framework
+</p>
+
 
 We implement a stronger augmentation for datas, especially for the images of faces. Here's some examples:
 
-<figure align="center">
-  <img src="figs/simclr_tran.png" style="zoom:55%;" align="center"/>
-	<figcaption>
-	Augmented Images
-  </figcaption>
-</figure>
+<p align="center">
+  <img src="figs/simclr_tran.png", width="30%"/></br>
+	Data Augmentation
+</p>
 
 
 Run the following command to get our pre-trained model:
