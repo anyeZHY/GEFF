@@ -17,7 +17,7 @@ GEFF(models)
 
 
 class GEFF(nn.Module):
-    def __init__(self, models, t, share_eye=False, similarity=False):
+    def __init__(self, models, args, similarity=False):
         """
         Args:
             models: dictionary
@@ -31,35 +31,45 @@ class GEFF(nn.Module):
                     Why & How to fuse? Equation in Pic. => generate F_l^{fused}, F_r^{fused})
                 - decoder: D(cat(F_f, F_l^{fused}, F_r^{fused})) ==> out, to be returned
                 - eye_en: E_p. Use carefully
-           share_eye: bool. If true: use E_p!
            similarity: bool. If ture:
                                 return out, F_f^l, F_f^r, F_l, F_r, F_f
         """
         super(GEFF, self).__init__()
-        self.face_en = models['Face']
-        self.share_eye = share_eye
-        if share_eye:
+        sim = None
+        if args.name == 'simclr':
+            path = 'assets/model_saved/simclr.pt'
+            sim = torch.load(path)
+            self.face_en = sim.face_en
+        else:
+            self.face_en = models['Face']
+        self.share_eye = args.useres
+        if args.useres:
             self.eye_en = models['Eye']
+        elif args.name == 'simclr':
+            self.eye_en = sim.eye_en
         else:
             self.left_en = models['Left']
             self.right_en = models['Right']
-        self.t = t
+        self.t = args.t
         self.extractor = models['Extractor']
         self.left_fusion = models['Fusion_l']
         self.right_fusion = models['Fusion_r']
         self.decoder = models['Decoder']
 
-    def forward(self, imgs, args, similarity=False, cur_epoch=1000):
+    def forward(self, imgs, name='geff', pretrain=False, warm=30, similarity=False, cur_epoch=1000):
         faces, lefts, rights = imgs['Face'], imgs['Left'], imgs['Right']
         F_face = self.face_en(faces)
-        if args.pretrain and cur_epoch<30:
+        if (pretrain or name == 'simclr') and cur_epoch<warm:
             F_face = F_face.detach()
-        if self.share_eye:
-            F_left = self.eye_en(lefts)
-            F_right = self.eye_en(lefts)
-        else:
+        if not self.share_eye:
             F_left = self.left_en(lefts)
             F_right = self.right_en(rights)
+        else:
+            F_left = self.eye_en(lefts)
+            F_right = self.eye_en(lefts)
+            if name == 'simclr':
+                F_left = F_left.detach()
+                F_right = F_right.detach()
         F_eyes = self.extractor(F_face)
         _, D = F_eyes.shape
         F_lf = F_eyes[:, :D//2]

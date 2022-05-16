@@ -95,6 +95,23 @@ class MPII(Dataset):
         }
         return images, label.astype(float)
 
+def make_transform():
+    transform_eye = transforms.Compose([
+        transforms.ToPILImage(),
+        transforms.Resize((36, 60)),
+        transforms.ToTensor(),
+        transforms.Normalize(mean=0.5071, std=0.2889),
+    ])
+
+    transform_val = transforms.Compose([
+        transforms.ToPILImage(),
+        transforms.Resize((224, 224)),
+        transforms.ToTensor(),
+        transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
+    ])
+    return transform_eye, transform_val
+
+
 def load_data(BATCH_SIZE, val_size=100, transform_train=None, flip=0):
     # df_data = procees_data(0)
     # df_data = pd.read_pickle('assets/MPII_2D_annoataion.csv')
@@ -111,19 +128,7 @@ def load_data(BATCH_SIZE, val_size=100, transform_train=None, flip=0):
             transforms.ToTensor(),
             transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
         ])
-    transform_eye = transforms.Compose([
-        transforms.ToPILImage(),
-        transforms.Resize((36, 60)),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=0.5071, std=0.2889),
-    ])
-
-    transform_val = transforms.Compose([
-        transforms.ToPILImage(),
-        transforms.Resize((224, 224)),
-        transforms.ToTensor(),
-        transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
-    ])
+    transform_eye, transform_val = make_transform()
 
     train_set = MPII(train_file, img_dir, transform_train, transform_eye, flip=flip)
     val_set = MPII(val_file, img_dir, transform_val, transform_eye, flip=0)

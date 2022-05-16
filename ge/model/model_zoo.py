@@ -14,7 +14,7 @@ class ResGazeNaive(nn.Module):
         super().__init__()
         self.res = resnet18(num_classes=2)
 
-    def forward(self, imgs, args):
+    def forward(self, imgs, args=None):
         face = imgs['Face']
         out = self.res(face)
         return out
@@ -33,11 +33,11 @@ class Fuse(nn.Module):
         self.decoder = models['Decoder']
         self.w = weight
 
-    def forward(self, imgs, args, similarity=False):
+    def forward(self, imgs, pretrain=False, similarity=False):
         faces, lefts, rights = imgs['Face'], imgs['Left'], imgs['Right']
         # forward & backward
         F_face = self.face_en(faces)  # Feature_face
-        if args.pretrain:
+        if pretrain:
             F_face = F_face.detach()
         _, D = F_face.shape
         if self.share_eye:
@@ -56,21 +56,23 @@ class Fuse(nn.Module):
             return gaze
 
 
-def get_model(args, models=None, share_eye=False):
+def get_model(args, models=None):
     name = args.model
     if name == 'baseline':
         return ResGazeNaive()
     if name == 'geff':
-        return GEFF(models, t=args.t, share_eye=share_eye)
+        return GEFF(models, args)
     if name == 'fuse':
-        return Fuse(models, share_eye=share_eye, weight=args.weight)
+        return Fuse(models, share_eye=args.useres, weight=args.weight)
+    if name == 'simclr':
+        return GEFF(models, args)
 
 class ResPretrain(nn.Module):
     def __init__(self, args):
         super(ResPretrain, self).__init__()
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         if args.pretrain:
-            res = torch.load('assets/model_saved/baseline/BaseLr.pt', map_location=torch.device(device)).res
+            res = torch.load('assets/model_saved/MPII/BaseLr.pt', map_location=torch.device(device)).res
         else:
             res = resnet18()
         res.fc = nn.Flatten()
@@ -102,7 +104,7 @@ def gen_geff(args, channels = None, device=None):
         eyes_dim = face_dim // 4
         out_channel = channels['Out']
         decoder_channel = (face_dim, 128, out_channel)
-        if name == 'geff':
+        if name == 'geff' or name == 'simclr':
             decoder_channel = (face_dim + eyes_dim * 2, out_channel)
             fussion_channel = channels['Fusion']
     face = ResPretrain(args)
@@ -114,7 +116,7 @@ def gen_geff(args, channels = None, device=None):
             'Decoder': MLP(channels = decoder_channel).to(device),
             'Eye': EyeResEncoder(eyes_dim).to(device),
         }
-    if name == 'geff':
+    if name == 'geff' or name == 'simclr':
         models = {
             'Face': face,
             'Left': EyeMLPEncoder(dim_features=eyes_dim).to(device),
