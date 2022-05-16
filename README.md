@@ -48,7 +48,7 @@ assets
 Also you could preprocess your by following command:
 
 ```shell
-$ python gaze/utils/dataloader.py
+$ python ge/utils/dataloader.py
 ```
 
 ```shell

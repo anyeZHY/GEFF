@@ -5,9 +5,9 @@ sys.path.append(path)
 
 import torch
 import torch.nn as nn
-from gaze.model.resnet import resnet18
-from gaze.model.geff import GEFF
-from gaze.model.encoders import MLP, EyeMLPEncoder, EyeResEncoder
+from ge.model.resnet import resnet18
+from ge.model.geff import GEFF
+from ge.model.encoders import MLP, EyeMLPEncoder, EyeResEncoder
 
 class ResGazeNaive(nn.Module):
     def __init__(self):
@@ -72,7 +72,8 @@ class ResPretrain(nn.Module):
         super(ResPretrain, self).__init__()
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         if args.pretrain:
-            res = torch.load('assets/model_saved/MPII/BaseLr.pt', map_location=torch.device(device)).res
+            print('h')
+            res = torch.load('assets/model_saved/MPII/BaseLr.pt', map_location=torch.device(device))
         else:
             res = resnet18()
         res.fc = nn.Flatten()

@@ -5,9 +5,9 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from simclr.data_utils import make_transform
-from gaze.utils.dataloader import load_data
-from gaze.utils.make_loss import angular_error
-from gaze.model.model_zoo import get_model, gen_geff
+from ge.utils.dataloader import load_data
+from ge.utils.make_loss import angular_error
+from ge.model.model_zoo import get_model, gen_geff
 
 def train(args):
     """
@@ -30,8 +30,8 @@ def train(args):
     print(str(args)[10:-1])
 
     # prepare dataset and preprocessing
-    T = make_transform(jitter=args.jitter, gray=args.gray) if args.data_aug else None
-    train_loader, val_loader = load_data(BATCH_SIZE, transform_train=T, val_size=100, flip=args.flip)
+    T = make_transform(jitter=args.jitter, gray=args.gray, blur=0, sharp=0, posterize=0) if args.data_aug else None
+    train_loader, val_loader = load_data(BATCH_SIZE, transform_train=T, val_size=100, flip=args.flip, use_mask=args.mask)
 
     # ===== Model Configuration >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     dim_face = args.dim_face
@@ -133,6 +133,7 @@ if __name__ == '__main__':
     parser.add_argument("--t", default=1, type=float, help="Weight in GEFF model")
     parser.add_argument("--useres", action="store_true", help="Use resnet as eyes' encoder")
     parser.add_argument("--data_aug", action="store_true", help="Augment data")
+    parser.add_argument("--mask", action="store_true", help="Use masks on eyes")
     parser.add_argument("--jitter", default=0.2, type=float, help="Possibility of Jitter in data transformation")
     parser.add_argument("--gray", default=0.2, type=float, help="Possibility of converting the image into a Gray one")
     parser.add_argument("--lr_step", default=20, type=int)

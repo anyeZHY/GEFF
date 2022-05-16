@@ -4,7 +4,7 @@ import torch
 from torch.utils.data import Dataset
 from torchvision import transforms
 import torch.utils.data
-from gaze.utils.dataloader import get_img
+from ge.utils.dataloader import get_img
 
 def make_transform(jitter=0.6, gray=0.2, blur=0.2, sharp=0.2, posterize=0.2):
     color_jitter = transforms.ColorJitter(0.2, 0.2, 0.2, 0.1)

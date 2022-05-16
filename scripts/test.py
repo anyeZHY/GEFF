@@ -8,29 +8,16 @@ path = dirname(dirname(abspath(__file__)))
 sys.path.append(path)
 import torch
 from torchvision import transforms
-from gaze.utils.dataloader import MPII, make_transform
+from ge.utils.dataloader import MPII, make_transform
 from torch.utils.data import DataLoader
-from gaze.utils.make_loss import angular_error
+from ge.utils.make_loss import angular_error
 def get_test(BATCH_SIZE):
     # df_data = procees_data(0)
     # df_data = pd.read_pickle('assets/MPII_2D_annoataion.csv')
     train_file = 'assets/MPII_test.csv'
     img_dir = 'assets/MPIIFaceGaze/Image'
 
-    transform_eye = transforms.Compose([
-        transforms.ToPILImage(),
-        transforms.Resize((36, 60)),
-        transforms.ToTensor(),
-        transforms.Normalize(mean=0.5071, std=0.2889),
-    ])
-
-    transform_val = transforms.Compose([
-        transforms.ToPILImage(),
-        transforms.Resize((224, 224)),
-        transforms.ToTensor(),
-        transforms.Normalize((0.485, 0.456, 0.406), (0.229, 0.224, 0.225)),
-    ])
-
+    transform_eye, transform_val = make_transform()
     test_set = MPII(train_file, img_dir, transform_val, transform_eye)
 
     test_loader = DataLoader(test_set, batch_size=BATCH_SIZE, shuffle=True)

@@ -4,7 +4,7 @@ from torch.linalg import norm
 
 def yaw_pitch_to_vec(gaze: torch.Tensor):
     """
-    convert gaze = (yaw, pitch) to vector (x, y, z)
+    convert ge = (yaw, pitch) to vector (x, y, z)
     """
     N, _ = gaze.size()
     yaw = gaze[:,0].view((N,-1))

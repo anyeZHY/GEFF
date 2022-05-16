@@ -1,7 +1,6 @@
 import os
 import pandas as pd
 import numpy as np
-from PIL import Image
 import torch
 from torchvision.io import read_image, image
 from torch.utils.data import Dataset
@@ -55,19 +54,39 @@ def split_data(test_length = 1000, val_length = 5000):
     return data
 
 # ============== Data Process >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+
+def mask(face, eye):
+    shape = eye.shape
+    p = torch.rand(1)
+    if 0 < p < 0.05:
+        eye = torch.randn(shape)
+    elif 0.05 <= p < 0.2 :
+        eye = transforms.RandomCrop(shape)(face)
+    else:
+        color_jitter = transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)
+        gaussian_blur = transforms.GaussianBlur(kernel_size=(3, 5))
+        T = transforms.Compose([
+            transforms.RandomApply([color_jitter, ], 0.2),
+            transforms.RandomApply([gaussian_blur, ], 0.2),
+            transforms.RandomAdjustSharpness(sharpness_factor=2, p=0.2),
+        ])
+        eye = T(eye)
+    return eye
+
 class MPII(Dataset):
     """
     Use torch.utils.data.Dataset to process MPII dataset.
     Naive version: label is '2DGaze'.
     """
     def __init__(self, annotations_file, img_dir,
-                 transform=None, transform_eye=None, target_transform=None, flip=0):
+                 transform=None, transform_eye=None, target_transform=None, flip=0, use_mask=False):
         self.img_labels = pd.read_csv(annotations_file)
         self.img_dir = img_dir
         self.transform = transform
         self.target_transform = target_transform
         self.transform_eye = transform_eye
         self.flip = flip
+        self.mask = use_mask
 
     def __len__(self):
         return len(self.img_labels)
@@ -85,9 +104,13 @@ class MPII(Dataset):
         if self.target_transform:
             label = self.target_transform(label)
         if torch.rand(1)<self.flip:
+            flip = transforms.RandomHorizontalFlip(1)
             label[:][0] = - label[:][0]
-            img_face = transforms.RandomHorizontalFlip(1)(img_face)
-            img_right, img_left = transforms.RandomHorizontalFlip(1)(img_left), transforms.RandomHorizontalFlip(1)(img_right)
+            img_face = flip(img_face)
+            img_right, img_left = flip(img_left), flip(img_right)
+        if self.mask:
+            img_left = mask(img_face, img_left)
+            img_right = mask(img_face, img_right)
         images = {
             'Face': img_face.float(),
             'Left': img_left.float(),
@@ -112,7 +135,7 @@ def make_transform():
     return transform_eye, transform_val
 
 
-def load_data(BATCH_SIZE, val_size=100, transform_train=None, flip=0):
+def load_data(BATCH_SIZE, val_size=100, transform_train=None, flip=0, use_mask=False):
     # df_data = procees_data(0)
     # df_data = pd.read_pickle('assets/MPII_2D_annoataion.csv')
     if not os.path.isfile('assets/MPII_test.csv'):
@@ -130,7 +153,7 @@ def load_data(BATCH_SIZE, val_size=100, transform_train=None, flip=0):
         ])
     transform_eye, transform_val = make_transform()
 
-    train_set = MPII(train_file, img_dir, transform_train, transform_eye, flip=flip)
+    train_set = MPII(train_file, img_dir, transform_train, transform_eye, flip=flip, use_mask=use_mask)
     val_set = MPII(val_file, img_dir, transform_val, transform_eye, flip=0)
 
     train_loader = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)

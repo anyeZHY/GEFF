@@ -6,10 +6,10 @@ import torch
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
-from gaze.utils.Visualization import gaze_visual
+from ge.utils.Visualization import gaze_visual
 from torchvision import transforms
-from gaze.utils.dataloader import load_data
-from gaze.utils.make_loss import angular_error
+from ge.utils.dataloader import load_data
+from ge.utils.make_loss import angular_error
 import time
 
 
