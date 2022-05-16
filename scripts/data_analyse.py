@@ -6,7 +6,7 @@ sys.path.append(path)
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from ge.utils.Visualization import get_frame
+from gaze.utils.Visualization import get_frame
 
 
 def convert_str_to_float(x):

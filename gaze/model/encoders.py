@@ -4,7 +4,7 @@
 import torch
 import torch.nn as nn
 from torch import Tensor
-from ge.model.resnet import resnet18
+from gaze.model.resnet import resnet18
 
 class ResnetEncoder(nn.Module):
     def __init__(self, append_layers=None):

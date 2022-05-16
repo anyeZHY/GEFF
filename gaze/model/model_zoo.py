@@ -5,9 +5,9 @@ sys.path.append(path)
 
 import torch
 import torch.nn as nn
-from ge.model.resnet import resnet18
-from ge.model.geff import GEFF
-from ge.model.encoders import MLP, EyeMLPEncoder, EyeResEncoder
+from gaze.model.resnet import resnet18
+from gaze.model.geff import GEFF
+from gaze.model.encoders import MLP, EyeMLPEncoder, EyeResEncoder
 
 class ResGazeNaive(nn.Module):
     def __init__(self):

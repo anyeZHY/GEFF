@@ -1,8 +1,8 @@
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
-from ge.model.resnet import resnet18
-from ge.model.encoders import EyeResEncoder
+from gaze.model.resnet import resnet18
+from gaze.model.encoders import EyeResEncoder
 
 class SimCLR(nn.Module):
     def __init__(self):

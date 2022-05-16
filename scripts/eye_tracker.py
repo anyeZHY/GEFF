@@ -7,7 +7,7 @@ import torch
 import matplotlib.pyplot as plt
 import numpy as np
 from PIL import Image
-from ge.utils.Visualization import gaze_visual
+from gaze.utils.Visualization import gaze_visual
 from torchvision import transforms
 import face_recognition
 import time
