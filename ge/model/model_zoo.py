@@ -73,7 +73,7 @@ class ResPretrain(nn.Module):
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         if args.pretrain:
             print('h')
-            res = torch.load('assets/model_saved/MPII/BaseLr.pt', map_location=torch.device(device))
+            res = torch.load('assets/model_saved/MPII/BaseLr.pt', map_location=torch.device(device)).res
         else:
             res = resnet18()
         res.fc = nn.Flatten()
