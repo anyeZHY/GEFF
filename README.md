@@ -4,13 +4,13 @@ Project of AI2611 Machine Learning, Shanghai Jiao Tong University.
 
 ## Introduction
 
-The report (PDF) of this project is available at: [GEFF](somwhere).
+The report of this project is available at: [GEFF (PDF)](somewhere).
 
 The "contributions" of this project are as follows:
 
-- Transfer [PIXIE](https://github.com/YadiraF/PIXIE) model from human body reconstruction to gaze estimation. Now the features of head fuse with that of eyes. 
-- Implement [SimCLR](https://github.com/google-research/simclr) framework for training deep and complicated network.
-- Augment datas: flip the images horizontally! Swap the left eyes and the right eyes.
+- Transfer [PIXIE](https://github.com/YadiraF/PIXIE) [CVPR 2021] model from 3D human body reconstruction to gaze estimation. Now the features of head fuse with that of eyes (we call our model as GEFF).
+- Implement [SimCLR](https://github.com/google-research/simclr) [ICML 2020] framework for training deep and complicated network (Currently the SimCLR framework was adapted for GEFF).
+- Augment datas. Flip the images horizontally. Swap the left eyes and the right eyes. Use masks to generalize our model.
 
 ## Installation
 
@@ -48,7 +48,7 @@ assets
 Also you could preprocess your by following command:
 
 ```shell
-$ python ge/utils/dataloader.py
+$ python gaze/utils/dataloader.py
 ```
 
 ```shell
@@ -63,10 +63,10 @@ assets
 └── ...
 ```
 
-Then you need to crop figures for Columbia Data Set:
+Then you need to crop figures for Columbia Data Set: (~[ time ] hours)
 
 ```shell
-$ python .py
+$ python [ name ].py
 ```
 
 ## Demo (update soon)
@@ -77,7 +77,15 @@ We save our model at `assets/model_saved/`. You could run the demo to see the re
 $ python scripts/naive_res_demo.py
 ```
 
+[ gif ]
+
 ## Training Part
+
+Our GEFF architecture is similar to PIXE architecture:
+
+[ image ]
+
+The best model will be saved in path `assets/model_saved/` after running the following commands.
 
 ### MPIIGaze
 
@@ -112,13 +120,17 @@ $ python res_train.py --lr 0.0005 --epoch 200 --print_every 10 --name 'MFP'
 		--pretrain
 ```
 
-You could add command `--useres` to use ResNet as Eyes' encoder. The best model will be saved in path `assets/model_saved/`.
+You could add command `--useres` to use ResNet as Eyes' encoder.
 
 ### ColumbiaGaze (update soon)
 
-Similarly.
+Similarly, just add `--Columbia` behind the commands above.
 
 ### SimCLR
+
+We design the framework of SimCLR in gaze estimation task:
+
+<img src="figs/SimCLR.png" style="zoom:30%;" />
 
 We implement a stronger augmentation for datas, especially for the images of faces. Here's some examples:
 
@@ -138,9 +150,32 @@ or
 $ python simclr_train.py --batch 128 --tau 0.5 --epoch 500
 ```
 
-Since large batch size and long training time matters, we use 2 GPUs when training. This could take ~40 hours.
+**Note:** since large batch size and long training time matters, we use **3** GPUs when training. It may take ~**100** hours.
 
-## Results (update soon)
+Then run the following script for a quick test
+
+```shell
+$ python res_train.py --lr 0.0005 --epoch 100 --print_every 10
+		--model 'simclr' --t 1\ 
+		--data_aug --flip 0.5 \
+		--lr_step 20 --lr_gamma 0.5
+```
+
+
+
+## Results
+
+### Ablation study (update soon)
+
+[ image ]
+
+### For TAs (update soon)
+
+We provide a python file to test on the datas which are not access to students.
+
+```shell
+$ python scipts/test.py --MPII --folders 10-16
+```
 
 ## Development Team
 
