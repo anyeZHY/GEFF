@@ -61,7 +61,8 @@ def mask(face, eye):
     if 0 < p < 0.05:
         eye = torch.randn(shape)
     elif 0.05 <= p < 0.2 :
-        eye = transforms.RandomCrop(shape)(face)
+        eye = transforms.RandomCrop(shape[1:])(face)
+        eye = eye[0].reshape(1, 36 ,60)
     else:
         color_jitter = transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)
         gaussian_blur = transforms.GaussianBlur(kernel_size=(3, 5))

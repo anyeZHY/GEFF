@@ -10,14 +10,6 @@ from ge.utils.make_loss import angular_error
 from ge.model.model_zoo import get_model, gen_geff
 
 def train(args):
-    """
-    Input
-    - arg: Arguments of:
-        - epoch: Default = 10
-        - lr: Learning rate. Default = 1e-3
-        - out_channel: The size of output. Default = 2
-        - res_channels: The channels of ResNet, of shape (4, ). Default = (16, 32, 64, 128)
-    """
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(device)
 
@@ -36,6 +28,7 @@ def train(args):
     # ===== Model Configuration >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     dim_face = args.dim_face
     dim_eyes = dim_face//4
+    usebn = args.usebn or args.name == 'simclr'
     models = gen_geff(
         args, device=device,
         channels={'Face':dim_face,'Out':out_channel,'Fusion':[2*dim_eyes, 1]}
@@ -62,7 +55,7 @@ def train(args):
             labels = labels.to(device)
             optimizer.zero_grad()
             gaze = model(imgs, args.pretrain) if args.model!='geff' \
-                else model(imgs, args.name, args.pretrain, args.warm, cur_epoch=epoch)
+                else model(imgs, args.name, args.pretrain, args.warm, cur_epoch=epoch, usebn=usebn)
             ang_loss = angular_error(gaze, labels)
             L1_loss = L1(gaze, labels.float()) if i<10 else 0
             loss = ang_loss + 50 * L1_loss
@@ -102,7 +95,7 @@ def train(args):
         # if args.debug:
         #     break
         filename = 'assets/model_saved/mid:' + args.model + args.name + '.pt'
-        if not args.debug and epoch==99:
+        if not args.debug and epoch==EPOCH//2:
             torch.save(best_model, filename)
 
     print('Train has finished, total epoch is %d' % EPOCH)
@@ -123,15 +116,18 @@ if __name__ == '__main__':
 
     # hyperparameters in Trainnig part
     parser.add_argument("--model", default="baseline", choices=['baseline','fuse' ,'geff', 'simclr'] ,type=str)
-    parser.add_argument("--pretrain", action="store_true")
     parser.add_argument("--warm", default=30, type=int)
     parser.add_argument("--epoch", default=100, type=int)
     parser.add_argument("--batch", default=128, type=int)
     parser.add_argument("--lr", default=0.001, type=float)
+
     parser.add_argument("--dim_face", default=512, type=int)
     parser.add_argument("--weight", default=0.2, type=float, help="Weight in Vanilla Fusion model")
     parser.add_argument("--t", default=1, type=float, help="Weight in GEFF model")
     parser.add_argument("--useres", action="store_true", help="Use resnet as eyes' encoder")
+    parser.add_argument("--usebn", action="store_true", help="Use BatchNorm in GEFF")
+    parser.add_argument("--pretrain", action="store_true")
+
     parser.add_argument("--data_aug", action="store_true", help="Augment data")
     parser.add_argument("--mask", action="store_true", help="Use masks on eyes")
     parser.add_argument("--jitter", default=0.2, type=float, help="Possibility of Jitter in data transformation")

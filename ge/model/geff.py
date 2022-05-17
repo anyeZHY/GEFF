@@ -17,7 +17,7 @@ GEFF(models)
 
 
 class GEFF(nn.Module):
-    def __init__(self, models, args, similarity=False):
+    def __init__(self, models, args):
         """
         Args:
             models: dictionary
@@ -31,8 +31,6 @@ class GEFF(nn.Module):
                     Why & How to fuse? Equation in Pic. => generate F_l^{fused}, F_r^{fused})
                 - decoder: D(cat(F_f, F_l^{fused}, F_r^{fused})) ==> out, to be returned
                 - eye_en: E_p. Use carefully
-           similarity: bool. If ture:
-                                return out, F_f^l, F_f^r, F_l, F_r, F_f
         """
         super(GEFF, self).__init__()
         sim = None
@@ -54,9 +52,12 @@ class GEFF(nn.Module):
         self.extractor = models['Extractor']
         self.left_fusion = models['Fusion_l']
         self.right_fusion = models['Fusion_r']
+        if args.usebn:
+            dim_f = args.dim_face
+            self.bn = nn.Sequential(nn.BatchNorm1d(dim_f + dim_f//2), nn.ReLU())
         self.decoder = models['Decoder']
 
-    def forward(self, imgs, name='geff', pretrain=False, warm=30, similarity=False, cur_epoch=1000):
+    def forward(self, imgs, name='geff', pretrain=False, warm=30, usebn=False, cur_epoch=1000):
         faces, lefts, rights = imgs['Face'], imgs['Left'], imgs['Right']
         F_face = self.face_en(faces)
         if (pretrain or name == 'simclr') and cur_epoch<warm:
@@ -81,8 +82,7 @@ class GEFF(nn.Module):
         F_lfused = F_left * (1-w_l) + F_lf * w_l
         F_rfused = F_right * (1-w_r) + F_rf * w_r
         features = torch.cat((F_face, F_lfused, F_rfused), dim=1)
+        if usebn:
+            features = self.bn(features)
         gaze = self.decoder(features)
-        if similarity:
-            return gaze, F_lf, F_rf, F_left, F_right, F_face
-        else:
-            return gaze
+        return gaze
