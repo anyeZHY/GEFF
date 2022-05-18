@@ -54,7 +54,7 @@ def generate_columbia_cut_set(data_load_folder, data_save_folder, required_size,
 
 if __name__ == '__main__':
     size = [224, 224]
-    data_folder = str(Path.cwd().parent.parent)+'/assets/ColumbiaGazeDataSet'
-    save_folder = str(Path.cwd().parent.parent)+'/assets/ColumbiaGazeCutSet'
-    err_log_path = str(Path.cwd().parent.parent) + '/assets/face_cut_err_log.txt'
+    data_folder = str(Path.cwd())+'/assets/ColumbiaGazeDataSet'
+    save_folder = str(Path.cwd())+'/assets/ColumbiaGazeCutSet'
+    err_log_path = str(Path.cwd()) + '/assets/face_cut_err_log.txt'
     generate_columbia_cut_set(data_folder, save_folder, size, err_log_path)
