@@ -14,7 +14,7 @@ import time
 
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-model = torch.load(path + '/assets/model_saved/baseline/BaseLr.pt', map_location=torch.device(device))
+model = torch.load(path + '/assets/model_saved/MPII/BaseLr.pt', map_location=torch.device(device))
 model.eval()
 
 transform = transforms.Compose([
