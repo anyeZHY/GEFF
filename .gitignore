@@ -9,7 +9,7 @@ ColumbiaGazeCutSet/
 *.out
 *.err
 assets/model_saved/
-ge/tutorials/
+gaze/tutorials/
 Log/old/
 
 # MAC OS

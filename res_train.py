@@ -5,9 +5,9 @@ import torch
 import torch.nn as nn
 import torch.optim as optim
 from simclr.data_utils import make_transform
-from ge.utils.dataloader import load_data
-from ge.utils.make_loss import angular_error
-from ge.model.model_zoo import get_model, gen_geff
+from gaze.utils.dataloader import load_data
+from gaze.utils.make_loss import angular_error
+from gaze.model.model_zoo import get_model, gen_geff
 
 def train(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -23,7 +23,7 @@ def train(args):
 
     # prepare dataset and preprocessing
     T = make_transform(jitter=args.jitter, gray=args.gray, blur=0, sharp=0, posterize=0) if args.data_aug else None
-    train_loader, val_loader = load_data(BATCH_SIZE, transform_train=T, val_size=100, flip=args.flip, use_mask=args.mask)
+    train_loader, val_loader = load_data(args, BATCH_SIZE, transform_train=T, val_size=100, flip=args.flip)
 
     # ===== Model Configuration >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     dim_face = args.dim_face
@@ -116,6 +116,7 @@ if __name__ == '__main__':
 
     # hyperparameters in Trainnig part
     parser.add_argument("--model", default="baseline", choices=['baseline','fuse' ,'geff', 'simclr'] ,type=str)
+    parser.add_argument("--dataset", default="mpii", choices=['mpii','columbia'] ,type=str)
     parser.add_argument("--warm", default=30, type=int)
     parser.add_argument("--epoch", default=100, type=int)
     parser.add_argument("--batch", default=128, type=int)

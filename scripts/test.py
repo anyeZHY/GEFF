@@ -8,9 +8,9 @@ path = dirname(dirname(abspath(__file__)))
 sys.path.append(path)
 import torch
 from torchvision import transforms
-from ge.utils.dataloader import MPII, make_transform
+from gaze.utils.dataloader import MPII, make_transform
 from torch.utils.data import DataLoader
-from ge.utils.make_loss import angular_error
+from gaze.utils.make_loss import angular_error
 def get_test(BATCH_SIZE):
     # df_data = procees_data(0)
     # df_data = pd.read_pickle('assets/MPII_2D_annoataion.csv')
