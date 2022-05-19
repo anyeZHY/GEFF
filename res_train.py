@@ -42,6 +42,7 @@ def train(args):
 
     best_model = None
     best_loss = math.inf
+    loss_log = []
 
     for epoch in range(0, EPOCH):
         print('\nEpoch: %d' % (epoch + 1))
@@ -88,6 +89,7 @@ def train(args):
                 if args.debug:
                     break
         print('Test\'s loss is: %.03f' % (sum_loss/total))
+        loss_log.append(sum_loss/total)
         if best_loss > sum_loss/total:
             best_loss = sum_loss / total
             best_model = model
@@ -101,6 +103,7 @@ def train(args):
     print('Train has finished, total epoch is %d' % EPOCH)
     filename = 'assets/model_saved/' + args.model + args.name + '.pt'
     print(filename)
+    print('test loss:', loss_log)
     print('best loss:',best_loss)
     if not args.debug:
         torch.save(best_model, filename)
