@@ -38,7 +38,7 @@ def train(args):
     #     print(model.face_en.state_dict().items())
     L1 = nn.SmoothL1Loss(reduction='mean')
     optimizer = optim.Adam(model.parameters(), lr=LR)
-    scheduler = optim.lr_scheduler.StepLR(optimizer, step_size=args.lr_step, gamma=args.lr_gamma)
+    scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=args.lr_gamma)
 
     best_model = None
     best_loss = math.inf
@@ -57,7 +57,7 @@ def train(args):
             gaze = model(imgs, args.pretrain) if args.model!='geff' \
                 else model(imgs, args.name, args.pretrain, args.warm, cur_epoch=epoch, usebn=usebn)
             ang_loss = angular_error(gaze, labels)
-            L1_loss = L1(gaze, labels.float()) if i<10 else 0
+            L1_loss = L1(gaze, labels.float()) if epoch<1 else 0
             loss = ang_loss + 50 * L1_loss
             loss.backward()
             optimizer.step()
@@ -101,6 +101,7 @@ def train(args):
     print('Train has finished, total epoch is %d' % EPOCH)
     filename = 'assets/model_saved/' + args.model + args.name + '.pt'
     print(filename)
+    print('best loss:',best_loss)
     if not args.debug:
         torch.save(best_model, filename)
 
@@ -118,7 +119,7 @@ if __name__ == '__main__':
     parser.add_argument("--model", default="baseline", choices=['baseline','fuse' ,'geff', 'simclr'] ,type=str)
     parser.add_argument("--dataset", default="mpii", choices=['mpii','columbia'] ,type=str)
     parser.add_argument("--warm", default=30, type=int)
-    parser.add_argument("--epoch", default=100, type=int)
+    parser.add_argument("--epoch", default=20, type=int)
     parser.add_argument("--batch", default=128, type=int)
     parser.add_argument("--lr", default=0.001, type=float)
 

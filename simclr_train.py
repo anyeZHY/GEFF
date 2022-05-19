@@ -48,7 +48,7 @@ def train(args):
             loss_left = simclr_loss(l_i, l_j, tau=tau, device=device)
             loss_right = simclr_loss(r_i, r_j, tau=tau, device=device)
             loss_fe = simclr_fe(f_i, l_i, r_i, f_j, l_j, r_j, tau=tau)
-            loss = loss_face + loss_left + loss_right + 0.5 * loss_fe
+            loss = loss_face + loss_left + loss_right + 0.2 * loss_fe
             loss.backward()
             optimizer.step()
 
