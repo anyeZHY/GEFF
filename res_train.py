@@ -151,7 +151,7 @@ if __name__ == '__main__':
     parser = make_parser()
     print(print(str(parser.parse_args())[10:-1]))
     losses = []
-    for i in range(9):
+    for i in range(10):
         print('person\'s ID: {}'.format(i))
         losses.append(train(parser.parse_args(), device=device, person_id=i))
     print(losses)
