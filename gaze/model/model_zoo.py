@@ -101,7 +101,7 @@ def gen_geff(args, channels = None, device=None):
         face_dim = 512
         eyes_dim = face_dim // 4
         out_channel = 2
-        fussion_channel = (face_dim//2, 1)
+        fussion_channel = (face_dim + eyes_dim, 1)
         decoder_channel = (face_dim, 128, out_channel)
     else:
         face_dim = channels['Face']

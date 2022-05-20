@@ -30,6 +30,7 @@ def split_mpii(id: int):
     """
     Split/resplit the data into training set, validation set and test set.
     """
+    print("Loading Data...")
     train = pd.DataFrame(columns=colomn)
     val = pd.DataFrame(columns=colomn)
     for i_label in range(10):
@@ -46,11 +47,10 @@ def split_mpii(id: int):
             train = pd.concat([train, df])
     train= train[colomn].sample(frac = 1).reset_index(drop=True)
     val= val[colomn].sample(frac = 1).reset_index(drop=True)
-    train.to_csv('assets/MPII_train.csv')
-    val.to_csv('assets/MPII_val.csv')
-
-    print("Done")
-    print("path: assets/MPII_xxx.csv")
+    # train.to_csv('assets/MPII_train.csv')
+    # val.to_csv('assets/MPII_val.csv')
+    print("Done!")
+    return train, val
 
 # ============== Data Process >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -80,7 +80,7 @@ class MPII(Dataset):
     """
     def __init__(self, annotations_file, img_dir,
                  transform=None, transform_eye=None, target_transform=None, flip=0, use_mask=False):
-        self.img_labels = pd.read_csv(annotations_file)
+        self.img_labels = annotations_file
         self.img_dir = img_dir
         self.transform = transform
         self.target_transform = target_transform
@@ -138,10 +138,9 @@ def make_transform():
 def load_data(args, BATCH_SIZE, val_size=128, transform_train=None, flip=0, person_id=9):
     use_mask = args.mask
     train_file, val_file, img_dir = 'assets/', 'assets/', 'assets/'
+    train, val = None, None
     if args.dataset == 'mpii':
-        split_mpii(person_id)
-        train_file += 'MPII_train.csv'
-        val_file += 'MPII_val.csv'
+        train, val = split_mpii(person_id)
         img_dir += 'MPIIFaceGaze/Image'
     else:
         pass
@@ -154,8 +153,8 @@ def load_data(args, BATCH_SIZE, val_size=128, transform_train=None, flip=0, pers
         ])
     transform_eye, transform_val = make_transform()
 
-    train_set = MPII(train_file, img_dir, transform_train, transform_eye, flip=flip, use_mask=use_mask)
-    val_set = MPII(val_file, img_dir, transform_val, transform_eye, flip=0)
+    train_set = MPII(train, img_dir, transform_train, transform_eye, flip=flip, use_mask=use_mask)
+    val_set = MPII(val, img_dir, transform_val, transform_eye, flip=0)
 
     train_loader = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
     val_loader = torch.utils.data.DataLoader(val_set, batch_size=val_size, shuffle=True)

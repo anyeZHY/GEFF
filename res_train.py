@@ -30,7 +30,7 @@ def train(args, person_id=9, device='cuda'):
     usebn = args.usebn or args.name == 'simclr'
     models = gen_geff(
         args, device=device,
-        channels={'Face':dim_face,'Out':out_channel,'Fusion':[2*dim_eyes, 1]}
+        channels={'Face':dim_face,'Out':out_channel,'Fusion':[dim_face + dim_eyes, 1]}
     )
     model = get_model(args, models).to(device)
     # if args.debug:
@@ -152,7 +152,7 @@ if __name__ == '__main__':
     print(print(str(parser.parse_args())[10:-1]))
     losses = []
     for i in range(10):
-        print('person\'s ID: {}'.format(i))
+        print('\n===== person\'s ID: {} >>>>>>'.format(i))
         losses.append(train(parser.parse_args(), device=device, person_id=i))
     print(losses)
     print(torch.mean(losses).item())
