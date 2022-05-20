@@ -19,6 +19,21 @@ class ResGazeNaive(nn.Module):
         out = self.res(face)
         return out
 
+class FENaive(nn.Module):
+    def __init__(self):
+        super(FENaive, self).__init__()
+        self.res = resnet18(pretrained=True)
+        self.res.fc = nn.Flatten()
+        self.left = MLP((60*36, 1024, 128), last_op=nn.Sequential(nn.BatchNorm1d(128), nn.ReLU()))
+        self.right = MLP((60*36, 1024, 128), last_op=nn.Sequential(nn.BatchNorm1d(128), nn.ReLU()))
+        self.fc = nn.Linear(128*2+512, 2)
+    def forward(self, imgs, args=None):
+        faces, lefts, rights = imgs['Face'], torch.flatten(imgs['Left'], 1), torch.flatten(imgs['Right'], 1)
+        F_f = self.res(faces)
+        F_l = self.left(lefts)
+        F_r = self.right(rights)
+        out = torch.cat([F_l, F_r, F_f], dim=1)
+        return self.fc(out)
 
 class Fuse(nn.Module):
     def __init__(self, models, weight=0.2, share_eye=False):
@@ -58,6 +73,8 @@ class Fuse(nn.Module):
 
 def get_model(args, models=None):
     name = args.model
+    if name == 'febase':
+        return FENaive()
     if name == 'baseline':
         return ResGazeNaive()
     if name == 'geff':

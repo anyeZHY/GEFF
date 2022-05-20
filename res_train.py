@@ -9,21 +9,20 @@ from gaze.utils.dataloader import load_data
 from gaze.utils.make_loss import angular_error
 from gaze.model.model_zoo import get_model, gen_geff
 
-def train(args):
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    print(device)
+def train(args, person_id=9, device='cuda'):
+
 
     # ===== set hyperparameter >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     print_every = args.print_every if (not args.debug) else 1
-    EPOCH = args.epoch if (not args.debug) else 5
+    EPOCH = args.epoch if (not args.debug) else 1
     BATCH_SIZE = args.batch if (not args.debug) else 2
     LR = args.lr
     out_channel = args.out_channel
-    print(str(args)[10:-1])
+
 
     # prepare dataset and preprocessing
     T = make_transform(jitter=args.jitter, gray=args.gray, blur=0, sharp=0, posterize=0) if args.data_aug else None
-    train_loader, val_loader = load_data(args, BATCH_SIZE, transform_train=T, val_size=100, flip=args.flip)
+    train_loader, val_loader = load_data(args, BATCH_SIZE, transform_train=T, val_size=BATCH_SIZE, flip=args.flip, person_id=person_id)
 
     # ===== Model Configuration >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     dim_face = args.dim_face
@@ -38,7 +37,7 @@ def train(args):
     #     print(model.face_en.state_dict().items())
     L1 = nn.SmoothL1Loss(reduction='mean')
     optimizer = optim.Adam(model.parameters(), lr=LR)
-    scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=args.lr_gamma)
+    # scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=args.lr_gamma)
 
     best_model = None
     best_loss = math.inf
@@ -58,22 +57,23 @@ def train(args):
             gaze = model(imgs, args.pretrain) if args.model!='geff' \
                 else model(imgs, args.name, args.pretrain, args.warm, cur_epoch=epoch, usebn=usebn)
             ang_loss = angular_error(gaze, labels)
-            L1_loss = L1(gaze, labels.float()) if epoch<1 else 0
-            loss = ang_loss + 50 * L1_loss
+            L1_loss = L1(gaze, labels.float())
+            loss = L1_loss
             loss.backward()
             optimizer.step()
 
             # print ac & loss in each batch
             if (i+1+epoch*length)%print_every == 0:
-                print('[epoch:%d, iter:%d] Loss: %.03f '
-                    % (epoch + 1, (i + 1 + epoch * length), loss.item()))
+                print('[epoch:%d, iter:%d] L1Loss: %.05f AngularLoss: %.05f'
+                    % (epoch + 1, (i + 1 + epoch * length), L1_loss.item(), ang_loss.item()))
             if args.debug:
                 break
-        scheduler.step()
+        # scheduler.step()
         # ===== Evaluation >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
         print('Waiting Test...')
         model.eval()
-        sum_loss = 0
+        aug_loss = 0
+        L1_loss = 0
         total = 0
         with torch.no_grad():
             for data in val_loader:
@@ -85,13 +85,14 @@ def train(args):
 
                 loss = angular_error(gaze, labels.float())
                 # loss = criterion(yaw_pitch_to_vec(F_face), yaw_pitch_to_vec(labels.float()))
-                sum_loss += loss.item() * (labels.size(0))
+                aug_loss += loss.item() * (labels.size(0))
+                L1_loss += L1(gaze, labels.float()) * (labels.size(0))
                 if args.debug:
                     break
-        print('Test\'s loss is: %.03f' % (sum_loss/total))
-        loss_log.append(sum_loss/total)
-        if best_loss > sum_loss/total:
-            best_loss = sum_loss / total
+        print('Test\'s AngularLoss is: %.03f' % (aug_loss/total))
+        loss_log.append(aug_loss/total)
+        if best_loss > aug_loss/total:
+            best_loss = aug_loss / total
             best_model = model
 
         # if args.debug:
@@ -102,14 +103,16 @@ def train(args):
 
     print('Train has finished, total epoch is %d' % EPOCH)
     filename = 'assets/model_saved/' + args.model + args.name + '.pt'
+    filename_final = 'assets/model_saved/final' + args.model + args.name + '.pt'
     print(filename)
     print('test loss:', loss_log)
     print('best loss:',best_loss)
     if not args.debug:
         torch.save(best_model, filename)
+        torch.save(model, filename_final)
+    return best_loss
 
-
-if __name__ == '__main__':
+def make_parser():
     parser = argparse.ArgumentParser(description='Training Congfiguration')
 
     parser.add_argument("--name", default="Name", type=str, help='Config File names')
@@ -119,12 +122,14 @@ if __name__ == '__main__':
     parser.add_argument("--out_channel", default=2, type=int)
 
     # hyperparameters in Trainnig part
-    parser.add_argument("--model", default="baseline", choices=['baseline','fuse' ,'geff', 'simclr'] ,type=str)
-    parser.add_argument("--dataset", default="mpii", choices=['mpii','columbia'] ,type=str)
+    parser.add_argument("--model", default="baseline", choices=['baseline', 'fuse', 'geff', 'febase', 'simclr'],
+                        type=str)
+    parser.add_argument("--dataset", default="mpii", choices=['mpii', 'columbia'], type=str)
     parser.add_argument("--warm", default=30, type=int)
     parser.add_argument("--epoch", default=20, type=int)
     parser.add_argument("--batch", default=128, type=int)
     parser.add_argument("--lr", default=0.001, type=float)
+    parser.add_argument("--lamda", default=0.1, type=float)
 
     parser.add_argument("--dim_face", default=512, type=int)
     parser.add_argument("--weight", default=0.2, type=float, help="Weight in Vanilla Fusion model")
@@ -137,7 +142,17 @@ if __name__ == '__main__':
     parser.add_argument("--mask", action="store_true", help="Use masks on eyes")
     parser.add_argument("--jitter", default=0.2, type=float, help="Possibility of Jitter in data transformation")
     parser.add_argument("--gray", default=0.2, type=float, help="Possibility of converting the image into a Gray one")
-    parser.add_argument("--lr_step", default=20, type=int)
-    parser.add_argument("--lr_gamma", default=0.5, type=float)
     parser.add_argument("--flip", default=0.0, type=float)
-    train(parser.parse_args())
+    return parser
+
+if __name__ == '__main__':
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    print(device)
+    parser = make_parser()
+    print(print(str(parser.parse_args())[10:-1]))
+    losses = []
+    for i in range(9):
+        print('person\'s ID: {}'.format(i))
+        losses.append(train(parser.parse_args(), device=device, person_id=i))
+    print(losses)
+    print(torch.mean(losses).item())

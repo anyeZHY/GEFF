@@ -25,9 +25,14 @@ def get_img(dir, path, mode='rgb'):
         return read_image(path, mode=image.ImageReadMode.GRAY)
 
 # ============== Process .label >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-def get_mpii(begin, end):
-    data = pd.DataFrame(columns=colomn)
-    for i_label in range(begin, end+1):
+
+def split_mpii(id: int):
+    """
+    Split/resplit the data into training set, validation set and test set.
+    """
+    train = pd.DataFrame(columns=colomn)
+    val = pd.DataFrame(columns=colomn)
+    for i_label in range(10):
         labelpath = datapath + 'Label/p' + str(i_label).zfill(2) + '.label'
         df = pd.read_table(labelpath, delimiter=' ')
         df = df[colomn]
@@ -35,25 +40,17 @@ def get_mpii(begin, end):
             for col in ['Face', 'Left', 'Right']:
                 facepath = df[col][i_pic].replace('\\','/')
                 df[col][i_pic] = facepath
-        data = pd.concat([data, df])
-    data = data[colomn].sample(frac = 1).reset_index(drop=True)
-    return data
+        if i_label == id:
+            val = pd.concat([val, df])
+        else:
+            train = pd.concat([train, df])
+    train= train[colomn].sample(frac = 1).reset_index(drop=True)
+    val= val[colomn].sample(frac = 1).reset_index(drop=True)
+    train.to_csv('assets/MPII_train.csv')
+    val.to_csv('assets/MPII_val.csv')
 
-def split_mpii():
-    """
-    Split/resplit the data into training set, validation set and test set.
-    Nota Bene: we will shuffle the dataset first.
-    """
-    train, val, test = 5, 7, 9
-    data = get_mpii(0, train)
-    data.to_csv('assets/MPII_train.csv')
-    data = get_mpii(train + 1, val)
-    data.to_csv('assets/MPII_val.csv')
-    data = get_mpii(val + 1, test)
-    data.to_csv('assets/MPII_test.csv')
     print("Done")
     print("path: assets/MPII_xxx.csv")
-    return data
 
 # ============== Data Process >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 
@@ -138,12 +135,11 @@ def make_transform():
     return transform_eye, transform_val
 
 
-def load_data(args, BATCH_SIZE, val_size=128, transform_train=None, flip=0):
+def load_data(args, BATCH_SIZE, val_size=128, transform_train=None, flip=0, person_id=9):
     use_mask = args.mask
     train_file, val_file, img_dir = 'assets/', 'assets/', 'assets/'
     if args.dataset == 'mpii':
-        if not os.path.isfile('assets/MPII_test.csv'):
-            split_mpii()
+        split_mpii(person_id)
         train_file += 'MPII_train.csv'
         val_file += 'MPII_val.csv'
         img_dir += 'MPIIFaceGaze/Image'
@@ -166,4 +162,4 @@ def load_data(args, BATCH_SIZE, val_size=128, transform_train=None, flip=0):
     return train_loader, val_loader
 
 if __name__ == '__main__':
-    split_mpii()
+    split_mpii(9)
