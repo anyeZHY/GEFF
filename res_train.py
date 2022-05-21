@@ -155,4 +155,4 @@ if __name__ == '__main__':
         print('\n===== person\'s ID: {} >>>>>>'.format(i))
         losses.append(train(parser.parse_args(), device=device, person_id=i))
     print(losses)
-    print(torch.mean(losses).item())
+    print('AvgLoss:' ,torch.mean(torch.Tensor(losses)).item())
