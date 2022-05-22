@@ -70,9 +70,10 @@ We save our model at `assets/model_saved/`. You could run the demo to see the re
 $ python scripts/gaze_demo.py
 ```
 
+The GIF will be saved at `figs/gaze_demo.gif`:
+
 <p align="center">
   <img src="figs/gaze_demo.gif", width="60%"/></br>
-	A Simple Demo
 </p>
 
 ## Model Selection & Training Part
