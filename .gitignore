@@ -10,7 +10,7 @@ ColumbiaGazeCutSet/
 *.err
 assets/model_saved/
 gaze/tutorials/
-Log/old/
+logs/old/
 
 # MAC OS
 .DS_Store
