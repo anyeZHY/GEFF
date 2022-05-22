@@ -8,9 +8,6 @@ from torchvision import transforms
 # from sklearn.utils import shuffle
 import torch.utils.data
 
-datapath = 'assets/MPIIFaceGaze/'
-column = ['Face', 'Left', 'Right', '3DGaze', '2DGaze', '3DHead', '2DHead']
-
 
 # ============== Useful functions >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 def convert_str_to_float(string):
@@ -33,11 +30,13 @@ def split_mpii(id: int):
     """
     Split/resplit the data into training set, validation set and test set.
     """
-    print("Loading Data...")
+    print("Loading MPII...")
+    column = ['Face', 'Left', 'Right', '3DGaze', '2DGaze', '3DHead', '2DHead']
+    data_path = 'assets/MPIIFaceGaze/'
     train = pd.DataFrame(columns=column)
     val = pd.DataFrame(columns=column)
     for i_label in range(10):
-        labelpath = datapath + 'Label/p' + str(i_label).zfill(2) + '.label'
+        labelpath = data_path + 'Label/p' + str(i_label).zfill(2) + '.label'
         df = pd.read_table(labelpath, delimiter=' ')
         df = df[column]
         for i_pic in range(len(df)):
@@ -56,32 +55,29 @@ def split_mpii(id: int):
     return train, val
 
 
-# ============== Process ColumbiaDataCutSet >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
+# ============== Process ColumbiaDataCutSet >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 def split_columbia(id: int):
     """
     Split/re-split the data into training set, validation set and test set.
     """
-    print("Loading Data...")
+    print("Loading Columbia...")
+    column = ['Face', 'Left', 'Right', '2DGaze']
+    data_path = 'assets/MPIIFaceGaze/'
     train = pd.DataFrame(columns=column)
     val = pd.DataFrame(columns=column)
     for i_label in range(10):
-        labelpath = datapath + 'Label/p' + str(i_label).zfill(2) + '.label'
+        labelpath = data_path + 'Label/p' + str(i_label).zfill(2) + '.label'
         df = pd.read_table(labelpath, delimiter=' ')
         df = df[column]
-        for i_pic in range(len(df)):
-            for col in ['Face', 'Left', 'Right']:
-                facepath = df[col][i_pic].replace('\\', '/')
-                df[col][i_pic] = facepath
+        print(df)
         if i_label == id:
             val = pd.concat([val, df])
         else:
             train = pd.concat([train, df])
-    print(val)
-    print(train)
     train = train[column].sample(frac=1).reset_index(drop=True)
     val = val[column].sample(frac=1).reset_index(drop=True)
-    print(val)
-    print(train)
+    # print(val)
+    # print(train)
     print("Done!")
     return train, val
 
