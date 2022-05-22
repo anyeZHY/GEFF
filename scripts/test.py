@@ -12,8 +12,6 @@ from gaze.utils.dataloader import MPII, make_transform
 from torch.utils.data import DataLoader
 from gaze.utils.make_loss import angular_error
 def get_test(BATCH_SIZE):
-    # df_data = procees_data(0)
-    # df_data = pd.read_pickle('assets/MPII_2D_annoataion.csv')
     train_file = 'assets/MPII_test.csv'
     img_dir = 'assets/MPIIFaceGaze/Image'
 
@@ -24,7 +22,7 @@ def get_test(BATCH_SIZE):
     return test_loader
 
 
-def test(path='assets/model_saved/MPII/geffMFP.pt'):
+def test(path='assets/model_saved/MPII/geffmf.pt'):
     print(path)
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     BATCH_SIZE = 100
@@ -43,6 +41,6 @@ def test(path='assets/model_saved/MPII/geffMFP.pt'):
         sum_loss += loss.item() * (labels.size(0))
     print('Test\'s loss is: %.03f' % (sum_loss/total))
 
-test()
-test('assets/model_saved/MPII/fuseMFP.pt')
-test('assets/model_saved/MPII/BaseLr.pt')
+test('assets/model_saved/MPII/geffmf.pt')
+test('assets/model_saved/MPII/fusemf.pt')
+test('assets/model_saved/MPII/base.pt')

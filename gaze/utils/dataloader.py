@@ -136,10 +136,10 @@ def make_transform():
 
 
 def load_data(args, BATCH_SIZE, val_size=128, transform_train=None, flip=0, person_id=9):
-    use_mask = args.mask
+    use_mask = False if args is None else args.mask
     train_file, val_file, img_dir = 'assets/', 'assets/', 'assets/'
     train, val = None, None
-    if args.dataset == 'mpii':
+    if args is None or args.dataset == 'mpii':
         train, val = split_mpii(person_id)
         img_dir += 'MPIIFaceGaze/Image'
     else:
