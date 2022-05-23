@@ -170,6 +170,12 @@ We provide a python file to test on the datas which are not access to students.
 $ python scipts/[updata soon].py --MPII --folders 10-16
 ```
 
+## Acknowledgement
+
+We drew our inspirations from the papers [PIXIE](https://github.com/YadiraF/PIXIE) & [SimCLR](https://github.com/google-research/simclr) and the course [CS231n, Stanford University](http://cs231n.stanford.edu).
+
+The computations in this paper were run on the cluster supported by the high-performance computing platform of SJTU Student Innovation Center.
+
 ## Development Team
 
 - Haoyu Zhen: [@**anyeZHY**](https://github.com/anyeZHY)

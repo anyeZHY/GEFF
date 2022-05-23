@@ -1,5 +1,6 @@
-# Assigment from CS231n, Stanford
-# Completed by myself
+# Assignment from CS231n, Stanford
+# Completed by ** MYSELF **
+# https://github.com/anyeZHY/2021-CS231n/blob/main/assignment%203/cs231n/simclr/contrastive_loss.py
 
 import torch
 import numpy as np
@@ -16,19 +17,8 @@ def sim(z_i, z_j):
     - A scalar value that is the normalized dot product between z_i and z_j.
     """
     norm_dot_product = None
-    ##############################################################################
-    # TODO: Start of your code.                                                  #
-    #                                                                            #
-    # HINT: torch.linalg.norm might be helpful.                                  #
-    ##############################################################################
-    
     z_i, z_j = z_i / torch.linalg.norm(z_i), z_j / torch.linalg.norm(z_j)
     norm_dot_product = torch.sum(z_i * z_j)
-    
-    ##############################################################################
-    #                               END OF YOUR CODE                             #
-    ##############################################################################
-    
     return norm_dot_product
 
 
@@ -44,27 +34,11 @@ def sim_positive_pairs(out_left, out_right):
     Returns:
     - A Nx1 tensor; each row k is the normalized dot product between out_left[k] and out_right[k].
     """
-    pos_pairs = None
-    
-    ##############################################################################
-    # TODO: Start of your code.                                                  #
-    #                                                                            #
-    # HINT: torch.linalg.norm might be helpful.                                  #
-    ##############################################################################
-    
-    # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-
     z_i, z_j = out_left, out_right
     N, D = z_i.size()
     z_i = z_i / torch.linalg.norm(z_i, dim=1).reshape(N, 1)
     z_j = z_j / torch.linalg.norm(z_j, dim=1).reshape(N, 1)
     pos_pairs = torch.sum(z_i * z_j, dim=1).reshape(N, 1)
-
-    # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-    
-    ##############################################################################
-    #                               END OF YOUR CODE                             #
-    ##############################################################################
     return pos_pairs
 
 
@@ -78,23 +52,9 @@ def compute_sim_matrix(out):
     Returns:
     - sim_matrix: 2N x 2N tensor; each element i, j in the matrix is the normalized dot product between out[i] and out[j].
     """
-    sim_matrix = None
-    
-    ##############################################################################
-    # TODO: Start of your code.                                                  #
-    ##############################################################################
-    
-    # *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-
     NN, D = out.size()
     out = out / torch.linalg.norm(out, dim=1).reshape(NN,1)
     sim_matrix = out.matmul(out.T)
-
-    # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-    
-    ##############################################################################
-    #                               END OF YOUR CODE                             #
-    ##############################################################################
     return sim_matrix
 
 
@@ -110,10 +70,6 @@ def simclr_loss(out_left, out_right, tau, device='cuda'):
     
     # Compute similarity matrix between all pairs of augmented examples in the batch.
     sim_matrix = compute_sim_matrix(out)  # [2*N, 2*N]
-    
-    ##############################################################################
-    # TODO: Start of your code. Follow the hints.                                #
-    ##############################################################################
     
     # Step 1: Use sim_matrix to compute the denominator value for all augmented samples.
     # Hint: Compute e^{sim / tau} and store into exponential, which should have shape 2N x 2N.
@@ -145,18 +101,11 @@ def simclr_loss(out_left, out_right, tau, device='cuda'):
     tmp = torch.exp(sim_pairs/tau).to(device)
     numerator = torch.cat([tmp, tmp], dim=0).to(device)
 
-    # *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-    
     # Step 4: Now that you have the numerator and denominator for all augmented samples, compute the total loss.
     loss = torch.sum(- torch.log(numerator / denom))/ (2 * N)
     
-    ##############################################################################
-    #                               END OF YOUR CODE                             #
-    ##############################################################################
-    
     return loss
 
-# *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
 
 def simclr_fe(f_i, l_i, r_i, f_j, l_j, r_j, tau=0.5):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -168,8 +117,3 @@ def simclr_fe(f_i, l_i, r_i, f_j, l_j, r_j, tau=0.5):
     sim_loss_fl += simclr_loss(f_j[:, 0:D//4], l_j, tau=tau, device=device)
     sim_loss_fl += simclr_loss(f_j[:, D//4:D//2], r_j, tau=tau, device=device)
     return sim_loss_fl
-
-# *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
-
-def rel_error(x,y):
-    return np.max(np.abs(x - y) / (np.maximum(1e-8, np.abs(x) + np.abs(y))))
