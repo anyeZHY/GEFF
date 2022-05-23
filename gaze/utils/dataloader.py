@@ -105,7 +105,7 @@ def mask(face, eye):
     return eye
 
 
-class MPII(Dataset):
+class GAZE(Dataset):
     """
     Use torch.utils.data.Dataset to process MPII dataset.
     Version: label is '2DGaze'.
@@ -187,8 +187,8 @@ def load_data(args, BATCH_SIZE, val_size=128, transform_train=None, flip=0, pers
         ])
     transform_eye, transform_val = make_transform()
 
-    train_set = MPII(train, img_dir, transform_train, transform_eye, flip=flip, use_mask=use_mask)
-    val_set = MPII(val, img_dir, transform_val, transform_eye, flip=0)
+    train_set = GAZE(train, img_dir, transform_train, transform_eye, flip=flip, use_mask=use_mask)
+    val_set = GAZE(val, img_dir, transform_val, transform_eye, flip=0)
 
     train_loader = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
     val_loader = torch.utils.data.DataLoader(val_set, batch_size=val_size, shuffle=True)
