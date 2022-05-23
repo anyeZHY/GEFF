@@ -9,8 +9,8 @@ from gaze.utils.dataloader import load_data
 from gaze.utils.make_loss import angular_error
 from gaze.model.model_zoo import get_model, gen_geff
 
-def train(args, person_id=9, device='cuda'):
 
+def train(args, person_id=9, device='cuda'):
 
     # ===== set hyperparameter >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     print_every = args.print_every if (not args.debug) else 1
@@ -18,7 +18,6 @@ def train(args, person_id=9, device='cuda'):
     BATCH_SIZE = args.batch if (not args.debug) else 2
     LR = args.lr
     out_channel = args.out_channel
-
 
     # prepare dataset and preprocessing
     T = make_transform(jitter=args.jitter, gray=args.gray, blur=0, sharp=0, posterize=0) if args.data_aug else None
@@ -63,7 +62,7 @@ def train(args, person_id=9, device='cuda'):
             optimizer.step()
 
             # print ac & loss in each batch
-            if (i+1+epoch*length)%print_every == 0:
+            if (i+1+epoch*length) % print_every == 0:
                 print('[epoch:%d, iter:%d] L1Loss: %.05f AngularLoss: %.05f'
                     % (epoch + 1, (i + 1 + epoch * length), L1_loss.item(), ang_loss.item()))
             if args.debug:
@@ -98,7 +97,7 @@ def train(args, person_id=9, device='cuda'):
         # if args.debug:
         #     break
         filename = 'assets/model_saved/mid:' + args.model + args.name + '.pt'
-        if not args.debug and epoch==EPOCH//2:
+        if not args.debug and epoch == EPOCH//2:
             torch.save(best_model, filename)
 
     print('Train has finished, total epoch is %d' % EPOCH)
@@ -111,6 +110,7 @@ def train(args, person_id=9, device='cuda'):
         torch.save(best_model, filename)
         torch.save(model, filename_final)
     return best_loss
+
 
 def make_parser():
     parser = argparse.ArgumentParser(description='Training Congfiguration')
@@ -129,7 +129,6 @@ def make_parser():
     parser.add_argument("--epoch", default=20, type=int)
     parser.add_argument("--batch", default=128, type=int)
     parser.add_argument("--lr", default=0.001, type=float)
-    parser.add_argument("--lamda", default=0.1, type=float)
 
     parser.add_argument("--dim_face", default=512, type=int)
     parser.add_argument("--weight", default=0.2, type=float, help="Weight in Vanilla Fusion model")
@@ -145,14 +144,21 @@ def make_parser():
     parser.add_argument("--flip", default=0.0, type=float)
     return parser
 
+
 if __name__ == '__main__':
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     print(device)
     parser = make_parser()
-    print(print(str(parser.parse_args())[10:-1]))
+    print(str(parser.parse_args())[10:-1])
+    data_set = parser.parse_args().dataset
     losses = []
-    for i in range(10):
-        print('\n===== person\'s ID: {} >>>>>>'.format(i))
-        losses.append(train(parser.parse_args(), device=device, person_id=i))
+    if data_set == 'mpii':
+        for i in range(10):
+            print('\n===== person\'s ID: {} >>>>>>'.format(i))
+            losses.append(train(parser.parse_args(), device=device, person_id=i))
+    else:
+        for i in range(56):
+            print('\n===== person\'s ID: {} >>>>>>'.format(i + 1))
+            losses.append(train(parser.parse_args(), device=device, person_id=i + 1))
     print(losses)
-    print('AvgLoss:' ,torch.mean(torch.Tensor(losses)).item())
+    print('AvgLoss:', torch.mean(torch.Tensor(losses)).item())
