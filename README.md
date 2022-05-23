@@ -93,25 +93,31 @@ $ python res_train.py --epoch 40 --lr 0.0001 --print_every 10 \
 		--model 'baseline' --data_aug
 ```
 
+```shell
+$ python res_train.py --epoch 40 --lr 0.0001 --print_every 10 \
+		--model 'febase' --data_aug \
+		--flip 0.5
+```
+
 Train the Vanilla Fusion
 
 ```shell
-$ python res_train.py --lr 0.0001 --epoch 40 --print_every 10 --name 'MF'
-		--model 'fuse' --wight 0.2\ 
+$ python res_train.py --lr 0.0001 --epoch 40 --print_every 10 --name 'MF' \
+		--model 'fuse' --wight 0.2 \ 
 		--data_aug --flip 0.5
 ```
 
 Train the GEFF architecture
 
 ```shell
-$ python res_train.py --lr 0.0001 --epoch 60 --print_every 10 --name 'MF'
-		--model 'geff' --t 1\ 
+$ python res_train.py --lr 0.0001 --epoch 60 --print_every 10 --name 'MF' \
+		--model 'geff' --t 1 \ 
 		--data_aug --flip 0.5
 ```
 
 Other optional command: `--useres`, to use ResNet18 as the eyes' encoder; `--mask`, to implement masks on eyes.
 
-### ColumbiaGaze (update soon)
+### ColumbiaGaze
 
 Similarly, just add `--Columbia` behind the commands above.
 
