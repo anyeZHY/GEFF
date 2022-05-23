@@ -62,22 +62,24 @@ def split_columbia(id: int):
     """
     print("Loading Columbia...")
     column = ['Face', 'Left', 'Right', '2DGaze']
-    data_path = 'assets/MPIIFaceGaze/'
     train = pd.DataFrame(columns=column)
     val = pd.DataFrame(columns=column)
-    for i_label in range(10):
-        labelpath = data_path + 'Label/p' + str(i_label).zfill(2) + '.label'
-        df = pd.read_table(labelpath, delimiter=' ')
-        df = df[column]
-        print(df)
-        if i_label == id:
-            val = pd.concat([val, df])
-        else:
-            train = pd.concat([train, df])
+    for i_folder in range(56):
+        lis = os.listdir('assets/ColumbiaGazeCutSet/' + str(i_folder + 1).zfill(4) + '/face/')
+        for i_pic in range(len(lis)):
+            folder = lis[i_pic][:4]
+            lis_split = lis[i_pic].split('_')
+            vertical, horizontal = lis_split[3][:-1], lis_split[4][:-5]
+            df = pd.DataFrame({'Face': folder + '/face/' + lis[i_pic],
+                               'Left': folder + '/left/' + lis[i_pic],
+                               'Right': folder + '/right/' + lis[i_pic],
+                               '2DGaze': horizontal + ',' + vertical}, index=[0])
+            if i_folder + 1 == id:
+                val = pd.concat([val, df], ignore_index=True)
+            else:
+                train = pd.concat([train, df], ignore_index=True)
     train = train[column].sample(frac=1).reset_index(drop=True)
     val = val[column].sample(frac=1).reset_index(drop=True)
-    # print(val)
-    # print(train)
     print("Done!")
     return train, val
 
@@ -194,4 +196,4 @@ def load_data(args, BATCH_SIZE, val_size=128, transform_train=None, flip=0, pers
 
 if __name__ == '__main__':
     # split_mpii(9)
-    split_columbia(9)
+    split_columbia(56)
