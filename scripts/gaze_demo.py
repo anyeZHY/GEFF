@@ -11,16 +11,51 @@ from gaze.utils.make_loss import angular_error
 import imageio
 
 
-def gaze_show(gaze):
+def gaze_show(gaze, label):
     # circle
     theta = np.linspace(-np.pi,np.pi)
     plt.plot(np.cos(theta), np.sin(theta))
     plt.plot([0, 0], [-1, 1], c='#1f77b4')
     plt.plot([-1, 1], [0, 0], c='#1f77b4')
     # Gaze
+    scale = 2.5
     yaw, pitch = gaze
-    plt.arrow(0, 0, np.sin(yaw) * np.cos(pitch), np.sin(pitch), width=0.01)
+    plt.arrow(
+        0, 0, scale * np.sin(yaw) * np.cos(pitch), scale * np.sin(pitch),
+        width=0.005,
+        color='b',
+        label='predict'
+    )
+    yaw, pitch = -label[0], label[1]
+    plt.arrow(
+        0, 0, scale * np.sin(yaw) * np.cos(pitch), scale * np.sin(pitch),
+        width=0.005,
+        color='r',
+        label='label'
+    )
+    plt.legend()
 
+def gaze_x(gaze, label):
+    theta = np.linspace(-np.pi, np.pi)
+    plt.plot(np.cos(theta), np.sin(theta))
+    plt.plot([0, 0], [-1, 0], c='#1f77b4')
+    plt.plot([-1, 1], [0, 0], c='#1f77b4')
+    # Gaze
+    yaw, pitch = gaze
+    plt.arrow(
+        0, 0, np.sin(yaw), -np.cos(yaw),
+        width=0.005,
+        color='b',
+        label='predict'
+    )
+    yaw, pitch = -label[0], label[1]
+    plt.arrow(
+        0, 0, np.sin(yaw), -np.cos(yaw),
+        width=0.005,
+        color='r',
+        label='label'
+    )
+    plt.legend()
 
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = torch.load(path + '/assets/model_saved/MPII/geffmf.pt', map_location=torch.device(device))
@@ -46,13 +81,15 @@ for i, data in enumerate(val_loader,1):
     plt.subplot(1, 2, 1)
     gaze = result[0]
     gaze[0] = -gaze[0]
-    gaze_show(2 * gaze)
+    gaze_show(gaze, labels[0])
     plt.title('Predict: %.03f, %.03f' % (-result[0][0], result[0][1]))
     plt.text(-0.428, 0.4, 'Auglar loss: %.03f degree' % augloss )
     # Face
     plt.subplot(1, 2, 2)
     plt.imshow(face, vmin=0)
     plt.title('Ground truth: %.03f, %.03f'% (labels[0][0], labels[0][1]))
+    # plt.subplot(1, 3, 3)
+    # gaze_x(gaze, labels[0])
     filename = 'figs/gaze{}.png'.format(i)
     filenames[filename] = float(augloss)
     plt.savefig(filename)
