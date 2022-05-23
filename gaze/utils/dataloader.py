@@ -32,11 +32,11 @@ def split_mpii(id: int):
     """
     print("Loading MPII...")
     column = ['Face', 'Left', 'Right', '3DGaze', '2DGaze', '3DHead', '2DHead']
-    data_path = 'assets/MPIIFaceGaze/'
+    datapath = 'assets/MPIIFaceGaze/'
     train = pd.DataFrame(columns=column)
     val = pd.DataFrame(columns=column)
     for i_label in range(10):
-        labelpath = data_path + 'Label/p' + str(i_label).zfill(2) + '.label'
+        labelpath = datapath + 'Label/p' + str(i_label).zfill(2) + '.label'
         df = pd.read_table(labelpath, delimiter=' ')
         df = df[column]
         for i_pic in range(len(df)):
@@ -176,7 +176,8 @@ def load_data(args, BATCH_SIZE, val_size=128, transform_train=None, flip=0, pers
         train, val = split_mpii(person_id)
         img_dir += 'MPIIFaceGaze/Image'
     else:
-        pass
+        train, val = split_columbia(person_id)
+        img_dir += 'ColumbiaGazeCutSet'
     if transform_train is None:
         transform_train = transforms.Compose([
             transforms.ToPILImage(),
