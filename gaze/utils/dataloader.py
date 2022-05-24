@@ -69,7 +69,7 @@ def split_columbia(id: int):
         for i_pic in range(len(lis)):
             folder = lis[i_pic][:4]
             lis_split = lis[i_pic].split('_')
-            vertical, horizontal = lis_split[3][:-1], lis_split[4][:-5]
+            vertical, horizontal = str(float(lis_split[3][:-1])*np.pi/180), str(float(lis_split[4][:-5])*np.pi/180)
             df = pd.DataFrame({'Face': folder + '/face/' + lis[i_pic],
                                'Left': folder + '/left/' + lis[i_pic],
                                'Right': folder + '/right/' + lis[i_pic],
