@@ -4,10 +4,10 @@ import torch
 from torch.utils.data import Dataset
 from torchvision import transforms
 import torch.utils.data
-from gaze.utils.dataloader import get_img
+from gaze.utils.dataloader import get_img, split_mpii
 
 def make_transform(jitter=0.6, gray=0.2, blur=0.2, sharp=0.2, posterize=0.2):
-    color_jitter = transforms.ColorJitter(0.2, 0.2, 0.2, 0.1)
+    color_jitter = transforms.ColorJitter(0.4, 0.4, 0.4, 0.2)
     gaussian_blur = transforms.GaussianBlur(kernel_size=(3,5))
     transform = transforms.Compose([
         transforms.ToPILImage(),
@@ -24,7 +24,7 @@ def make_transform(jitter=0.6, gray=0.2, blur=0.2, sharp=0.2, posterize=0.2):
 
 class SimData(Dataset):
     def __init__(self, annotations_file, img_dir, transform=None, transform_eye=None, flip=0.5):
-        self.img_labels = pd.read_csv(annotations_file)
+        self.img_labels = annotations_file
         self.img_dir = img_dir
         self.transform = transform
         self.transform_eye = transform_eye
@@ -65,8 +65,8 @@ class SimData(Dataset):
         return images_i, images_j
 
 def load_data_sim(args, BATCH_SIZE=1024):
-    train_file = 'assets/MPII_train.csv'
     img_dir = 'assets/MPIIFaceGaze/Image'
+    train, _ = split_mpii(id=7)
 
     transform_train = make_transform(args.jitter, args.gray)
 
@@ -81,7 +81,7 @@ def load_data_sim(args, BATCH_SIZE=1024):
         transforms.RandomAdjustSharpness(sharpness_factor=2, p=args.sharp),
     ])
 
-    train_set = SimData(train_file, img_dir, transform_train, transform_eye)
+    train_set = SimData(train, img_dir, transform_train, transform_eye)
 
     train_loader = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
     
