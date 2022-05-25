@@ -21,7 +21,13 @@ def train(args, person_id=9, device='cuda'):
 
     # prepare dataset and preprocessing
     T = make_transform(jitter=args.jitter, gray=args.gray, blur=0, sharp=0, posterize=0) if args.data_aug else None
-    train_loader, val_loader = load_data(args, BATCH_SIZE, transform_train=T, val_size=BATCH_SIZE, flip=args.flip, person_id=person_id)
+    train_loader, val_loader = load_data(
+        args, BATCH_SIZE,
+        transform_train=T,
+        val_size=BATCH_SIZE,
+        flip=args.flip,
+        person_id=person_id
+    )
 
     # ===== Model Configuration >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
     dim_face = args.dim_face
@@ -29,7 +35,8 @@ def train(args, person_id=9, device='cuda'):
     usebn = args.usebn or args.name == 'simclr'
     models = gen_geff(
         args, device=device,
-        channels={'Face':dim_face,'Out':out_channel,'Fusion':[dim_face + dim_eyes, 1]}
+        channels={'Face':dim_face,'Out':out_channel,'Fusion':[dim_face + dim_eyes, 1]},
+        idx=person_id
     )
     model = get_model(args, models).to(device)
     # if args.debug:

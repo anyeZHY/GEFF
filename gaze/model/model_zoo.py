@@ -84,7 +84,7 @@ def get_model(args, models=None):
     if name == 'simclr':
         return GEFF(models, args)
 
-def gen_geff(args, channels = None, device=None):
+def gen_geff(args, channels = None, device=None, idx=9):
     """
     Args
         channels: dictionary
@@ -111,7 +111,7 @@ def gen_geff(args, channels = None, device=None):
         if name == 'geff' or name == 'simclr':
             decoder_channel = (face_dim + eyes_dim * 2, out_channel)
             fussion_channel = channels['Fusion']
-    face = FaceEncoder(args)
+    face = FaceEncoder(args, idx=idx)
     if args.eye_en == 'mlp':
         left = EyeMLPEncoder(dim_features=eyes_dim).to(device)
         right = EyeMLPEncoder(dim_features=eyes_dim).to(device),

@@ -7,12 +7,12 @@ from torch import Tensor
 from gaze.model.resnet import resnet18
 
 class FaceEncoder(nn.Module):
-    def __init__(self, args):
+    def __init__(self, args, idx=9):
         super(FaceEncoder, self).__init__()
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         if args.pretrain:
             print('h')
-            res = torch.load('assets/model_saved/MPII/BaseLr.pt', map_location=torch.device(device)).res
+            res = torch.load('assets/model_saved/MPII/{}baselineaug.pt'.format(idx), map_location=torch.device(device)).res
         else:
             res = resnet18(pretrained=True)
         res.fc = nn.Flatten()
