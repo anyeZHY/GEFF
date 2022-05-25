@@ -34,7 +34,7 @@ def train(args, person_id=9, device='cuda'):
     model = get_model(args, models).to(device)
     # if args.debug:
     #     print(model.face_en.state_dict().items())
-    L1 = nn.SmoothL1Loss(reduction='mean')
+    L1 = nn.SmoothL1Loss(reduction='mean') if args.loss=='L1' else nn.MSELoss(reduction='mean')
     optimizer = optim.Adam(model.parameters(), lr=LR)
     # scheduler = optim.lr_scheduler.ExponentialLR(optimizer, gamma=args.lr_gamma)
 
@@ -63,7 +63,7 @@ def train(args, person_id=9, device='cuda'):
 
             # print ac & loss in each batch
             if (i+1+epoch*length) % print_every == 0:
-                print('[epoch:%d, iter:%d] L1Loss: %.05f AngularLoss: %.05f'
+                print('[epoch:%d, iter:%d] Loss: %.05f AngularLoss: %.05f'
                     % (epoch + 1, (i + 1 + epoch * length), L1_loss.item(), ang_loss.item()))
             if args.debug:
                 break
@@ -101,8 +101,11 @@ def train(args, person_id=9, device='cuda'):
             torch.save(best_model, filename)
 
     print('Train has finished, total epoch is %d' % EPOCH)
-    filename = 'assets/model_saved/' + args.model + args.name + '.pt'
-    filename_final = 'assets/model_saved/final' + args.model + args.name + '.pt'
+    if args.model == 'baseline':
+        filename = 'assets/model_saved/{}'.format(person_id) + args.model + args.name + '.pt'
+    else:
+        filename = 'assets/model_saved/' + args.model + args.name + '.pt'
+    filename_final = 'assets/model_saved/final{}' + args.model + args.name + '.pt'
     print(filename)
     print('test loss:', loss_log)
     print('best loss:',best_loss)
@@ -128,12 +131,13 @@ def make_parser():
     parser.add_argument("--warm", default=30, type=int)
     parser.add_argument("--epoch", default=20, type=int)
     parser.add_argument("--batch", default=128, type=int)
+    parser.add_argument("--loss", default='L1', type=str)
     parser.add_argument("--lr", default=0.001, type=float)
 
     parser.add_argument("--dim_face", default=512, type=int)
     parser.add_argument("--weight", default=0.2, type=float, help="Weight in Vanilla Fusion model")
     parser.add_argument("--t", default=1, type=float, help="Weight in GEFF model")
-    parser.add_argument("--useres", action="store_true", help="Use resnet as eyes' encoder")
+    parser.add_argument("--eye_en", choices=['resnet', 'mlp', 'conv'])
     parser.add_argument("--usebn", action="store_true", help="Use BatchNorm in GEFF")
     parser.add_argument("--pretrain", action="store_true")
 

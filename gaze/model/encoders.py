@@ -50,6 +50,26 @@ class EyeMLPEncoder(nn.Module):
         out = self.backbone(out)
         return out
 
+class EyeConvEncoder(nn.Module):
+    def __init__(self):
+        super(EyeConvEncoder, self).__init__()
+        self.conv = nn.Sequential(
+            nn.Conv2d(1, 8, 3, padding=1),
+            nn.BatchNorm2d(8),
+            nn.ReLU(),
+            nn.Conv2d(8, 32, 3, padding=1),
+            nn.BatchNorm2d(32),
+            nn.ReLU(),
+            nn.Conv2d(32, 128, 3 ,padding=1),
+            nn.BatchNorm2d(128),
+            nn.AdaptiveAvgPool2d((1,1)),
+            nn.Flatten()
+        )
+
+    def forward(self, x: Tensor) -> Tensor:
+        out = self.conv(x)
+        return out
+
 class EyeResEncoder(nn.Module):
     def __init__(self, eyes_dim=128):
         super().__init__()

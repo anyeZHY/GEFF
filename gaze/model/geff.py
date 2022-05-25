@@ -40,8 +40,8 @@ class GEFF(nn.Module):
             self.face_en = sim.face_en
         else:
             self.face_en = models['Face']
-        self.share_eye = args.useres
-        if args.useres:
+        self.share_eye = (args.eye_en=='resnet')
+        if args.eye_en=='resnet':
             self.eye_en = models['Eye']
         elif args.name == 'simclr':
             self.eye_en = sim.eye_en

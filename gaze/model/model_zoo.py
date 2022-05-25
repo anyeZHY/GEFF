@@ -7,7 +7,7 @@ import torch
 import torch.nn as nn
 from gaze.model.resnet import resnet18
 from gaze.model.geff import GEFF
-from gaze.model.encoders import MLP, EyeMLPEncoder, EyeResEncoder, FaceEncoder
+from gaze.model.encoders import MLP, EyeMLPEncoder, EyeResEncoder, FaceEncoder, EyeConvEncoder
 
 class ResGazeNaive(nn.Module):
     def __init__(self):
@@ -80,7 +80,7 @@ def get_model(args, models=None):
     if name == 'geff':
         return GEFF(models, args)
     if name == 'fuse':
-        return Fuse(models, share_eye=args.useres, weight=args.weight)
+        return Fuse(models, share_eye=(args.eye_en=='resnet'), weight=args.weight)
     if name == 'simclr':
         return GEFF(models, args)
 
@@ -112,19 +112,25 @@ def gen_geff(args, channels = None, device=None):
             decoder_channel = (face_dim + eyes_dim * 2, out_channel)
             fussion_channel = channels['Fusion']
     face = FaceEncoder(args)
+    if args.eye_en == 'mlp':
+        left = EyeMLPEncoder(dim_features=eyes_dim).to(device)
+        right = EyeMLPEncoder(dim_features=eyes_dim).to(device),
+    else:
+        left = EyeConvEncoder()
+        right = EyeConvEncoder()
     if name == 'fuse':
         models = {
             'Face': face,
-            'Left': EyeMLPEncoder(dim_features=eyes_dim).to(device),
-            'Right': EyeMLPEncoder(dim_features=eyes_dim).to(device),
+            'Left': left,
+            'Right': right,
             'Decoder': MLP(channels = decoder_channel).to(device),
             'Eye': EyeResEncoder(eyes_dim).to(device),
         }
     if name == 'geff' or name == 'simclr':
         models = {
             'Face': face,
-            'Left': EyeMLPEncoder(dim_features=eyes_dim).to(device),
-            'Right': EyeMLPEncoder(dim_features=eyes_dim).to(device),
+            'Left': left,
+            'Right': right,
             'Eye': EyeResEncoder(eyes_dim).to(device),
             'Extractor': MLP(channels=(face_dim, 2*eyes_dim)).to(device),
             'Fusion_l': MLP(channels=fussion_channel).to(device),
