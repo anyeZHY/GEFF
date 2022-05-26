@@ -8,7 +8,7 @@ path = dirname(dirname(abspath(__file__)))
 sys.path.append(path)
 import torch
 from torchvision import transforms
-from gaze.utils.dataloader import MPII, make_transform
+from gaze.utils.dataloader import Gaze, make_transform
 from torch.utils.data import DataLoader
 from gaze.utils.make_loss import angular_error
 def get_test(BATCH_SIZE):
@@ -16,7 +16,7 @@ def get_test(BATCH_SIZE):
     img_dir = 'assets/MPIIFaceGaze/Image'
 
     transform_eye, transform_val = make_transform()
-    test_set = MPII(train_file, img_dir, transform_val, transform_eye)
+    test_set = Gaze(train_file, img_dir, transform_val, transform_eye)
 
     test_loader = DataLoader(test_set, batch_size=BATCH_SIZE, shuffle=True)
     return test_loader
