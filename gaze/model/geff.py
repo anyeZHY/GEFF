@@ -34,16 +34,17 @@ class GEFF(nn.Module):
         """
         super(GEFF, self).__init__()
         sim = None
-        if args.name == 'simclr':
+        if args.model == 'simclr':
             path = 'assets/model_saved/simclr.pt'
             sim = torch.load(path)
             self.face_en = sim.face_en
         else:
             self.face_en = models['Face']
-        self.share_eye = (args.eye_en=='resnet')
+        self.share_eye = (args.eye_en=='resnet' or args.model=='simclr')
+        print(self.share_eye)
         if args.eye_en=='resnet':
             self.eye_en = models['Eye']
-        elif args.name == 'simclr':
+        elif args.model == 'simclr':
             self.eye_en = sim.eye_en
         else:
             self.left_en = models['Left']
@@ -57,10 +58,10 @@ class GEFF(nn.Module):
             self.bn = nn.Sequential(nn.BatchNorm1d(dim_f + dim_f//2), nn.ReLU())
         self.decoder = models['Decoder']
 
-    def forward(self, imgs, name='geff', pretrain=False, warm=30, usebn=False, cur_epoch=1000):
+    def forward(self, imgs, model='geff', pretrain=False, warm=30, usebn=False, cur_epoch=1000):
         faces, lefts, rights = imgs['Face'], imgs['Left'], imgs['Right']
         F_face = self.face_en(faces)
-        if (pretrain or name == 'simclr') and cur_epoch<warm:
+        if (pretrain or model == 'simclr') and cur_epoch<warm:
             F_face = F_face.detach()
         if not self.share_eye:
             F_left = self.left_en(lefts)
@@ -68,7 +69,7 @@ class GEFF(nn.Module):
         else:
             F_left = self.eye_en(lefts)
             F_right = self.eye_en(lefts)
-            if name == 'simclr' and cur_epoch<warm:
+            if model == 'simclr' and cur_epoch<warm:
                 F_left = F_left.detach()
                 F_right = F_right.detach()
         F_eyes = self.extractor(F_face)

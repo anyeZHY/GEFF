@@ -61,7 +61,7 @@ def train(args, person_id=9, device='cuda'):
             labels = labels.to(device)
             optimizer.zero_grad()
             gaze = model(imgs, args.pretrain) if args.model!='geff' \
-                else model(imgs, args.name, args.pretrain, args.warm, cur_epoch=epoch, usebn=usebn)
+                else model(imgs, args.model, args.pretrain, args.warm, cur_epoch=epoch, usebn=usebn)
             ang_loss = angular_error(gaze, labels)
             L1_loss = L1(gaze, labels.float())
             loss = L1_loss
@@ -135,6 +135,7 @@ def make_parser():
     parser.add_argument("--model", default="baseline", choices=['baseline', 'fuse', 'geff', 'febase', 'simclr'],
                         type=str)
     parser.add_argument("--dataset", default="mpii", choices=['mpii', 'columbia'], type=str)
+    parser.add_argument("--cross_val_off", action="store_true", help="Cross Validation off")
     parser.add_argument("--warm", default=30, type=int)
     parser.add_argument("--epoch", default=20, type=int)
     parser.add_argument("--batch", default=128, type=int)
@@ -163,13 +164,17 @@ if __name__ == '__main__':
     print(str(parser.parse_args())[10:-1])
     data_set = parser.parse_args().dataset
     losses = []
+    args = parser.parse_args()
     if data_set == 'mpii':
-        for i in range(10):
-            print('\n===== person\'s ID: {} >>>>>>'.format(i))
-            losses.append(train(parser.parse_args(), device=device, person_id=i))
+        if args.cross_val_off:
+            losses.append(train(args, 9, device))
+        else:
+            for i in range(10):
+                print('\n===== person\'s ID: {} >>>>>>'.format(i))
+                losses.append(train(args, device=device, person_id=i))
     else:
         for i in range(56):
             print('\n===== person\'s ID: {} >>>>>>'.format(i + 1))
-            losses.append(train(parser.parse_args(), device=device, person_id=i + 1))
+            losses.append(train(args, device=device, person_id=i + 1))
     print(losses)
     print('AvgLoss:', torch.mean(torch.Tensor(losses)).item())
