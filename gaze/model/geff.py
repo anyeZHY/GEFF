@@ -68,7 +68,7 @@ class GEFF(nn.Module):
         else:
             F_left = self.eye_en(lefts)
             F_right = self.eye_en(lefts)
-            if name == 'simclr':
+            if name == 'simclr' and cur_epoch<warm:
                 F_left = F_left.detach()
                 F_right = F_right.detach()
         F_eyes = self.extractor(F_face)
