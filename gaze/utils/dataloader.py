@@ -74,12 +74,14 @@ def split_columbia(id: int):
                                'Left': folder + '/left/' + lis[i_pic],
                                'Right': folder + '/right/' + lis[i_pic],
                                '2DGaze': horizontal + ',' + vertical}, index=[0])
-            if i_folder + 1 == id:
+            if i_folder + 1 >= id:
                 val = pd.concat([val, df], ignore_index=True)
             else:
                 train = pd.concat([train, df], ignore_index=True)
     train = train[column].sample(frac=1).reset_index(drop=True)
     val = val[column].sample(frac=1).reset_index(drop=True)
+    # print(train)
+    # print(val)
     print("Done!")
     return train, val
 
@@ -196,5 +198,5 @@ def load_data(args, BATCH_SIZE, val_size=128, transform_train=None, flip=0, pers
 
 
 if __name__ == '__main__':
-    # split_mpii(9)
-    split_columbia(56)
+    split_mpii(9)
+    # split_columbia(56)

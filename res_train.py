@@ -115,7 +115,7 @@ def train(args, person_id=9, device='cuda'):
     filename_final = 'assets/model_saved/final{}' + args.model + args.name + '.pt'
     print(filename)
     print('test loss:', loss_log)
-    print('best loss:',best_loss)
+    print('best loss:', best_loss)
     if not args.debug:
         torch.save(best_model, filename)
         torch.save(model, filename_final)
@@ -173,8 +173,6 @@ if __name__ == '__main__':
                 print('\n===== person\'s ID: {} >>>>>>'.format(i))
                 losses.append(train(args, device=device, person_id=i))
     else:
-        for i in range(56):
-            print('\n===== person\'s ID: {} >>>>>>'.format(i + 1))
-            losses.append(train(args, device=device, person_id=i + 1))
+        losses.append(train(args, 42, device))
     print(losses)
     print('AvgLoss:', torch.mean(torch.Tensor(losses)).item())
