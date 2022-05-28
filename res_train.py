@@ -167,7 +167,7 @@ if __name__ == '__main__':
     args = parser.parse_args()
     if data_set == 'mpii':
         if args.cross_val_off:
-            losses.append(train(args, 9, device))
+            losses.append(train(args, 7, device))
         else:
             for i in range(10):
                 print('\n===== person\'s ID: {} >>>>>>'.format(i))
