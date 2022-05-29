@@ -119,7 +119,7 @@ Other optional command: `--useres`, to use ResNet18 as the eyes' encoder; `--mas
 
 ### ColumbiaGaze
 
-Similarly, just add `--Columbia` behind the commands above.
+Similarly, just add `--columbia` behind the commands above.
 
 ### SimCLR (Trial)
 

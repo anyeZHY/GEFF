@@ -76,6 +76,7 @@ if __name__ == '__main__':
     parser.add_argument("--debug", action="store_true", help="Train concisely and roughly")
     parser.add_argument("--multi_gpu", action="store_true")
     parser.add_argument("--name", default="", type=str)
+    parser.add_argument("--dataset", default="mpii", choices=["mpii", "columbia", "both"], type=str)
 
     # hyperparameters in Trainnig part
     parser.add_argument("--lr", default=0.001, type=float)

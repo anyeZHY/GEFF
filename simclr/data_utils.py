@@ -4,7 +4,7 @@ import torch
 from torch.utils.data import Dataset
 from torchvision import transforms
 import torch.utils.data
-from gaze.utils.dataloader import get_img, split_mpii
+from gaze.utils.dataloader import get_img, split_mpii, split_columbia
 
 def make_transform(jitter=0.6, gray=0.2, blur=0.2, sharp=0.2, posterize=0.2):
     color_jitter = transforms.ColorJitter(0.4, 0.4, 0.4, 0.2)
@@ -66,11 +66,13 @@ class SimData(Dataset):
 
 def load_data_sim(args, BATCH_SIZE=1024):
     img_dir = 'assets/MPIIFaceGaze/Image'
-    train, _ = split_mpii(id=7)
+    train, _ = split_mpii(id=7) if args.dataset != 'columbia' else split_columbia(id=42)
+    if args.dataset == 'both':
+        train = pd.concat([train, split_columbia(id=42)[0]])
 
     transform_train = make_transform(args.jitter, args.gray)
 
-    color_jitter = transforms.ColorJitter(0.4, 0.4, 0.4, 0.1)
+    color_jitter = transforms.ColorJitter(0.4, 0.4, 0.4, 0.2)
 
     transform_eye = transforms.Compose([
         transforms.ToPILImage(),
