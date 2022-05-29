@@ -142,18 +142,22 @@ We implement a **HEAVY** augmentation for datas, especially for the images of fa
 Run the following command to get our pre-trained model:
 
 ```shell
-$ python simclr_train.py --batch 256 --tau 0.5 --epoch 500 --multi_gpu
+$ python simclr_train.py --name "DA" --tau 0.5 \
+								         --epoch 500 --batch 128 --lr 0.0001 \
+								         --dataset "mpii"
 or
-$ python simclr_train.py --batch 128 --tau 0.5 --epoch 500
+$ python simclr_train.py --name "DA" --tau 0.5 \
+								         --epoch 500 --batch 128 --lr 0.0001 \
+								         --multi_gpu --dataset "both"
 ```
 
 **Nota Bene:** since large batch size and long training time matters, we use **2** GPUs when training. It may take ~**100** hours.
 
-Then run the following script for a quick test
+Then run the following script for a quick test.
 
 ```shell
 $ python res_train.py --lr 0.0005 --epoch 100 --print_every 10
-		--model 'simclr' --t 1\ 
+		--model "simclr" --t 1\ 
 		--data_aug --flip 0.5
 ```
 
