@@ -34,9 +34,10 @@ class SimData(Dataset):
         return len(self.img_labels)
 
     def __getitem__(self, idx):
-        img_face = get_img(self.img_dir, self.img_labels['Face'].iloc[idx])
-        img_left= get_img(self.img_dir, self.img_labels['Left'].iloc[idx])
-        img_right = get_img(self.img_dir, self.img_labels['Right'].iloc[idx])
+        img_dir = self.img_dir[0] if (self.img_labels['Face'].iloc[idx])[0]=='p' else self.img_dir[1]
+        img_face = get_img(img_dir, self.img_labels['Face'].iloc[idx])
+        img_left= get_img(img_dir, self.img_labels['Left'].iloc[idx])
+        img_right = get_img(img_dir, self.img_labels['Right'].iloc[idx])
 
         img_face_i = self.transform(img_face)
         img_left_i = self.transform_eye(img_left)
@@ -65,7 +66,7 @@ class SimData(Dataset):
         return images_i, images_j
 
 def load_data_sim(args, BATCH_SIZE=1024):
-    img_dir = 'assets/MPIIFaceGaze/Image'
+    img_dir = ['assets/MPIIFaceGaze/Image', 'assets/ColumbiaGazeCutSet/']
     train, _ = split_mpii(id=7) if args.dataset != 'columbia' else split_columbia(id=42)
     if args.dataset == 'both':
         train = pd.concat([train, split_columbia(id=42)[0]])
