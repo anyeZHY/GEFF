@@ -12,7 +12,7 @@ class FaceEncoder(nn.Module):
         device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         if args.pretrain:
             path = 'assets/model_saved/{}baselineaug.pt'.format(idx) if args.dataset == 'mpii' \
-                else 'assets/model_saved/baselinecolumbaseline.pt'
+                else 'assets/model_saved/42baselinecolumbaseline.pt'
             res = torch.load(path, map_location=torch.device(device)).res
         else:
             res = resnet18(pretrained=True)
