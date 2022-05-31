@@ -75,7 +75,6 @@ The GIF will be saved at `figs/gaze_demo.gif`:
 <p align="center">
   <img src="figs/gaze_demo.gif", width="60%"/></br>
 </p>
-
 ## Model Selection & Training Part
 
 Our GEFF architecture is similar to PIXE architecture:
@@ -90,40 +89,38 @@ First you need to get our baseline.
 
 ```shell
 $ python res_train.py --epoch 40 --lr 0.0001 --print_every 10 \
-		--model 'baseline' --data_aug
+		--model baseline --data_aug
 ```
 
 ```shell
 $ python res_train.py --epoch 40 --lr 0.0001 --print_every 10 \
-		--model 'febase' --data_aug \
+		--model febase --data_aug \
 		--flip 0.5
 ```
 
 Train the Vanilla Fusion
 
 ```shell
-$ python res_train.py --lr 0.0001 --epoch 40 --print_every 10 --name 'MF' \
-		--model 'fuse' --wight 0.2 \ 
+$ python res_train.py --lr 0.0001 --epoch 40 --print_every 10 --name MF \
+		--model fuse --wight 0.2 \ 
 		--data_aug --flip 0.5
 ```
 
 Train the GEFF architecture
 
 ```shell
-$ python res_train.py --lr 0.0001 --epoch 60 --print_every 10 --name 'MF' \
-		--model 'geff' --t 1 \ 
+$ python res_train.py --lr 0.0001 --epoch 60 --print_every 10 --name MF \
+		--model geff --t 1 \ 
 		--data_aug --flip 0.5
 ```
 
-Other optional command: `--useres`, to use ResNet18 as the eyes' encoder; `--mask`, to implement masks on eyes.
+Other optional command: `--eye_en resnet`, to use ResNet18 as the eyes' encoder; `--mask`, to implement masks on eyes.
 
 ### ColumbiaGaze
 
 Similarly, just add `--columbia` behind the commands above.
 
 ### SimCLR (Trial)
-
-Warning: this part is still **INCOMPLETE**.
 
 We design the framework of SimCLR in gaze estimation task:
 
@@ -147,11 +144,11 @@ $ python simclr_train.py --name "DA" --tau 0.5 \
 								         --dataset "mpii"
 or
 $ python simclr_train.py --name "DA" --tau 0.5 \
-								         --epoch 500 --batch 128 --lr 0.0001 \
+								         --epoch 500 --batch 1024 --lr 0.0001 \
 								         --multi_gpu --dataset "both"
 ```
 
-**Nota Bene:** since large batch size and long training time matters, we use **2** GPUs when training. It may take ~**100** hours.
+Since **large batch size** and long training time matters, we use **2 GPUs (Nvidia A6000)** when training. It may take ~**70** hours.
 
 Then run the following script for a quick test.
 
@@ -164,6 +161,8 @@ $ python res_train.py --lr 0.0005 --epoch 100 --print_every 10
 ## Results
 
 ### Ablation Study
+
+**Nota Bene**: we use cross validation method to select our models. For **each fold**, we choose the **BEST** angular loss as its final result. I.e., $\mathcal{L}(k_{\mathrm{fold}})=\min_{i\in[\mathrm{epoch}]}\mathrm{AugLoss}_i(k_{\mathrm{fold}})$
 
 Running logs are available at `logs/MPII`.
 
@@ -184,7 +183,7 @@ $ python scipts/[updata soon].py --MPII --folders 10-16
 
 We drew our inspirations from the papers [PIXIE](https://github.com/YadiraF/PIXIE) & [SimCLR](https://github.com/google-research/simclr) and the course [CS231n, Stanford University](http://cs231n.stanford.edu).
 
-The computations in this paper were run on the cluster supported by the high-performance computing platform of SJTU Student Innovation Center.
+The computations in this project were run on the cluster supported by the high-performance computing platform of SJTU Student Innovation Center.
 
 ## Development Team
 
