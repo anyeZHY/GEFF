@@ -53,7 +53,7 @@ def train(args):
             optimizer.step()
 
             # print ac & loss in each batch
-            if i%20==0:
+            if i%5==0:
                 print('[epoch:%d, iter:%d] Loss: %.03f '% (epoch + 1, (i + 1 + epoch * length), loss.item()))
             if args.debug:
                 print('face: %3f, left: %3f, right: %3f, fe: %3f'
