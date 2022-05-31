@@ -75,9 +75,10 @@ The GIF will be saved at `figs/gaze_demo.gif`:
 <p align="center">
   <img src="figs/gaze_demo.gif", width="60%"/></br>
 </p>
+
 ## Model Selection & Training Part
 
-Our GEFF architecture is similar to PIXE architecture:
+Our GEFF architecture is similar to PIXIE architecture:
 
 [ image (update soon) ]
 
@@ -140,12 +141,12 @@ Run the following command to get our pre-trained model:
 
 ```shell
 $ python simclr_train.py --name "DA" --tau 0.5 \
-								         --epoch 500 --batch 128 --lr 0.0001 \
-								         --dataset "mpii"
+                         --epoch 500 --batch 128 --lr 0.0001 \
+                         --dataset "mpii"
 or
 $ python simclr_train.py --name "DA" --tau 0.5 \
-								         --epoch 500 --batch 1024 --lr 0.0001 \
-								         --multi_gpu --dataset "both"
+                         --epoch 500 --batch 1024 --lr 0.0001 \
+                         --multi_gpu --dataset "both"
 ```
 
 Since **large batch size** and long training time matters, we use **2 GPUs (Nvidia A6000)** when training. It may take ~**70** hours.
