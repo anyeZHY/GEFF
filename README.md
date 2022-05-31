@@ -162,7 +162,9 @@ $ python res_train.py --lr 0.0005 --epoch 100 --print_every 10
 
 ### Ablation Study
 
-**Nota Bene**: we use cross validation method to select our models. For **each fold**, we choose the **BEST** angular loss as its final result. I.e., ${L}(k_{\text{fold}})=\min_{i\in[\text{epoch}]}\text{AugLoss}_i(k_{\text{fold}})$ .
+**Nota Bene**: we use cross validation method to select our models. For **each fold**, we choose the **BEST** angular loss as its final result. I.e., 
+
+$$L(k_{fold})=\min_{i\in[epoch]}AugLoss_i(k_{fold}).$$
 
 Running logs are available at `logs/MPII`.
 
