@@ -13,7 +13,7 @@ RGB = [
     [199, 109, 162]
 ]
 color = np.array(RGB)/255
-n = np.arange(1,11)
+index = np.arange(1,11)
 losses = {
     'Baseline': [
         3.1242787933349607, 4.86889510345459, 3.8676000277201337, 4.143331093470255, 4.171029663085937,
@@ -46,15 +46,23 @@ losses = {
     'GEFF-MLP (100 epoch)':[
         2.5233322798411053, 3.869793039957682, 3.079336062113444, 3.931205847422282, 3.364947898228963,
         4.2196826725006105, 3.9490752258300783, 5.207069086710612, 4.966465431213379, 5.019186856587728
+    ],
+    'GEFF-RF (heavier data augmentation)':[
+        2.5276485888163247, 3.4206851921081545, 3.045332301457723, 3.63777263323466, 3.4291863441467285,
+        4.1741627604166665, 3.839682412465413, 5.325767004648845, 5.113183091481527, 5.301839869181315
     ]
 }
 
-plt.figure(figsize=(3 * len(losses), 10))
+n = 3
+plt.figure(figsize=(6/n * len(losses), n*5))
 plt.subplots_adjust(hspace=0.3)
-for i,label in enumerate(losses,0):
-    plt.subplot(2, (len(losses)+1)//2, i+1)
-    loss = losses[label]
-    plt.bar(n, loss, color=color)
+losses = sorted(losses.items(), key=lambda x : np.mean(x[1]), reverse=True)
+print(losses)
+for i in range(len(losses)):
+    plt.subplot(n, (len(losses)+1)//n, i+1)
+    loss = losses[i][1]
+    label = losses[i][0]
+    plt.bar(index, loss, color=color)
     mean = np.mean(loss)
     plt.plot([-1,11], [mean, mean], '--')
     plt.text(4.5, mean + 0.4, 'Mean: %0.3f' % mean, size=12)
