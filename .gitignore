@@ -8,7 +8,7 @@ ColumbiaGazeCutSet/
 *.sh
 *.out
 *.err
-assets/model_saved/
+assets/model_saved/Unused
 gaze/tutorials/
 logs/old/
 
