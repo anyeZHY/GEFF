@@ -12,6 +12,13 @@ The "contributions" of this project are as follows:
 - Implement [SimCLR](https://github.com/google-research/simclr) [ICML 2020] framework for training deep and complicated network (Currently the SimCLR framework was adapted for GEFF).
 - Augment datas. Flip the images horizontally. Swap the left eyes and the right eyes. Use masks to generalize our model.
 
+<details>
+  <summary>中文版介绍 (Chinese Version, For TAs)</summary><br>
+  <li>在该项目中，我们<b>复现</b>了 CVPR 2021 PIXIE 模型并在其基础上迁移至视线估计任务，我们称其为 GEFF.</li>
+  <li>为了训练更复杂、更深的网络，我们在 GEFF 的基础上应用了谷歌 ICML 2020 SimCLR 框架，我们<b>复现</b>了论文中的 <b>Contrastive Loss</b>. 此外，我们尝试使用该框架进行数据集间的域迁移任务。</li>
+  <li>在参考 pytorch_mpiigaze-master 及 CS231n, Stanford 作业后，我们<b>设计</b>了整个项目的框架，simclr、gaze、scripts 文件夹内文件（不包括 resnet.py）与训练代码<b>均由我们自己实现</b>（核心部分）。</li>
+</details>
+
 ## Installation
 
 ### Getting start
@@ -127,8 +134,9 @@ We design the framework of SimCLR in gaze estimation task:
 
 <p align="center">
   <img src="figs/SimCLR.png", width="40%"/></br>
-	SimCLR framework
+	SimCLR Framework For GEFF Model
 </p>
+
 
 
 We implement a **HEAVY** augmentation for datas, especially for the images of faces. Here's some examples:
@@ -167,19 +175,18 @@ $ python res_train.py --lr 0.0005 --epoch 100 --print_every 10
 
 $$L(k_{fold})=\min_{i\in[epoch]}AugLoss_i(k_{fold}).$$
 
-Running logs are available at `logs/MPII`.
+Running logs are available at `logs/*`.
 
 <p align="center">
   <img src="figs/result.png", width="100%"/></br>
 	Ablation Studys on MPIIGaze Dataset
 </p>
-
 ### For TAs (update soon)
 
 We provide a python file to test on the datas which are not access to students.
 
 ```shell
-$ python scipts/[updata soon].py --MPII --folders 10-16
+$ python scipts/[updata soon].py --test --folders 10-14
 ```
 
 ## Acknowledgement
