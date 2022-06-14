@@ -153,6 +153,58 @@ class Gaze(Dataset):
         return images, label.astype(float)
 
 
+class SimData(Dataset):
+    def __init__(self, annotations_file, img_dir, transform=None, transform_eye=None, flip=0.5, simclr=True):
+        self.img_labels = annotations_file
+        self.img_dir = img_dir
+        self.transform = transform
+        self.transform_eye = transform_eye
+        self.flip = flip
+        self.simclr = simclr
+
+    def __len__(self):
+        return len(self.img_labels)
+
+    def __getitem__(self, idx):
+        img_dir = self.img_dir[0] if (self.img_labels['Face'].iloc[idx])[0]=='p' else self.img_dir[1]
+        img_face = get_img(img_dir, self.img_labels['Face'].iloc[idx])
+        img_left= get_img(img_dir, self.img_labels['Left'].iloc[idx])
+        img_right = get_img(img_dir, self.img_labels['Right'].iloc[idx])
+        if not self.simclr:
+            images = {
+                'Face': img_face.float(),
+                'Left': img_left.float(),
+                'Right': img_right.float()
+            }
+            return images
+
+        img_face_i = self.transform(img_face)
+        img_left_i = self.transform_eye(img_left)
+        img_right_i = self.transform_eye(img_right)
+
+        img_face_j = self.transform(img_face)
+        img_left_j = self.transform_eye(img_left)
+        img_right_j = self.transform_eye(img_right)
+        if torch.rand(1)<self.flip:
+            flip  = transforms.RandomHorizontalFlip(1)
+            img_face_i = flip(img_face_i)
+            img_right_i, img_left_i = flip(img_left_i), flip(img_right_i)
+            img_face_j = flip(img_face_j)
+            img_right_j, img_left_j = flip(img_left_j), flip(img_right_j)
+        images_i = {
+            'Face': img_face_i.float(),
+            'Left': img_left_i.float(),
+            'Right': img_right_i.float()
+        }
+        images_j = {
+            'Face': img_face_j.float(),
+            'Left': img_left_j.float(),
+            'Right': img_right_j.float()
+        }
+
+        return images_i, images_j
+
+
 def make_transform():
     transform_eye = transforms.Compose([
         transforms.ToPILImage(),

@@ -1,46 +1,64 @@
 # To Do:
-# 1. Get angular loss on our test set
-# 2. Provide a method to compute the angular loss on ungiven datas
-# 3. Compute angluar loss on another dataset (the domain of labels is quite differnent)
+# 1. Provide a method to compute the angular loss on ungiven datas
+# 2. Compute angluar loss on another dataset (the domain of labels is quite differnent)
 import sys
 from os.path import dirname, abspath
 path = dirname(dirname(abspath(__file__)))
 sys.path.append(path)
+import argparse
 import torch
 from torchvision import transforms
-from gaze.utils.dataloader import Gaze, make_transform
+from gaze.utils.dataloader import Gaze, make_transform, split_columbia, split_mpii
 from torch.utils.data import DataLoader
 from gaze.utils.make_loss import angular_error
-def get_test(BATCH_SIZE):
-    train_file = 'assets/MPII_test.csv'
-    img_dir = 'assets/MPIIFaceGaze/Image'
 
-    transform_eye, transform_val = make_transform()
-    test_set = Gaze(train_file, img_dir, transform_val, transform_eye)
+def make_parser():
+    parser = argparse.ArgumentParser(description='Training Congfiguration')
+    parser.add_argument("--test", action="store_true")
+    parser.add_argument("--folder", default="10-14", type=str, help="Format: m-n where m is less than n")
+    parser.add_argument("--adapt", action="store_true")
+    parser.add_argument("--to", default="columbia", choices=['mpii', 'columbia'], type=str)
+    return parser
 
-    test_loader = DataLoader(test_set, batch_size=BATCH_SIZE, shuffle=True)
-    return test_loader
-
-
-def test(path='assets/model_saved/MPII/geffmf.pt'):
-    print(path)
+def domain_adaptation(args):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    BATCH_SIZE = 100
-    test_loader = get_test(BATCH_SIZE)
-    model = torch.load(path, map_location=torch.device(device))
-    print('Waiting Test...')
-    sum_loss = 0
-    total = 0
-    for data in test_loader:
-        imgs, labels = data
-        imgs = {name: imgs[name].to(device) for name in imgs}
-        labels = labels.to(device)
-        gaze = model(imgs)
-        total += labels.size(0)
-        loss = angular_error(gaze, labels.float())
-        sum_loss += loss.item() * (labels.size(0))
-    print('Test\'s loss is: %.03f' % (sum_loss/total))
+    img_dir = 'assets/'
+    if args.to=='columbia':
+        val, _ = split_columbia(100)
+        img_dir_val = img_dir + 'ColumbiaGazeCutSet'
+        path = 'assets/model_saved/MPII/geffrf_heavy.pt'
+    else:
+        val, _ = split_mpii(100)
+        img_dir_val = img_dir + 'MPIIFaceGaze/Image'
+        path = 'assets/model_saved/Columbia/geffmfp_warm.pt'
+    transform_eye, transform_val = make_transform()
+    val_set = Gaze(val, img_dir_val, transform_val, transform_eye, flip=0)
+    val_loader = torch.utils.data.DataLoader(val_set, batch_size=128, shuffle=True)
 
-test('assets/model_saved/MPII/geffmf.pt')
-test('assets/model_saved/MPII/fusemf.pt')
-test('assets/model_saved/MPII/base.pt')
+    model = torch.load(path, map_location=torch.device(device))
+    model.eval()
+
+    aug_loss_total = 0
+    total = 0
+    L = len(val_loader)
+    with torch.no_grad():
+        for i,data in enumerate(val_loader,1):
+            imgs, labels = data
+            imgs = {name: imgs[name].to(device) for name in imgs}
+            labels = labels.to(device)
+            gaze = model(imgs, args)
+            total += labels.size(0)
+            loss = angular_error(gaze, labels.float())
+            aug_loss_total += loss.item() * (labels.size(0))
+            print('\rTesting... %.03f' % (i/L*100) + '%', end='', flush=True)
+    print('\nTest\'s AngularLoss is: %.03f' % (aug_loss_total / total))
+    return 0
+
+def main():
+    args = make_parser().parse_args()
+    if args.adapt:
+        domain_adaptation(args)
+    return
+
+if __name__ == '__main__':
+    main()
