@@ -1,0 +1,2230 @@
+cuda
+batch=128, cross_val_off=False, data_aug=True, dataset='columbia', debug=False, dim_face=512, epoch=300, eye_en=None, flip=0.0, gray=0.2, jitter=0.2, loss='L1', lr=0.0001, mask=False, model='baseline', name='columbaseline', out_channel=2, pretrain=False, print_every=10, save_every=False, t=1, usebn=False, warm=30, weight=0.2
+Loading Columbia...
+Done!
+
+Epoch: 1
+[epoch:1, iter:10] Loss: 0.02695 AngularLoss: 17.20039
+[epoch:1, iter:20] Loss: 0.01941 AngularLoss: 14.26770
+[epoch:1, iter:30] Loss: 0.01545 AngularLoss: 13.21608
+Waiting Test...
+Test's AngularLoss is: 12.596
+
+Epoch: 2
+[epoch:2, iter:40] Loss: 0.01381 AngularLoss: 12.31487
+[epoch:2, iter:50] Loss: 0.01239 AngularLoss: 11.86131
+[epoch:2, iter:60] Loss: 0.01196 AngularLoss: 11.37575
+Waiting Test...
+Test's AngularLoss is: 14.470
+
+Epoch: 3
+[epoch:3, iter:70] Loss: 0.01062 AngularLoss: 10.69258
+[epoch:3, iter:80] Loss: 0.01017 AngularLoss: 10.62201
+[epoch:3, iter:90] Loss: 0.01112 AngularLoss: 11.06939
+[epoch:3, iter:100] Loss: 0.01231 AngularLoss: 11.74170
+Waiting Test...
+Test's AngularLoss is: 13.448
+
+Epoch: 4
+[epoch:4, iter:110] Loss: 0.00934 AngularLoss: 9.99474
+[epoch:4, iter:120] Loss: 0.00769 AngularLoss: 9.01322
+[epoch:4, iter:130] Loss: 0.00759 AngularLoss: 8.86870
+Waiting Test...
+Test's AngularLoss is: 16.816
+
+Epoch: 5
+[epoch:5, iter:140] Loss: 0.00696 AngularLoss: 8.35626
+[epoch:5, iter:150] Loss: 0.00709 AngularLoss: 8.54144
+[epoch:5, iter:160] Loss: 0.00999 AngularLoss: 9.78197
+[epoch:5, iter:170] Loss: 0.00893 AngularLoss: 9.03203
+Waiting Test...
+Test's AngularLoss is: 16.929
+
+Epoch: 6
+[epoch:6, iter:180] Loss: 0.00553 AngularLoss: 7.10205
+[epoch:6, iter:190] Loss: 0.00746 AngularLoss: 8.38814
+[epoch:6, iter:200] Loss: 0.00679 AngularLoss: 8.18483
+Waiting Test...
+Test's AngularLoss is: 15.224
+
+Epoch: 7
+[epoch:7, iter:210] Loss: 0.00451 AngularLoss: 6.51980
+[epoch:7, iter:220] Loss: 0.00648 AngularLoss: 7.68101
+[epoch:7, iter:230] Loss: 0.00552 AngularLoss: 6.92090
+Waiting Test...
+Test's AngularLoss is: 13.396
+
+Epoch: 8
+[epoch:8, iter:240] Loss: 0.00470 AngularLoss: 6.11029
+[epoch:8, iter:250] Loss: 0.00457 AngularLoss: 6.19163
+[epoch:8, iter:260] Loss: 0.00394 AngularLoss: 6.12598
+[epoch:8, iter:270] Loss: 0.00479 AngularLoss: 6.41047
+Waiting Test...
+Test's AngularLoss is: 13.958
+
+Epoch: 9
+[epoch:9, iter:280] Loss: 0.00669 AngularLoss: 7.89484
+[epoch:9, iter:290] Loss: 0.00622 AngularLoss: 7.54149
+[epoch:9, iter:300] Loss: 0.00568 AngularLoss: 7.22080
+Waiting Test...
+Test's AngularLoss is: 12.655
+
+Epoch: 10
+[epoch:10, iter:310] Loss: 0.00534 AngularLoss: 6.43274
+[epoch:10, iter:320] Loss: 0.00426 AngularLoss: 5.90815
+[epoch:10, iter:330] Loss: 0.00513 AngularLoss: 6.30940
+[epoch:10, iter:340] Loss: 0.00405 AngularLoss: 5.93273
+Waiting Test...
+Test's AngularLoss is: 13.602
+
+Epoch: 11
+[epoch:11, iter:350] Loss: 0.00519 AngularLoss: 6.61376
+[epoch:11, iter:360] Loss: 0.00336 AngularLoss: 5.24509
+[epoch:11, iter:370] Loss: 0.00537 AngularLoss: 6.46196
+Waiting Test...
+Test's AngularLoss is: 12.614
+
+Epoch: 12
+[epoch:12, iter:380] Loss: 0.00323 AngularLoss: 5.12827
+[epoch:12, iter:390] Loss: 0.00419 AngularLoss: 5.83040
+[epoch:12, iter:400] Loss: 0.00398 AngularLoss: 5.85737
+Waiting Test...
+Test's AngularLoss is: 13.339
+
+Epoch: 13
+[epoch:13, iter:410] Loss: 0.00405 AngularLoss: 5.57421
+[epoch:13, iter:420] Loss: 0.00331 AngularLoss: 5.18597
+[epoch:13, iter:430] Loss: 0.00461 AngularLoss: 5.94868
+[epoch:13, iter:440] Loss: 0.00398 AngularLoss: 5.76115
+Waiting Test...
+Test's AngularLoss is: 13.468
+
+Epoch: 14
+[epoch:14, iter:450] Loss: 0.00340 AngularLoss: 5.35507
+[epoch:14, iter:460] Loss: 0.00448 AngularLoss: 6.28010
+[epoch:14, iter:470] Loss: 0.00459 AngularLoss: 5.79603
+Waiting Test...
+Test's AngularLoss is: 12.276
+
+Epoch: 15
+[epoch:15, iter:480] Loss: 0.00411 AngularLoss: 6.10435
+[epoch:15, iter:490] Loss: 0.00331 AngularLoss: 5.34617
+[epoch:15, iter:500] Loss: 0.00346 AngularLoss: 5.39287
+[epoch:15, iter:510] Loss: 0.00348 AngularLoss: 5.36459
+Waiting Test...
+Test's AngularLoss is: 12.437
+
+Epoch: 16
+[epoch:16, iter:520] Loss: 0.00341 AngularLoss: 5.29549
+[epoch:16, iter:530] Loss: 0.00305 AngularLoss: 4.97899
+[epoch:16, iter:540] Loss: 0.00345 AngularLoss: 5.28942
+Waiting Test...
+Test's AngularLoss is: 13.171
+
+Epoch: 17
+[epoch:17, iter:550] Loss: 0.00310 AngularLoss: 5.30628
+[epoch:17, iter:560] Loss: 0.00380 AngularLoss: 5.61226
+[epoch:17, iter:570] Loss: 0.00333 AngularLoss: 5.18869
+Waiting Test...
+Test's AngularLoss is: 12.550
+
+Epoch: 18
+[epoch:18, iter:580] Loss: 0.00267 AngularLoss: 4.51366
+[epoch:18, iter:590] Loss: 0.00352 AngularLoss: 5.35943
+[epoch:18, iter:600] Loss: 0.00433 AngularLoss: 6.04921
+[epoch:18, iter:610] Loss: 0.00332 AngularLoss: 5.42453
+Waiting Test...
+Test's AngularLoss is: 12.455
+
+Epoch: 19
+[epoch:19, iter:620] Loss: 0.00295 AngularLoss: 4.71207
+[epoch:19, iter:630] Loss: 0.00330 AngularLoss: 5.15450
+[epoch:19, iter:640] Loss: 0.00296 AngularLoss: 5.10348
+Waiting Test...
+Test's AngularLoss is: 13.334
+
+Epoch: 20
+[epoch:20, iter:650] Loss: 0.00340 AngularLoss: 4.96163
+[epoch:20, iter:660] Loss: 0.00332 AngularLoss: 5.33447
+[epoch:20, iter:670] Loss: 0.00304 AngularLoss: 4.76394
+[epoch:20, iter:680] Loss: 0.00340 AngularLoss: 5.34544
+Waiting Test...
+Test's AngularLoss is: 15.179
+
+Epoch: 21
+[epoch:21, iter:690] Loss: 0.00402 AngularLoss: 5.50813
+[epoch:21, iter:700] Loss: 0.00395 AngularLoss: 5.78429
+[epoch:21, iter:710] Loss: 0.00362 AngularLoss: 5.75556
+Waiting Test...
+Test's AngularLoss is: 13.386
+
+Epoch: 22
+[epoch:22, iter:720] Loss: 0.00276 AngularLoss: 4.86223
+[epoch:22, iter:730] Loss: 0.00344 AngularLoss: 5.61960
+[epoch:22, iter:740] Loss: 0.00332 AngularLoss: 5.13238
+Waiting Test...
+Test's AngularLoss is: 12.209
+
+Epoch: 23
+[epoch:23, iter:750] Loss: 0.00332 AngularLoss: 5.03606
+[epoch:23, iter:760] Loss: 0.00299 AngularLoss: 5.03107
+[epoch:23, iter:770] Loss: 0.00327 AngularLoss: 5.11944
+[epoch:23, iter:780] Loss: 0.00288 AngularLoss: 4.64632
+Waiting Test...
+Test's AngularLoss is: 13.851
+
+Epoch: 24
+[epoch:24, iter:790] Loss: 0.00348 AngularLoss: 5.43239
+[epoch:24, iter:800] Loss: 0.00340 AngularLoss: 5.15660
+[epoch:24, iter:810] Loss: 0.00241 AngularLoss: 4.55574
+Waiting Test...
+Test's AngularLoss is: 12.472
+
+Epoch: 25
+[epoch:25, iter:820] Loss: 0.00373 AngularLoss: 5.27721
+[epoch:25, iter:830] Loss: 0.00214 AngularLoss: 3.97237
+[epoch:25, iter:840] Loss: 0.00250 AngularLoss: 4.62573
+[epoch:25, iter:850] Loss: 0.00328 AngularLoss: 5.12929
+Waiting Test...
+Test's AngularLoss is: 12.099
+
+Epoch: 26
+[epoch:26, iter:860] Loss: 0.00188 AngularLoss: 3.95559
+[epoch:26, iter:870] Loss: 0.00284 AngularLoss: 4.64601
+[epoch:26, iter:880] Loss: 0.00327 AngularLoss: 4.96910
+Waiting Test...
+Test's AngularLoss is: 13.490
+
+Epoch: 27
+[epoch:27, iter:890] Loss: 0.00258 AngularLoss: 4.62284
+[epoch:27, iter:900] Loss: 0.00285 AngularLoss: 4.69533
+[epoch:27, iter:910] Loss: 0.00250 AngularLoss: 4.47954
+Waiting Test...
+Test's AngularLoss is: 14.473
+
+Epoch: 28
+[epoch:28, iter:920] Loss: 0.00248 AngularLoss: 4.54516
+[epoch:28, iter:930] Loss: 0.00208 AngularLoss: 4.17449
+[epoch:28, iter:940] Loss: 0.00192 AngularLoss: 3.96396
+[epoch:28, iter:950] Loss: 0.00200 AngularLoss: 4.16164
+Waiting Test...
+Test's AngularLoss is: 16.294
+
+Epoch: 29
+[epoch:29, iter:960] Loss: 0.00280 AngularLoss: 5.04158
+[epoch:29, iter:970] Loss: 0.00245 AngularLoss: 4.49718
+[epoch:29, iter:980] Loss: 0.00294 AngularLoss: 4.78664
+Waiting Test...
+Test's AngularLoss is: 12.156
+
+Epoch: 30
+[epoch:30, iter:990] Loss: 0.00282 AngularLoss: 4.65595
+[epoch:30, iter:1000] Loss: 0.00239 AngularLoss: 4.48072
+[epoch:30, iter:1010] Loss: 0.00288 AngularLoss: 4.52068
+[epoch:30, iter:1020] Loss: 0.00269 AngularLoss: 4.81492
+Waiting Test...
+Test's AngularLoss is: 12.572
+
+Epoch: 31
+[epoch:31, iter:1030] Loss: 0.00226 AngularLoss: 4.18979
+[epoch:31, iter:1040] Loss: 0.00214 AngularLoss: 4.35804
+[epoch:31, iter:1050] Loss: 0.00317 AngularLoss: 4.60141
+Waiting Test...
+Test's AngularLoss is: 12.338
+
+Epoch: 32
+[epoch:32, iter:1060] Loss: 0.00261 AngularLoss: 4.25911
+[epoch:32, iter:1070] Loss: 0.00198 AngularLoss: 4.35876
+[epoch:32, iter:1080] Loss: 0.00235 AngularLoss: 4.43910
+Waiting Test...
+Test's AngularLoss is: 12.984
+
+Epoch: 33
+[epoch:33, iter:1090] Loss: 0.00240 AngularLoss: 4.32003
+[epoch:33, iter:1100] Loss: 0.00272 AngularLoss: 4.80510
+[epoch:33, iter:1110] Loss: 0.00187 AngularLoss: 4.07576
+[epoch:33, iter:1120] Loss: 0.00294 AngularLoss: 4.87418
+Waiting Test...
+Test's AngularLoss is: 11.964
+
+Epoch: 34
+[epoch:34, iter:1130] Loss: 0.00227 AngularLoss: 4.32644
+[epoch:34, iter:1140] Loss: 0.00238 AngularLoss: 4.46128
+[epoch:34, iter:1150] Loss: 0.00251 AngularLoss: 4.95481
+Waiting Test...
+Test's AngularLoss is: 13.366
+
+Epoch: 35
+[epoch:35, iter:1160] Loss: 0.00248 AngularLoss: 4.59500
+[epoch:35, iter:1170] Loss: 0.00205 AngularLoss: 4.05808
+[epoch:35, iter:1180] Loss: 0.00213 AngularLoss: 4.12030
+[epoch:35, iter:1190] Loss: 0.00209 AngularLoss: 4.13964
+Waiting Test...
+Test's AngularLoss is: 12.254
+
+Epoch: 36
+[epoch:36, iter:1200] Loss: 0.00152 AngularLoss: 3.66056
+[epoch:36, iter:1210] Loss: 0.00193 AngularLoss: 3.89409
+[epoch:36, iter:1220] Loss: 0.00181 AngularLoss: 3.97168
+Waiting Test...
+Test's AngularLoss is: 11.816
+
+Epoch: 37
+[epoch:37, iter:1230] Loss: 0.00189 AngularLoss: 3.75744
+[epoch:37, iter:1240] Loss: 0.00226 AngularLoss: 4.30486
+[epoch:37, iter:1250] Loss: 0.00201 AngularLoss: 4.14303
+Waiting Test...
+Test's AngularLoss is: 11.958
+
+Epoch: 38
+[epoch:38, iter:1260] Loss: 0.00208 AngularLoss: 4.04472
+[epoch:38, iter:1270] Loss: 0.00308 AngularLoss: 4.58704
+[epoch:38, iter:1280] Loss: 0.00166 AngularLoss: 3.77754
+[epoch:38, iter:1290] Loss: 0.00165 AngularLoss: 3.69570
+Waiting Test...
+Test's AngularLoss is: 13.069
+
+Epoch: 39
+[epoch:39, iter:1300] Loss: 0.00206 AngularLoss: 4.35895
+[epoch:39, iter:1310] Loss: 0.00310 AngularLoss: 5.19311
+[epoch:39, iter:1320] Loss: 0.00215 AngularLoss: 4.21739
+Waiting Test...
+Test's AngularLoss is: 15.156
+
+Epoch: 40
+[epoch:40, iter:1330] Loss: 0.00195 AngularLoss: 3.97163
+[epoch:40, iter:1340] Loss: 0.00260 AngularLoss: 4.55945
+[epoch:40, iter:1350] Loss: 0.00190 AngularLoss: 3.84138
+[epoch:40, iter:1360] Loss: 0.00126 AngularLoss: 3.30416
+Waiting Test...
+Test's AngularLoss is: 12.305
+
+Epoch: 41
+[epoch:41, iter:1370] Loss: 0.00174 AngularLoss: 3.77871
+[epoch:41, iter:1380] Loss: 0.00178 AngularLoss: 3.80888
+[epoch:41, iter:1390] Loss: 0.00154 AngularLoss: 3.71926
+Waiting Test...
+Test's AngularLoss is: 11.697
+
+Epoch: 42
+[epoch:42, iter:1400] Loss: 0.00154 AngularLoss: 3.59228
+[epoch:42, iter:1410] Loss: 0.00166 AngularLoss: 3.57300
+[epoch:42, iter:1420] Loss: 0.00138 AngularLoss: 3.41480
+Waiting Test...
+Test's AngularLoss is: 12.555
+
+Epoch: 43
+[epoch:43, iter:1430] Loss: 0.00114 AngularLoss: 2.97471
+[epoch:43, iter:1440] Loss: 0.00112 AngularLoss: 3.09171
+[epoch:43, iter:1450] Loss: 0.00183 AngularLoss: 3.90847
+[epoch:43, iter:1460] Loss: 0.00154 AngularLoss: 3.41721
+Waiting Test...
+Test's AngularLoss is: 12.177
+
+Epoch: 44
+[epoch:44, iter:1470] Loss: 0.00146 AngularLoss: 3.46964
+[epoch:44, iter:1480] Loss: 0.00183 AngularLoss: 4.01845
+[epoch:44, iter:1490] Loss: 0.00205 AngularLoss: 4.28045
+Waiting Test...
+Test's AngularLoss is: 11.892
+
+Epoch: 45
+[epoch:45, iter:1500] Loss: 0.00191 AngularLoss: 3.91328
+[epoch:45, iter:1510] Loss: 0.00191 AngularLoss: 3.80770
+[epoch:45, iter:1520] Loss: 0.00157 AngularLoss: 3.78838
+[epoch:45, iter:1530] Loss: 0.00244 AngularLoss: 4.52013
+Waiting Test...
+Test's AngularLoss is: 13.751
+
+Epoch: 46
+[epoch:46, iter:1540] Loss: 0.00140 AngularLoss: 3.57883
+[epoch:46, iter:1550] Loss: 0.00135 AngularLoss: 3.39010
+[epoch:46, iter:1560] Loss: 0.00176 AngularLoss: 3.68330
+Waiting Test...
+Test's AngularLoss is: 11.833
+
+Epoch: 47
+[epoch:47, iter:1570] Loss: 0.00182 AngularLoss: 3.96473
+[epoch:47, iter:1580] Loss: 0.00176 AngularLoss: 4.07138
+[epoch:47, iter:1590] Loss: 0.00219 AngularLoss: 4.63535
+Waiting Test...
+Test's AngularLoss is: 11.768
+
+Epoch: 48
+[epoch:48, iter:1600] Loss: 0.00164 AngularLoss: 3.62215
+[epoch:48, iter:1610] Loss: 0.00161 AngularLoss: 3.43967
+[epoch:48, iter:1620] Loss: 0.00129 AngularLoss: 3.52253
+[epoch:48, iter:1630] Loss: 0.00180 AngularLoss: 3.75851
+Waiting Test...
+Test's AngularLoss is: 12.531
+
+Epoch: 49
+[epoch:49, iter:1640] Loss: 0.00137 AngularLoss: 3.51500
+[epoch:49, iter:1650] Loss: 0.00140 AngularLoss: 3.38437
+[epoch:49, iter:1660] Loss: 0.00146 AngularLoss: 3.35914
+Waiting Test...
+Test's AngularLoss is: 13.073
+
+Epoch: 50
+[epoch:50, iter:1670] Loss: 0.00113 AngularLoss: 3.05390
+[epoch:50, iter:1680] Loss: 0.00185 AngularLoss: 4.20432
+[epoch:50, iter:1690] Loss: 0.00144 AngularLoss: 3.35677
+[epoch:50, iter:1700] Loss: 0.00134 AngularLoss: 3.54917
+Waiting Test...
+Test's AngularLoss is: 11.751
+
+Epoch: 51
+[epoch:51, iter:1710] Loss: 0.00125 AngularLoss: 3.15992
+[epoch:51, iter:1720] Loss: 0.00153 AngularLoss: 3.59676
+[epoch:51, iter:1730] Loss: 0.00170 AngularLoss: 3.79773
+Waiting Test...
+Test's AngularLoss is: 12.219
+
+Epoch: 52
+[epoch:52, iter:1740] Loss: 0.00136 AngularLoss: 3.48027
+[epoch:52, iter:1750] Loss: 0.00159 AngularLoss: 3.80267
+[epoch:52, iter:1760] Loss: 0.00123 AngularLoss: 3.30984
+Waiting Test...
+Test's AngularLoss is: 11.875
+
+Epoch: 53
+[epoch:53, iter:1770] Loss: 0.00232 AngularLoss: 4.24337
+[epoch:53, iter:1780] Loss: 0.00189 AngularLoss: 4.00787
+[epoch:53, iter:1790] Loss: 0.00168 AngularLoss: 3.79962
+[epoch:53, iter:1800] Loss: 0.00126 AngularLoss: 3.41750
+Waiting Test...
+Test's AngularLoss is: 11.751
+
+Epoch: 54
+[epoch:54, iter:1810] Loss: 0.00136 AngularLoss: 3.59036
+[epoch:54, iter:1820] Loss: 0.00191 AngularLoss: 4.03682
+[epoch:54, iter:1830] Loss: 0.00132 AngularLoss: 3.27275
+Waiting Test...
+Test's AngularLoss is: 12.063
+
+Epoch: 55
+[epoch:55, iter:1840] Loss: 0.00123 AngularLoss: 3.26278
+[epoch:55, iter:1850] Loss: 0.00134 AngularLoss: 3.50373
+[epoch:55, iter:1860] Loss: 0.00175 AngularLoss: 3.94120
+[epoch:55, iter:1870] Loss: 0.00116 AngularLoss: 3.41459
+Waiting Test...
+Test's AngularLoss is: 11.943
+
+Epoch: 56
+[epoch:56, iter:1880] Loss: 0.00116 AngularLoss: 3.41927
+[epoch:56, iter:1890] Loss: 0.00112 AngularLoss: 3.27261
+[epoch:56, iter:1900] Loss: 0.00152 AngularLoss: 3.43617
+Waiting Test...
+Test's AngularLoss is: 11.833
+
+Epoch: 57
+[epoch:57, iter:1910] Loss: 0.00106 AngularLoss: 3.03105
+[epoch:57, iter:1920] Loss: 0.00135 AngularLoss: 3.32009
+[epoch:57, iter:1930] Loss: 0.00210 AngularLoss: 4.33356
+Waiting Test...
+Test's AngularLoss is: 11.704
+
+Epoch: 58
+[epoch:58, iter:1940] Loss: 0.00124 AngularLoss: 3.45249
+[epoch:58, iter:1950] Loss: 0.00135 AngularLoss: 3.45230
+[epoch:58, iter:1960] Loss: 0.00129 AngularLoss: 3.32549
+[epoch:58, iter:1970] Loss: 0.00111 AngularLoss: 3.20403
+Waiting Test...
+Test's AngularLoss is: 12.711
+
+Epoch: 59
+[epoch:59, iter:1980] Loss: 0.00101 AngularLoss: 3.06156
+[epoch:59, iter:1990] Loss: 0.00116 AngularLoss: 3.26178
+[epoch:59, iter:2000] Loss: 0.00130 AngularLoss: 3.30143
+Waiting Test...
+Test's AngularLoss is: 11.476
+
+Epoch: 60
+[epoch:60, iter:2010] Loss: 0.00124 AngularLoss: 3.41753
+[epoch:60, iter:2020] Loss: 0.00088 AngularLoss: 2.76272
+[epoch:60, iter:2030] Loss: 0.00146 AngularLoss: 3.49813
+[epoch:60, iter:2040] Loss: 0.00121 AngularLoss: 3.32220
+Waiting Test...
+Test's AngularLoss is: 11.997
+
+Epoch: 61
+[epoch:61, iter:2050] Loss: 0.00105 AngularLoss: 3.00589
+[epoch:61, iter:2060] Loss: 0.00165 AngularLoss: 3.94865
+[epoch:61, iter:2070] Loss: 0.00109 AngularLoss: 3.02562
+Waiting Test...
+Test's AngularLoss is: 11.656
+
+Epoch: 62
+[epoch:62, iter:2080] Loss: 0.00104 AngularLoss: 3.17076
+[epoch:62, iter:2090] Loss: 0.00125 AngularLoss: 3.17483
+[epoch:62, iter:2100] Loss: 0.00125 AngularLoss: 3.23737
+Waiting Test...
+Test's AngularLoss is: 11.620
+
+Epoch: 63
+[epoch:63, iter:2110] Loss: 0.00116 AngularLoss: 3.06776
+[epoch:63, iter:2120] Loss: 0.00112 AngularLoss: 3.08831
+[epoch:63, iter:2130] Loss: 0.00155 AngularLoss: 3.52921
+[epoch:63, iter:2140] Loss: 0.00113 AngularLoss: 3.12530
+Waiting Test...
+Test's AngularLoss is: 11.593
+
+Epoch: 64
+[epoch:64, iter:2150] Loss: 0.00106 AngularLoss: 3.32679
+[epoch:64, iter:2160] Loss: 0.00125 AngularLoss: 3.23827
+[epoch:64, iter:2170] Loss: 0.00125 AngularLoss: 3.34134
+Waiting Test...
+Test's AngularLoss is: 12.353
+
+Epoch: 65
+[epoch:65, iter:2180] Loss: 0.00107 AngularLoss: 3.18204
+[epoch:65, iter:2190] Loss: 0.00155 AngularLoss: 3.90189
+[epoch:65, iter:2200] Loss: 0.00148 AngularLoss: 3.62813
+[epoch:65, iter:2210] Loss: 0.00128 AngularLoss: 3.25414
+Waiting Test...
+Test's AngularLoss is: 11.391
+
+Epoch: 66
+[epoch:66, iter:2220] Loss: 0.00122 AngularLoss: 3.29365
+[epoch:66, iter:2230] Loss: 0.00117 AngularLoss: 3.22528
+[epoch:66, iter:2240] Loss: 0.00126 AngularLoss: 3.39063
+Waiting Test...
+Test's AngularLoss is: 11.425
+
+Epoch: 67
+[epoch:67, iter:2250] Loss: 0.00100 AngularLoss: 2.94507
+[epoch:67, iter:2260] Loss: 0.00099 AngularLoss: 2.98618
+[epoch:67, iter:2270] Loss: 0.00104 AngularLoss: 2.89943
+Waiting Test...
+Test's AngularLoss is: 11.729
+
+Epoch: 68
+[epoch:68, iter:2280] Loss: 0.00107 AngularLoss: 3.19098
+[epoch:68, iter:2290] Loss: 0.00131 AngularLoss: 3.22667
+[epoch:68, iter:2300] Loss: 0.00064 AngularLoss: 2.48316
+[epoch:68, iter:2310] Loss: 0.00153 AngularLoss: 3.45805
+Waiting Test...
+Test's AngularLoss is: 11.242
+
+Epoch: 69
+[epoch:69, iter:2320] Loss: 0.00119 AngularLoss: 3.20468
+[epoch:69, iter:2330] Loss: 0.00093 AngularLoss: 2.94895
+[epoch:69, iter:2340] Loss: 0.00106 AngularLoss: 3.16586
+Waiting Test...
+Test's AngularLoss is: 12.097
+
+Epoch: 70
+[epoch:70, iter:2350] Loss: 0.00066 AngularLoss: 2.39538
+[epoch:70, iter:2360] Loss: 0.00162 AngularLoss: 3.82427
+[epoch:70, iter:2370] Loss: 0.00091 AngularLoss: 2.95279
+[epoch:70, iter:2380] Loss: 0.00075 AngularLoss: 2.78419
+Waiting Test...
+Test's AngularLoss is: 11.400
+
+Epoch: 71
+[epoch:71, iter:2390] Loss: 0.00080 AngularLoss: 2.72204
+[epoch:71, iter:2400] Loss: 0.00129 AngularLoss: 3.34198
+[epoch:71, iter:2410] Loss: 0.00095 AngularLoss: 2.98363
+Waiting Test...
+Test's AngularLoss is: 12.294
+
+Epoch: 72
+[epoch:72, iter:2420] Loss: 0.00116 AngularLoss: 3.21020
+[epoch:72, iter:2430] Loss: 0.00163 AngularLoss: 4.07709
+[epoch:72, iter:2440] Loss: 0.00086 AngularLoss: 2.74560
+Waiting Test...
+Test's AngularLoss is: 11.277
+
+Epoch: 73
+[epoch:73, iter:2450] Loss: 0.00129 AngularLoss: 3.38948
+[epoch:73, iter:2460] Loss: 0.00127 AngularLoss: 3.31151
+[epoch:73, iter:2470] Loss: 0.00083 AngularLoss: 2.81875
+[epoch:73, iter:2480] Loss: 0.00098 AngularLoss: 2.94287
+Waiting Test...
+Test's AngularLoss is: 11.448
+
+Epoch: 74
+[epoch:74, iter:2490] Loss: 0.00174 AngularLoss: 3.97291
+[epoch:74, iter:2500] Loss: 0.00120 AngularLoss: 3.44209
+[epoch:74, iter:2510] Loss: 0.00149 AngularLoss: 3.17608
+Waiting Test...
+Test's AngularLoss is: 11.894
+
+Epoch: 75
+[epoch:75, iter:2520] Loss: 0.00123 AngularLoss: 3.23972
+[epoch:75, iter:2530] Loss: 0.00124 AngularLoss: 3.34478
+[epoch:75, iter:2540] Loss: 0.00144 AngularLoss: 3.76111
+[epoch:75, iter:2550] Loss: 0.00103 AngularLoss: 3.28511
+Waiting Test...
+Test's AngularLoss is: 11.335
+
+Epoch: 76
+[epoch:76, iter:2560] Loss: 0.00074 AngularLoss: 2.65808
+[epoch:76, iter:2570] Loss: 0.00071 AngularLoss: 2.50131
+[epoch:76, iter:2580] Loss: 0.00095 AngularLoss: 3.06247
+Waiting Test...
+Test's AngularLoss is: 11.935
+
+Epoch: 77
+[epoch:77, iter:2590] Loss: 0.00074 AngularLoss: 2.57448
+[epoch:77, iter:2600] Loss: 0.00101 AngularLoss: 2.95456
+[epoch:77, iter:2610] Loss: 0.00108 AngularLoss: 3.24209
+Waiting Test...
+Test's AngularLoss is: 11.796
+
+Epoch: 78
+[epoch:78, iter:2620] Loss: 0.00091 AngularLoss: 2.86801
+[epoch:78, iter:2630] Loss: 0.00122 AngularLoss: 3.30233
+[epoch:78, iter:2640] Loss: 0.00111 AngularLoss: 3.10254
+[epoch:78, iter:2650] Loss: 0.00095 AngularLoss: 3.10496
+Waiting Test...
+Test's AngularLoss is: 11.487
+
+Epoch: 79
+[epoch:79, iter:2660] Loss: 0.00117 AngularLoss: 3.22708
+[epoch:79, iter:2670] Loss: 0.00122 AngularLoss: 3.32622
+[epoch:79, iter:2680] Loss: 0.00133 AngularLoss: 3.64732
+Waiting Test...
+Test's AngularLoss is: 11.071
+
+Epoch: 80
+[epoch:80, iter:2690] Loss: 0.00132 AngularLoss: 3.76691
+[epoch:80, iter:2700] Loss: 0.00111 AngularLoss: 3.27491
+[epoch:80, iter:2710] Loss: 0.00104 AngularLoss: 3.08385
+[epoch:80, iter:2720] Loss: 0.00084 AngularLoss: 2.73960
+Waiting Test...
+Test's AngularLoss is: 11.107
+
+Epoch: 81
+[epoch:81, iter:2730] Loss: 0.00088 AngularLoss: 2.86299
+[epoch:81, iter:2740] Loss: 0.00099 AngularLoss: 3.05891
+[epoch:81, iter:2750] Loss: 0.00089 AngularLoss: 2.78428
+Waiting Test...
+Test's AngularLoss is: 11.237
+
+Epoch: 82
+[epoch:82, iter:2760] Loss: 0.00157 AngularLoss: 3.94067
+[epoch:82, iter:2770] Loss: 0.00129 AngularLoss: 3.58930
+[epoch:82, iter:2780] Loss: 0.00099 AngularLoss: 2.96768
+Waiting Test...
+Test's AngularLoss is: 10.971
+
+Epoch: 83
+[epoch:83, iter:2790] Loss: 0.00146 AngularLoss: 3.76506
+[epoch:83, iter:2800] Loss: 0.00110 AngularLoss: 3.19501
+[epoch:83, iter:2810] Loss: 0.00103 AngularLoss: 3.04088
+[epoch:83, iter:2820] Loss: 0.00090 AngularLoss: 2.99281
+Waiting Test...
+Test's AngularLoss is: 12.865
+
+Epoch: 84
+[epoch:84, iter:2830] Loss: 0.00093 AngularLoss: 2.95178
+[epoch:84, iter:2840] Loss: 0.00139 AngularLoss: 3.64413
+[epoch:84, iter:2850] Loss: 0.00119 AngularLoss: 3.34946
+Waiting Test...
+Test's AngularLoss is: 11.198
+
+Epoch: 85
+[epoch:85, iter:2860] Loss: 0.00080 AngularLoss: 2.78855
+[epoch:85, iter:2870] Loss: 0.00106 AngularLoss: 3.27731
+[epoch:85, iter:2880] Loss: 0.00111 AngularLoss: 3.10148
+[epoch:85, iter:2890] Loss: 0.00092 AngularLoss: 3.02943
+Waiting Test...
+Test's AngularLoss is: 11.116
+
+Epoch: 86
+[epoch:86, iter:2900] Loss: 0.00147 AngularLoss: 3.87271
+[epoch:86, iter:2910] Loss: 0.00101 AngularLoss: 2.88502
+[epoch:86, iter:2920] Loss: 0.00118 AngularLoss: 3.16912
+Waiting Test...
+Test's AngularLoss is: 11.551
+
+Epoch: 87
+[epoch:87, iter:2930] Loss: 0.00089 AngularLoss: 2.63185
+[epoch:87, iter:2940] Loss: 0.00087 AngularLoss: 2.81107
+[epoch:87, iter:2950] Loss: 0.00074 AngularLoss: 2.59413
+Waiting Test...
+Test's AngularLoss is: 10.921
+
+Epoch: 88
+[epoch:88, iter:2960] Loss: 0.00087 AngularLoss: 2.90377
+[epoch:88, iter:2970] Loss: 0.00084 AngularLoss: 2.64435
+[epoch:88, iter:2980] Loss: 0.00100 AngularLoss: 3.12483
+[epoch:88, iter:2990] Loss: 0.00070 AngularLoss: 2.55845
+Waiting Test...
+Test's AngularLoss is: 11.443
+
+Epoch: 89
+[epoch:89, iter:3000] Loss: 0.00079 AngularLoss: 2.73041
+[epoch:89, iter:3010] Loss: 0.00103 AngularLoss: 2.95516
+[epoch:89, iter:3020] Loss: 0.00084 AngularLoss: 2.70350
+Waiting Test...
+Test's AngularLoss is: 10.968
+
+Epoch: 90
+[epoch:90, iter:3030] Loss: 0.00119 AngularLoss: 3.34730
+[epoch:90, iter:3040] Loss: 0.00092 AngularLoss: 2.90265
+[epoch:90, iter:3050] Loss: 0.00057 AngularLoss: 2.38146
+[epoch:90, iter:3060] Loss: 0.00075 AngularLoss: 2.78829
+Waiting Test...
+Test's AngularLoss is: 11.762
+
+Epoch: 91
+[epoch:91, iter:3070] Loss: 0.00088 AngularLoss: 2.79782
+[epoch:91, iter:3080] Loss: 0.00100 AngularLoss: 2.94758
+[epoch:91, iter:3090] Loss: 0.00089 AngularLoss: 2.82672
+Waiting Test...
+Test's AngularLoss is: 10.903
+
+Epoch: 92
+[epoch:92, iter:3100] Loss: 0.00094 AngularLoss: 2.83672
+[epoch:92, iter:3110] Loss: 0.00069 AngularLoss: 2.53863
+[epoch:92, iter:3120] Loss: 0.00098 AngularLoss: 3.01850
+Waiting Test...
+Test's AngularLoss is: 11.363
+
+Epoch: 93
+[epoch:93, iter:3130] Loss: 0.00070 AngularLoss: 2.50408
+[epoch:93, iter:3140] Loss: 0.00110 AngularLoss: 3.32606
+[epoch:93, iter:3150] Loss: 0.00076 AngularLoss: 2.64095
+[epoch:93, iter:3160] Loss: 0.00080 AngularLoss: 2.75561
+Waiting Test...
+Test's AngularLoss is: 10.744
+
+Epoch: 94
+[epoch:94, iter:3170] Loss: 0.00096 AngularLoss: 3.17354
+[epoch:94, iter:3180] Loss: 0.00077 AngularLoss: 2.60108
+[epoch:94, iter:3190] Loss: 0.00108 AngularLoss: 3.14565
+Waiting Test...
+Test's AngularLoss is: 10.714
+
+Epoch: 95
+[epoch:95, iter:3200] Loss: 0.00089 AngularLoss: 2.83238
+[epoch:95, iter:3210] Loss: 0.00064 AngularLoss: 2.36841
+[epoch:95, iter:3220] Loss: 0.00078 AngularLoss: 2.73523
+[epoch:95, iter:3230] Loss: 0.00086 AngularLoss: 2.73270
+Waiting Test...
+Test's AngularLoss is: 11.053
+
+Epoch: 96
+[epoch:96, iter:3240] Loss: 0.00069 AngularLoss: 2.64170
+[epoch:96, iter:3250] Loss: 0.00086 AngularLoss: 2.83388
+[epoch:96, iter:3260] Loss: 0.00065 AngularLoss: 2.49809
+Waiting Test...
+Test's AngularLoss is: 10.771
+
+Epoch: 97
+[epoch:97, iter:3270] Loss: 0.00069 AngularLoss: 2.47633
+[epoch:97, iter:3280] Loss: 0.00100 AngularLoss: 2.97293
+[epoch:97, iter:3290] Loss: 0.00130 AngularLoss: 3.33264
+Waiting Test...
+Test's AngularLoss is: 11.364
+
+Epoch: 98
+[epoch:98, iter:3300] Loss: 0.00115 AngularLoss: 3.35300
+[epoch:98, iter:3310] Loss: 0.00078 AngularLoss: 2.64729
+[epoch:98, iter:3320] Loss: 0.00076 AngularLoss: 2.63780
+[epoch:98, iter:3330] Loss: 0.00066 AngularLoss: 2.43365
+Waiting Test...
+Test's AngularLoss is: 10.659
+
+Epoch: 99
+[epoch:99, iter:3340] Loss: 0.00092 AngularLoss: 2.97299
+[epoch:99, iter:3350] Loss: 0.00090 AngularLoss: 2.92907
+[epoch:99, iter:3360] Loss: 0.00081 AngularLoss: 2.89238
+Waiting Test...
+Test's AngularLoss is: 10.761
+
+Epoch: 100
+[epoch:100, iter:3370] Loss: 0.00079 AngularLoss: 2.54687
+[epoch:100, iter:3380] Loss: 0.00056 AngularLoss: 2.23991
+[epoch:100, iter:3390] Loss: 0.00076 AngularLoss: 2.63622
+[epoch:100, iter:3400] Loss: 0.00106 AngularLoss: 2.93420
+Waiting Test...
+Test's AngularLoss is: 11.246
+
+Epoch: 101
+[epoch:101, iter:3410] Loss: 0.00068 AngularLoss: 2.59695
+[epoch:101, iter:3420] Loss: 0.00089 AngularLoss: 2.79956
+[epoch:101, iter:3430] Loss: 0.00085 AngularLoss: 2.62600
+Waiting Test...
+Test's AngularLoss is: 10.734
+
+Epoch: 102
+[epoch:102, iter:3440] Loss: 0.00085 AngularLoss: 2.89405
+[epoch:102, iter:3450] Loss: 0.00090 AngularLoss: 2.90783
+[epoch:102, iter:3460] Loss: 0.00067 AngularLoss: 2.57111
+Waiting Test...
+Test's AngularLoss is: 10.963
+
+Epoch: 103
+[epoch:103, iter:3470] Loss: 0.00066 AngularLoss: 2.50013
+[epoch:103, iter:3480] Loss: 0.00076 AngularLoss: 2.57671
+[epoch:103, iter:3490] Loss: 0.00071 AngularLoss: 2.59658
+[epoch:103, iter:3500] Loss: 0.00111 AngularLoss: 3.27163
+Waiting Test...
+Test's AngularLoss is: 10.961
+
+Epoch: 104
+[epoch:104, iter:3510] Loss: 0.00076 AngularLoss: 2.74649
+[epoch:104, iter:3520] Loss: 0.00063 AngularLoss: 2.31092
+[epoch:104, iter:3530] Loss: 0.00116 AngularLoss: 3.25410
+Waiting Test...
+Test's AngularLoss is: 11.196
+
+Epoch: 105
+[epoch:105, iter:3540] Loss: 0.00056 AngularLoss: 2.26010
+[epoch:105, iter:3550] Loss: 0.00062 AngularLoss: 2.43103
+[epoch:105, iter:3560] Loss: 0.00063 AngularLoss: 2.42218
+[epoch:105, iter:3570] Loss: 0.00059 AngularLoss: 2.42918
+Waiting Test...
+Test's AngularLoss is: 10.500
+
+Epoch: 106
+[epoch:106, iter:3580] Loss: 0.00078 AngularLoss: 2.77117
+[epoch:106, iter:3590] Loss: 0.00064 AngularLoss: 2.54630
+[epoch:106, iter:3600] Loss: 0.00088 AngularLoss: 3.04962
+Waiting Test...
+Test's AngularLoss is: 11.552
+
+Epoch: 107
+[epoch:107, iter:3610] Loss: 0.00073 AngularLoss: 2.56692
+[epoch:107, iter:3620] Loss: 0.00099 AngularLoss: 3.21183
+[epoch:107, iter:3630] Loss: 0.00059 AngularLoss: 2.37535
+Waiting Test...
+Test's AngularLoss is: 10.709
+
+Epoch: 108
+[epoch:108, iter:3640] Loss: 0.00085 AngularLoss: 2.85455
+[epoch:108, iter:3650] Loss: 0.00136 AngularLoss: 3.49092
+[epoch:108, iter:3660] Loss: 0.00059 AngularLoss: 2.28073
+[epoch:108, iter:3670] Loss: 0.00085 AngularLoss: 2.92733
+Waiting Test...
+Test's AngularLoss is: 11.099
+
+Epoch: 109
+[epoch:109, iter:3680] Loss: 0.00075 AngularLoss: 2.73160
+[epoch:109, iter:3690] Loss: 0.00081 AngularLoss: 2.70006
+[epoch:109, iter:3700] Loss: 0.00083 AngularLoss: 2.72217
+Waiting Test...
+Test's AngularLoss is: 10.796
+
+Epoch: 110
+[epoch:110, iter:3710] Loss: 0.00068 AngularLoss: 2.60465
+[epoch:110, iter:3720] Loss: 0.00083 AngularLoss: 2.98235
+[epoch:110, iter:3730] Loss: 0.00113 AngularLoss: 3.45279
+[epoch:110, iter:3740] Loss: 0.00078 AngularLoss: 2.81628
+Waiting Test...
+Test's AngularLoss is: 10.979
+
+Epoch: 111
+[epoch:111, iter:3750] Loss: 0.00065 AngularLoss: 2.54053
+[epoch:111, iter:3760] Loss: 0.00061 AngularLoss: 2.35911
+[epoch:111, iter:3770] Loss: 0.00066 AngularLoss: 2.48868
+Waiting Test...
+Test's AngularLoss is: 10.634
+
+Epoch: 112
+[epoch:112, iter:3780] Loss: 0.00069 AngularLoss: 2.48145
+[epoch:112, iter:3790] Loss: 0.00089 AngularLoss: 2.68470
+[epoch:112, iter:3800] Loss: 0.00067 AngularLoss: 2.35415
+Waiting Test...
+Test's AngularLoss is: 10.459
+
+Epoch: 113
+[epoch:113, iter:3810] Loss: 0.00066 AngularLoss: 2.43882
+[epoch:113, iter:3820] Loss: 0.00059 AngularLoss: 2.37808
+[epoch:113, iter:3830] Loss: 0.00066 AngularLoss: 2.52190
+[epoch:113, iter:3840] Loss: 0.00060 AngularLoss: 2.45829
+Waiting Test...
+Test's AngularLoss is: 10.487
+
+Epoch: 114
+[epoch:114, iter:3850] Loss: 0.00103 AngularLoss: 3.12930
+[epoch:114, iter:3860] Loss: 0.00069 AngularLoss: 2.46214
+[epoch:114, iter:3870] Loss: 0.00073 AngularLoss: 2.71820
+Waiting Test...
+Test's AngularLoss is: 10.390
+
+Epoch: 115
+[epoch:115, iter:3880] Loss: 0.00059 AngularLoss: 2.50529
+[epoch:115, iter:3890] Loss: 0.00096 AngularLoss: 3.15389
+[epoch:115, iter:3900] Loss: 0.00109 AngularLoss: 3.27087
+[epoch:115, iter:3910] Loss: 0.00086 AngularLoss: 2.76201
+Waiting Test...
+Test's AngularLoss is: 10.737
+
+Epoch: 116
+[epoch:116, iter:3920] Loss: 0.00072 AngularLoss: 2.55219
+[epoch:116, iter:3930] Loss: 0.00052 AngularLoss: 2.17544
+[epoch:116, iter:3940] Loss: 0.00064 AngularLoss: 2.39604
+Waiting Test...
+Test's AngularLoss is: 10.424
+
+Epoch: 117
+[epoch:117, iter:3950] Loss: 0.00067 AngularLoss: 2.51111
+[epoch:117, iter:3960] Loss: 0.00052 AngularLoss: 2.13107
+[epoch:117, iter:3970] Loss: 0.00107 AngularLoss: 3.14210
+Waiting Test...
+Test's AngularLoss is: 10.918
+
+Epoch: 118
+[epoch:118, iter:3980] Loss: 0.00053 AngularLoss: 2.21606
+[epoch:118, iter:3990] Loss: 0.00077 AngularLoss: 2.63054
+[epoch:118, iter:4000] Loss: 0.00053 AngularLoss: 2.23017
+[epoch:118, iter:4010] Loss: 0.00081 AngularLoss: 2.79314
+Waiting Test...
+Test's AngularLoss is: 10.254
+
+Epoch: 119
+[epoch:119, iter:4020] Loss: 0.00078 AngularLoss: 2.75932
+[epoch:119, iter:4030] Loss: 0.00064 AngularLoss: 2.49247
+[epoch:119, iter:4040] Loss: 0.00065 AngularLoss: 2.45892
+Waiting Test...
+Test's AngularLoss is: 10.319
+
+Epoch: 120
+[epoch:120, iter:4050] Loss: 0.00079 AngularLoss: 2.93295
+[epoch:120, iter:4060] Loss: 0.00064 AngularLoss: 2.40458
+[epoch:120, iter:4070] Loss: 0.00085 AngularLoss: 2.79734
+[epoch:120, iter:4080] Loss: 0.00096 AngularLoss: 3.18480
+Waiting Test...
+Test's AngularLoss is: 12.646
+
+Epoch: 121
+[epoch:121, iter:4090] Loss: 0.00082 AngularLoss: 2.86068
+[epoch:121, iter:4100] Loss: 0.00064 AngularLoss: 2.52910
+[epoch:121, iter:4110] Loss: 0.00059 AngularLoss: 2.47013
+Waiting Test...
+Test's AngularLoss is: 10.985
+
+Epoch: 122
+[epoch:122, iter:4120] Loss: 0.00074 AngularLoss: 2.54641
+[epoch:122, iter:4130] Loss: 0.00050 AngularLoss: 2.10709
+[epoch:122, iter:4140] Loss: 0.00091 AngularLoss: 3.08287
+Waiting Test...
+Test's AngularLoss is: 10.740
+
+Epoch: 123
+[epoch:123, iter:4150] Loss: 0.00067 AngularLoss: 2.56497
+[epoch:123, iter:4160] Loss: 0.00062 AngularLoss: 2.42652
+[epoch:123, iter:4170] Loss: 0.00070 AngularLoss: 2.50566
+[epoch:123, iter:4180] Loss: 0.00069 AngularLoss: 2.55811
+Waiting Test...
+Test's AngularLoss is: 10.459
+
+Epoch: 124
+[epoch:124, iter:4190] Loss: 0.00077 AngularLoss: 2.69382
+[epoch:124, iter:4200] Loss: 0.00072 AngularLoss: 2.64286
+[epoch:124, iter:4210] Loss: 0.00071 AngularLoss: 2.55893
+Waiting Test...
+Test's AngularLoss is: 10.312
+
+Epoch: 125
+[epoch:125, iter:4220] Loss: 0.00052 AngularLoss: 2.24563
+[epoch:125, iter:4230] Loss: 0.00059 AngularLoss: 2.39515
+[epoch:125, iter:4240] Loss: 0.00049 AngularLoss: 2.16881
+[epoch:125, iter:4250] Loss: 0.00089 AngularLoss: 2.74886
+Waiting Test...
+Test's AngularLoss is: 10.362
+
+Epoch: 126
+[epoch:126, iter:4260] Loss: 0.00056 AngularLoss: 2.30412
+[epoch:126, iter:4270] Loss: 0.00076 AngularLoss: 2.66516
+[epoch:126, iter:4280] Loss: 0.00081 AngularLoss: 2.62285
+Waiting Test...
+Test's AngularLoss is: 10.600
+
+Epoch: 127
+[epoch:127, iter:4290] Loss: 0.00058 AngularLoss: 2.40001
+[epoch:127, iter:4300] Loss: 0.00090 AngularLoss: 3.06128
+[epoch:127, iter:4310] Loss: 0.00084 AngularLoss: 2.98314
+Waiting Test...
+Test's AngularLoss is: 11.250
+
+Epoch: 128
+[epoch:128, iter:4320] Loss: 0.00140 AngularLoss: 3.85321
+[epoch:128, iter:4330] Loss: 0.00070 AngularLoss: 2.54776
+[epoch:128, iter:4340] Loss: 0.00058 AngularLoss: 2.35749
+[epoch:128, iter:4350] Loss: 0.00075 AngularLoss: 2.73029
+Waiting Test...
+Test's AngularLoss is: 10.615
+
+Epoch: 129
+[epoch:129, iter:4360] Loss: 0.00087 AngularLoss: 2.69163
+[epoch:129, iter:4370] Loss: 0.00084 AngularLoss: 2.86108
+[epoch:129, iter:4380] Loss: 0.00074 AngularLoss: 2.75648
+Waiting Test...
+Test's AngularLoss is: 10.356
+
+Epoch: 130
+[epoch:130, iter:4390] Loss: 0.00066 AngularLoss: 2.47215
+[epoch:130, iter:4400] Loss: 0.00067 AngularLoss: 2.55868
+[epoch:130, iter:4410] Loss: 0.00064 AngularLoss: 2.41000
+[epoch:130, iter:4420] Loss: 0.00056 AngularLoss: 2.36873
+Waiting Test...
+Test's AngularLoss is: 10.327
+
+Epoch: 131
+[epoch:131, iter:4430] Loss: 0.00072 AngularLoss: 2.59873
+[epoch:131, iter:4440] Loss: 0.00057 AngularLoss: 2.23845
+[epoch:131, iter:4450] Loss: 0.00088 AngularLoss: 2.97944
+Waiting Test...
+Test's AngularLoss is: 10.221
+
+Epoch: 132
+[epoch:132, iter:4460] Loss: 0.00089 AngularLoss: 2.78505
+[epoch:132, iter:4470] Loss: 0.00075 AngularLoss: 2.60407
+[epoch:132, iter:4480] Loss: 0.00071 AngularLoss: 2.62116
+Waiting Test...
+Test's AngularLoss is: 10.626
+
+Epoch: 133
+[epoch:133, iter:4490] Loss: 0.00068 AngularLoss: 2.46954
+[epoch:133, iter:4500] Loss: 0.00067 AngularLoss: 2.63783
+[epoch:133, iter:4510] Loss: 0.00070 AngularLoss: 2.54744
+[epoch:133, iter:4520] Loss: 0.00049 AngularLoss: 2.18673
+Waiting Test...
+Test's AngularLoss is: 10.540
+
+Epoch: 134
+[epoch:134, iter:4530] Loss: 0.00048 AngularLoss: 2.07329
+[epoch:134, iter:4540] Loss: 0.00078 AngularLoss: 2.42721
+[epoch:134, iter:4550] Loss: 0.00065 AngularLoss: 2.47770
+Waiting Test...
+Test's AngularLoss is: 10.130
+
+Epoch: 135
+[epoch:135, iter:4560] Loss: 0.00070 AngularLoss: 2.59040
+[epoch:135, iter:4570] Loss: 0.00072 AngularLoss: 2.60796
+[epoch:135, iter:4580] Loss: 0.00054 AngularLoss: 2.23060
+[epoch:135, iter:4590] Loss: 0.00093 AngularLoss: 2.78938
+Waiting Test...
+Test's AngularLoss is: 11.588
+
+Epoch: 136
+[epoch:136, iter:4600] Loss: 0.00044 AngularLoss: 2.04024
+[epoch:136, iter:4610] Loss: 0.00056 AngularLoss: 2.24786
+[epoch:136, iter:4620] Loss: 0.00072 AngularLoss: 2.63139
+Waiting Test...
+Test's AngularLoss is: 10.069
+
+Epoch: 137
+[epoch:137, iter:4630] Loss: 0.00076 AngularLoss: 2.82559
+[epoch:137, iter:4640] Loss: 0.00045 AngularLoss: 2.02867
+[epoch:137, iter:4650] Loss: 0.00049 AngularLoss: 2.12260
+Waiting Test...
+Test's AngularLoss is: 10.100
+
+Epoch: 138
+[epoch:138, iter:4660] Loss: 0.00055 AngularLoss: 2.23586
+[epoch:138, iter:4670] Loss: 0.00112 AngularLoss: 3.39255
+[epoch:138, iter:4680] Loss: 0.00053 AngularLoss: 2.27789
+[epoch:138, iter:4690] Loss: 0.00057 AngularLoss: 2.34365
+Waiting Test...
+Test's AngularLoss is: 11.169
+
+Epoch: 139
+[epoch:139, iter:4700] Loss: 0.00074 AngularLoss: 2.47506
+[epoch:139, iter:4710] Loss: 0.00062 AngularLoss: 2.43235
+[epoch:139, iter:4720] Loss: 0.00048 AngularLoss: 2.16766
+Waiting Test...
+Test's AngularLoss is: 10.278
+
+Epoch: 140
+[epoch:140, iter:4730] Loss: 0.00080 AngularLoss: 2.79798
+[epoch:140, iter:4740] Loss: 0.00072 AngularLoss: 2.66712
+[epoch:140, iter:4750] Loss: 0.00070 AngularLoss: 2.51960
+[epoch:140, iter:4760] Loss: 0.00048 AngularLoss: 2.18007
+Waiting Test...
+Test's AngularLoss is: 11.465
+
+Epoch: 141
+[epoch:141, iter:4770] Loss: 0.00116 AngularLoss: 3.46314
+[epoch:141, iter:4780] Loss: 0.00066 AngularLoss: 2.49488
+[epoch:141, iter:4790] Loss: 0.00061 AngularLoss: 2.43251
+Waiting Test...
+Test's AngularLoss is: 11.828
+
+Epoch: 142
+[epoch:142, iter:4800] Loss: 0.00049 AngularLoss: 2.14066
+[epoch:142, iter:4810] Loss: 0.00058 AngularLoss: 2.37850
+[epoch:142, iter:4820] Loss: 0.00066 AngularLoss: 2.48209
+Waiting Test...
+Test's AngularLoss is: 10.491
+
+Epoch: 143
+[epoch:143, iter:4830] Loss: 0.00065 AngularLoss: 2.40963
+[epoch:143, iter:4840] Loss: 0.00056 AngularLoss: 2.26650
+[epoch:143, iter:4850] Loss: 0.00046 AngularLoss: 2.10022
+[epoch:143, iter:4860] Loss: 0.00109 AngularLoss: 3.31565
+Waiting Test...
+Test's AngularLoss is: 10.125
+
+Epoch: 144
+[epoch:144, iter:4870] Loss: 0.00069 AngularLoss: 2.64249
+[epoch:144, iter:4880] Loss: 0.00075 AngularLoss: 2.77345
+[epoch:144, iter:4890] Loss: 0.00057 AngularLoss: 2.31132
+Waiting Test...
+Test's AngularLoss is: 10.847
+
+Epoch: 145
+[epoch:145, iter:4900] Loss: 0.00057 AngularLoss: 2.32736
+[epoch:145, iter:4910] Loss: 0.00055 AngularLoss: 2.24118
+[epoch:145, iter:4920] Loss: 0.00058 AngularLoss: 2.36451
+[epoch:145, iter:4930] Loss: 0.00041 AngularLoss: 1.95509
+Waiting Test...
+Test's AngularLoss is: 10.118
+
+Epoch: 146
+[epoch:146, iter:4940] Loss: 0.00050 AngularLoss: 2.25445
+[epoch:146, iter:4950] Loss: 0.00048 AngularLoss: 2.10638
+[epoch:146, iter:4960] Loss: 0.00048 AngularLoss: 2.10393
+Waiting Test...
+Test's AngularLoss is: 10.063
+
+Epoch: 147
+[epoch:147, iter:4970] Loss: 0.00057 AngularLoss: 2.36596
+[epoch:147, iter:4980] Loss: 0.00050 AngularLoss: 2.21356
+[epoch:147, iter:4990] Loss: 0.00070 AngularLoss: 2.70018
+Waiting Test...
+Test's AngularLoss is: 10.305
+
+Epoch: 148
+[epoch:148, iter:5000] Loss: 0.00061 AngularLoss: 2.29214
+[epoch:148, iter:5010] Loss: 0.00091 AngularLoss: 3.03141
+[epoch:148, iter:5020] Loss: 0.00084 AngularLoss: 2.90428
+[epoch:148, iter:5030] Loss: 0.00046 AngularLoss: 2.14301
+Waiting Test...
+Test's AngularLoss is: 10.632
+
+Epoch: 149
+[epoch:149, iter:5040] Loss: 0.00047 AngularLoss: 2.12544
+[epoch:149, iter:5050] Loss: 0.00086 AngularLoss: 2.88411
+[epoch:149, iter:5060] Loss: 0.00083 AngularLoss: 2.95986
+Waiting Test...
+Test's AngularLoss is: 12.816
+
+Epoch: 150
+[epoch:150, iter:5070] Loss: 0.00056 AngularLoss: 2.32538
+[epoch:150, iter:5080] Loss: 0.00042 AngularLoss: 2.04925
+[epoch:150, iter:5090] Loss: 0.00034 AngularLoss: 1.79901
+[epoch:150, iter:5100] Loss: 0.00070 AngularLoss: 2.55515
+Waiting Test...
+Test's AngularLoss is: 10.057
+
+Epoch: 151
+[epoch:151, iter:5110] Loss: 0.00055 AngularLoss: 2.18513
+[epoch:151, iter:5120] Loss: 0.00065 AngularLoss: 2.53380
+[epoch:151, iter:5130] Loss: 0.00080 AngularLoss: 2.94123
+Waiting Test...
+Test's AngularLoss is: 10.333
+
+Epoch: 152
+[epoch:152, iter:5140] Loss: 0.00070 AngularLoss: 2.61065
+[epoch:152, iter:5150] Loss: 0.00053 AngularLoss: 2.29099
+[epoch:152, iter:5160] Loss: 0.00082 AngularLoss: 2.66831
+Waiting Test...
+Test's AngularLoss is: 10.620
+
+Epoch: 153
+[epoch:153, iter:5170] Loss: 0.00087 AngularLoss: 3.04227
+[epoch:153, iter:5180] Loss: 0.00068 AngularLoss: 2.57368
+[epoch:153, iter:5190] Loss: 0.00060 AngularLoss: 2.30282
+[epoch:153, iter:5200] Loss: 0.00113 AngularLoss: 3.29218
+Waiting Test...
+Test's AngularLoss is: 9.906
+
+Epoch: 154
+[epoch:154, iter:5210] Loss: 0.00062 AngularLoss: 2.57520
+[epoch:154, iter:5220] Loss: 0.00053 AngularLoss: 2.25203
+[epoch:154, iter:5230] Loss: 0.00092 AngularLoss: 3.13968
+Waiting Test...
+Test's AngularLoss is: 9.866
+
+Epoch: 155
+[epoch:155, iter:5240] Loss: 0.00058 AngularLoss: 2.43298
+[epoch:155, iter:5250] Loss: 0.00040 AngularLoss: 1.93606
+[epoch:155, iter:5260] Loss: 0.00085 AngularLoss: 3.02472
+[epoch:155, iter:5270] Loss: 0.00073 AngularLoss: 2.46950
+Waiting Test...
+Test's AngularLoss is: 11.079
+
+Epoch: 156
+[epoch:156, iter:5280] Loss: 0.00059 AngularLoss: 2.27344
+[epoch:156, iter:5290] Loss: 0.00059 AngularLoss: 2.42332
+[epoch:156, iter:5300] Loss: 0.00044 AngularLoss: 1.98609
+Waiting Test...
+Test's AngularLoss is: 10.180
+
+Epoch: 157
+[epoch:157, iter:5310] Loss: 0.00049 AngularLoss: 2.13568
+[epoch:157, iter:5320] Loss: 0.00064 AngularLoss: 2.43596
+[epoch:157, iter:5330] Loss: 0.00086 AngularLoss: 2.85661
+Waiting Test...
+Test's AngularLoss is: 9.937
+
+Epoch: 158
+[epoch:158, iter:5340] Loss: 0.00052 AngularLoss: 2.16946
+[epoch:158, iter:5350] Loss: 0.00080 AngularLoss: 2.77628
+[epoch:158, iter:5360] Loss: 0.00060 AngularLoss: 2.41132
+[epoch:158, iter:5370] Loss: 0.00068 AngularLoss: 2.63237
+Waiting Test...
+Test's AngularLoss is: 10.936
+
+Epoch: 159
+[epoch:159, iter:5380] Loss: 0.00074 AngularLoss: 2.64899
+[epoch:159, iter:5390] Loss: 0.00077 AngularLoss: 2.91014
+[epoch:159, iter:5400] Loss: 0.00077 AngularLoss: 2.72085
+Waiting Test...
+Test's AngularLoss is: 9.900
+
+Epoch: 160
+[epoch:160, iter:5410] Loss: 0.00054 AngularLoss: 2.29227
+[epoch:160, iter:5420] Loss: 0.00046 AngularLoss: 2.10703
+[epoch:160, iter:5430] Loss: 0.00055 AngularLoss: 2.37910
+[epoch:160, iter:5440] Loss: 0.00058 AngularLoss: 2.46895
+Waiting Test...
+Test's AngularLoss is: 10.441
+
+Epoch: 161
+[epoch:161, iter:5450] Loss: 0.00051 AngularLoss: 2.11850
+[epoch:161, iter:5460] Loss: 0.00062 AngularLoss: 2.43860
+[epoch:161, iter:5470] Loss: 0.00063 AngularLoss: 2.53601
+Waiting Test...
+Test's AngularLoss is: 9.937
+
+Epoch: 162
+[epoch:162, iter:5480] Loss: 0.00050 AngularLoss: 2.21321
+[epoch:162, iter:5490] Loss: 0.00065 AngularLoss: 2.54926
+[epoch:162, iter:5500] Loss: 0.00082 AngularLoss: 2.90116
+Waiting Test...
+Test's AngularLoss is: 10.256
+
+Epoch: 163
+[epoch:163, iter:5510] Loss: 0.00075 AngularLoss: 2.76781
+[epoch:163, iter:5520] Loss: 0.00055 AngularLoss: 2.28396
+[epoch:163, iter:5530] Loss: 0.00104 AngularLoss: 3.31068
+[epoch:163, iter:5540] Loss: 0.00044 AngularLoss: 2.08370
+Waiting Test...
+Test's AngularLoss is: 10.861
+
+Epoch: 164
+[epoch:164, iter:5550] Loss: 0.00047 AngularLoss: 2.08485
+[epoch:164, iter:5560] Loss: 0.00063 AngularLoss: 2.47200
+[epoch:164, iter:5570] Loss: 0.00057 AngularLoss: 2.35415
+Waiting Test...
+Test's AngularLoss is: 10.002
+
+Epoch: 165
+[epoch:165, iter:5580] Loss: 0.00069 AngularLoss: 2.57012
+[epoch:165, iter:5590] Loss: 0.00064 AngularLoss: 2.60088
+[epoch:165, iter:5600] Loss: 0.00062 AngularLoss: 2.41523
+[epoch:165, iter:5610] Loss: 0.00038 AngularLoss: 1.87863
+Waiting Test...
+Test's AngularLoss is: 10.013
+
+Epoch: 166
+[epoch:166, iter:5620] Loss: 0.00065 AngularLoss: 2.63411
+[epoch:166, iter:5630] Loss: 0.00083 AngularLoss: 2.77996
+[epoch:166, iter:5640] Loss: 0.00068 AngularLoss: 2.56289
+Waiting Test...
+Test's AngularLoss is: 9.907
+
+Epoch: 167
+[epoch:167, iter:5650] Loss: 0.00085 AngularLoss: 2.81999
+[epoch:167, iter:5660] Loss: 0.00048 AngularLoss: 2.07989
+[epoch:167, iter:5670] Loss: 0.00073 AngularLoss: 2.63955
+Waiting Test...
+Test's AngularLoss is: 10.514
+
+Epoch: 168
+[epoch:168, iter:5680] Loss: 0.00044 AngularLoss: 2.14371
+[epoch:168, iter:5690] Loss: 0.00054 AngularLoss: 2.14598
+[epoch:168, iter:5700] Loss: 0.00053 AngularLoss: 2.20631
+[epoch:168, iter:5710] Loss: 0.00041 AngularLoss: 1.95079
+Waiting Test...
+Test's AngularLoss is: 10.097
+
+Epoch: 169
+[epoch:169, iter:5720] Loss: 0.00058 AngularLoss: 2.36933
+[epoch:169, iter:5730] Loss: 0.00050 AngularLoss: 2.09257
+[epoch:169, iter:5740] Loss: 0.00037 AngularLoss: 1.92825
+Waiting Test...
+Test's AngularLoss is: 10.469
+
+Epoch: 170
+[epoch:170, iter:5750] Loss: 0.00065 AngularLoss: 2.39631
+[epoch:170, iter:5760] Loss: 0.00038 AngularLoss: 1.93857
+[epoch:170, iter:5770] Loss: 0.00040 AngularLoss: 2.01608
+[epoch:170, iter:5780] Loss: 0.00042 AngularLoss: 1.95753
+Waiting Test...
+Test's AngularLoss is: 9.745
+
+Epoch: 171
+[epoch:171, iter:5790] Loss: 0.00037 AngularLoss: 1.94713
+[epoch:171, iter:5800] Loss: 0.00056 AngularLoss: 2.35957
+[epoch:171, iter:5810] Loss: 0.00061 AngularLoss: 2.51687
+Waiting Test...
+Test's AngularLoss is: 9.710
+
+Epoch: 172
+[epoch:172, iter:5820] Loss: 0.00067 AngularLoss: 2.55036
+[epoch:172, iter:5830] Loss: 0.00037 AngularLoss: 1.86878
+[epoch:172, iter:5840] Loss: 0.00063 AngularLoss: 2.41791
+Waiting Test...
+Test's AngularLoss is: 10.236
+
+Epoch: 173
+[epoch:173, iter:5850] Loss: 0.00034 AngularLoss: 1.80205
+[epoch:173, iter:5860] Loss: 0.00040 AngularLoss: 1.94249
+[epoch:173, iter:5870] Loss: 0.00057 AngularLoss: 2.30416
+[epoch:173, iter:5880] Loss: 0.00066 AngularLoss: 2.50237
+Waiting Test...
+Test's AngularLoss is: 10.063
+
+Epoch: 174
+[epoch:174, iter:5890] Loss: 0.00080 AngularLoss: 2.88751
+[epoch:174, iter:5900] Loss: 0.00034 AngularLoss: 1.85781
+[epoch:174, iter:5910] Loss: 0.00071 AngularLoss: 2.60255
+Waiting Test...
+Test's AngularLoss is: 10.145
+
+Epoch: 175
+[epoch:175, iter:5920] Loss: 0.00068 AngularLoss: 2.51041
+[epoch:175, iter:5930] Loss: 0.00040 AngularLoss: 1.91019
+[epoch:175, iter:5940] Loss: 0.00043 AngularLoss: 2.02554
+[epoch:175, iter:5950] Loss: 0.00096 AngularLoss: 3.26525
+Waiting Test...
+Test's AngularLoss is: 9.733
+
+Epoch: 176
+[epoch:176, iter:5960] Loss: 0.00057 AngularLoss: 2.35945
+[epoch:176, iter:5970] Loss: 0.00050 AngularLoss: 2.10431
+[epoch:176, iter:5980] Loss: 0.00051 AngularLoss: 2.14265
+Waiting Test...
+Test's AngularLoss is: 10.467
+
+Epoch: 177
+[epoch:177, iter:5990] Loss: 0.00071 AngularLoss: 2.62501
+[epoch:177, iter:6000] Loss: 0.00054 AngularLoss: 2.31107
+[epoch:177, iter:6010] Loss: 0.00067 AngularLoss: 2.35361
+Waiting Test...
+Test's AngularLoss is: 9.624
+
+Epoch: 178
+[epoch:178, iter:6020] Loss: 0.00067 AngularLoss: 2.54200
+[epoch:178, iter:6030] Loss: 0.00134 AngularLoss: 3.89260
+[epoch:178, iter:6040] Loss: 0.00052 AngularLoss: 2.29566
+[epoch:178, iter:6050] Loss: 0.00042 AngularLoss: 2.01090
+Waiting Test...
+Test's AngularLoss is: 9.864
+
+Epoch: 179
+[epoch:179, iter:6060] Loss: 0.00044 AngularLoss: 2.02115
+[epoch:179, iter:6070] Loss: 0.00065 AngularLoss: 2.61080
+[epoch:179, iter:6080] Loss: 0.00048 AngularLoss: 2.16458
+Waiting Test...
+Test's AngularLoss is: 9.829
+
+Epoch: 180
+[epoch:180, iter:6090] Loss: 0.00060 AngularLoss: 2.49705
+[epoch:180, iter:6100] Loss: 0.00064 AngularLoss: 2.55357
+[epoch:180, iter:6110] Loss: 0.00055 AngularLoss: 2.35842
+[epoch:180, iter:6120] Loss: 0.00062 AngularLoss: 2.46386
+Waiting Test...
+Test's AngularLoss is: 9.674
+
+Epoch: 181
+[epoch:181, iter:6130] Loss: 0.00044 AngularLoss: 2.08661
+[epoch:181, iter:6140] Loss: 0.00055 AngularLoss: 2.21758
+[epoch:181, iter:6150] Loss: 0.00059 AngularLoss: 2.40588
+Waiting Test...
+Test's AngularLoss is: 9.922
+
+Epoch: 182
+[epoch:182, iter:6160] Loss: 0.00040 AngularLoss: 1.93475
+[epoch:182, iter:6170] Loss: 0.00039 AngularLoss: 1.88254
+[epoch:182, iter:6180] Loss: 0.00066 AngularLoss: 2.47626
+Waiting Test...
+Test's AngularLoss is: 9.939
+
+Epoch: 183
+[epoch:183, iter:6190] Loss: 0.00047 AngularLoss: 2.22066
+[epoch:183, iter:6200] Loss: 0.00059 AngularLoss: 2.34839
+[epoch:183, iter:6210] Loss: 0.00056 AngularLoss: 2.38921
+[epoch:183, iter:6220] Loss: 0.00038 AngularLoss: 1.88131
+Waiting Test...
+Test's AngularLoss is: 9.946
+
+Epoch: 184
+[epoch:184, iter:6230] Loss: 0.00046 AngularLoss: 2.12397
+[epoch:184, iter:6240] Loss: 0.00049 AngularLoss: 2.12007
+[epoch:184, iter:6250] Loss: 0.00070 AngularLoss: 2.39610
+Waiting Test...
+Test's AngularLoss is: 11.125
+
+Epoch: 185
+[epoch:185, iter:6260] Loss: 0.00052 AngularLoss: 2.41202
+[epoch:185, iter:6270] Loss: 0.00053 AngularLoss: 2.42763
+[epoch:185, iter:6280] Loss: 0.00055 AngularLoss: 2.26256
+[epoch:185, iter:6290] Loss: 0.00052 AngularLoss: 2.17619
+Waiting Test...
+Test's AngularLoss is: 9.514
+
+Epoch: 186
+[epoch:186, iter:6300] Loss: 0.00043 AngularLoss: 1.92786
+[epoch:186, iter:6310] Loss: 0.00044 AngularLoss: 2.01084
+[epoch:186, iter:6320] Loss: 0.00046 AngularLoss: 2.07081
+Waiting Test...
+Test's AngularLoss is: 9.657
+
+Epoch: 187
+[epoch:187, iter:6330] Loss: 0.00033 AngularLoss: 1.80062
+[epoch:187, iter:6340] Loss: 0.00059 AngularLoss: 2.39181
+[epoch:187, iter:6350] Loss: 0.00056 AngularLoss: 2.37452
+Waiting Test...
+Test's AngularLoss is: 9.790
+
+Epoch: 188
+[epoch:188, iter:6360] Loss: 0.00031 AngularLoss: 1.68462
+[epoch:188, iter:6370] Loss: 0.00045 AngularLoss: 2.05873
+[epoch:188, iter:6380] Loss: 0.00070 AngularLoss: 2.72286
+[epoch:188, iter:6390] Loss: 0.00044 AngularLoss: 1.99261
+Waiting Test...
+Test's AngularLoss is: 9.894
+
+Epoch: 189
+[epoch:189, iter:6400] Loss: 0.00035 AngularLoss: 1.85762
+[epoch:189, iter:6410] Loss: 0.00041 AngularLoss: 1.96491
+[epoch:189, iter:6420] Loss: 0.00033 AngularLoss: 1.83095
+Waiting Test...
+Test's AngularLoss is: 10.157
+
+Epoch: 190
+[epoch:190, iter:6430] Loss: 0.00043 AngularLoss: 1.95634
+[epoch:190, iter:6440] Loss: 0.00054 AngularLoss: 2.34951
+[epoch:190, iter:6450] Loss: 0.00042 AngularLoss: 2.05632
+[epoch:190, iter:6460] Loss: 0.00043 AngularLoss: 2.01523
+Waiting Test...
+Test's AngularLoss is: 10.262
+
+Epoch: 191
+[epoch:191, iter:6470] Loss: 0.00035 AngularLoss: 1.82359
+[epoch:191, iter:6480] Loss: 0.00047 AngularLoss: 2.09733
+[epoch:191, iter:6490] Loss: 0.00029 AngularLoss: 1.72640
+Waiting Test...
+Test's AngularLoss is: 9.998
+
+Epoch: 192
+[epoch:192, iter:6500] Loss: 0.00032 AngularLoss: 1.78082
+[epoch:192, iter:6510] Loss: 0.00029 AngularLoss: 1.72646
+[epoch:192, iter:6520] Loss: 0.00057 AngularLoss: 2.20054
+Waiting Test...
+Test's AngularLoss is: 9.789
+
+Epoch: 193
+[epoch:193, iter:6530] Loss: 0.00065 AngularLoss: 2.58975
+[epoch:193, iter:6540] Loss: 0.00037 AngularLoss: 1.81274
+[epoch:193, iter:6550] Loss: 0.00046 AngularLoss: 2.15348
+[epoch:193, iter:6560] Loss: 0.00038 AngularLoss: 1.86734
+Waiting Test...
+Test's AngularLoss is: 10.261
+
+Epoch: 194
+[epoch:194, iter:6570] Loss: 0.00058 AngularLoss: 2.40376
+[epoch:194, iter:6580] Loss: 0.00038 AngularLoss: 1.91072
+[epoch:194, iter:6590] Loss: 0.00040 AngularLoss: 2.01240
+Waiting Test...
+Test's AngularLoss is: 10.857
+
+Epoch: 195
+[epoch:195, iter:6600] Loss: 0.00042 AngularLoss: 1.99100
+[epoch:195, iter:6610] Loss: 0.00039 AngularLoss: 1.97895
+[epoch:195, iter:6620] Loss: 0.00037 AngularLoss: 1.84686
+[epoch:195, iter:6630] Loss: 0.00046 AngularLoss: 2.17679
+Waiting Test...
+Test's AngularLoss is: 9.384
+
+Epoch: 196
+[epoch:196, iter:6640] Loss: 0.00035 AngularLoss: 1.80760
+[epoch:196, iter:6650] Loss: 0.00050 AngularLoss: 2.17727
+[epoch:196, iter:6660] Loss: 0.00043 AngularLoss: 1.87611
+Waiting Test...
+Test's AngularLoss is: 9.480
+
+Epoch: 197
+[epoch:197, iter:6670] Loss: 0.00036 AngularLoss: 1.77559
+[epoch:197, iter:6680] Loss: 0.00057 AngularLoss: 2.44860
+[epoch:197, iter:6690] Loss: 0.00037 AngularLoss: 1.86650
+Waiting Test...
+Test's AngularLoss is: 9.832
+
+Epoch: 198
+[epoch:198, iter:6700] Loss: 0.00051 AngularLoss: 2.24730
+[epoch:198, iter:6710] Loss: 0.00037 AngularLoss: 1.87135
+[epoch:198, iter:6720] Loss: 0.00027 AngularLoss: 1.63630
+[epoch:198, iter:6730] Loss: 0.00034 AngularLoss: 1.76750
+Waiting Test...
+Test's AngularLoss is: 9.395
+
+Epoch: 199
+[epoch:199, iter:6740] Loss: 0.00041 AngularLoss: 2.06530
+[epoch:199, iter:6750] Loss: 0.00078 AngularLoss: 2.92871
+[epoch:199, iter:6760] Loss: 0.00074 AngularLoss: 2.77120
+Waiting Test...
+Test's AngularLoss is: 9.439
+
+Epoch: 200
+[epoch:200, iter:6770] Loss: 0.00053 AngularLoss: 2.28767
+[epoch:200, iter:6780] Loss: 0.00040 AngularLoss: 1.96482
+[epoch:200, iter:6790] Loss: 0.00043 AngularLoss: 2.14493
+[epoch:200, iter:6800] Loss: 0.00063 AngularLoss: 2.42170
+Waiting Test...
+Test's AngularLoss is: 9.914
+
+Epoch: 201
+[epoch:201, iter:6810] Loss: 0.00038 AngularLoss: 1.87591
+[epoch:201, iter:6820] Loss: 0.00063 AngularLoss: 2.43513
+[epoch:201, iter:6830] Loss: 0.00043 AngularLoss: 1.97627
+Waiting Test...
+Test's AngularLoss is: 9.728
+
+Epoch: 202
+[epoch:202, iter:6840] Loss: 0.00034 AngularLoss: 1.86894
+[epoch:202, iter:6850] Loss: 0.00039 AngularLoss: 1.94134
+[epoch:202, iter:6860] Loss: 0.00038 AngularLoss: 1.96148
+Waiting Test...
+Test's AngularLoss is: 9.482
+
+Epoch: 203
+[epoch:203, iter:6870] Loss: 0.00052 AngularLoss: 2.12568
+[epoch:203, iter:6880] Loss: 0.00031 AngularLoss: 1.68107
+[epoch:203, iter:6890] Loss: 0.00044 AngularLoss: 2.09161
+[epoch:203, iter:6900] Loss: 0.00041 AngularLoss: 2.02044
+Waiting Test...
+Test's AngularLoss is: 9.323
+
+Epoch: 204
+[epoch:204, iter:6910] Loss: 0.00030 AngularLoss: 1.66416
+[epoch:204, iter:6920] Loss: 0.00036 AngularLoss: 1.88577
+[epoch:204, iter:6930] Loss: 0.00038 AngularLoss: 1.84347
+Waiting Test...
+Test's AngularLoss is: 9.763
+
+Epoch: 205
+[epoch:205, iter:6940] Loss: 0.00046 AngularLoss: 2.10094
+[epoch:205, iter:6950] Loss: 0.00051 AngularLoss: 2.17962
+[epoch:205, iter:6960] Loss: 0.00031 AngularLoss: 1.73371
+[epoch:205, iter:6970] Loss: 0.00043 AngularLoss: 2.07293
+Waiting Test...
+Test's AngularLoss is: 9.582
+
+Epoch: 206
+[epoch:206, iter:6980] Loss: 0.00036 AngularLoss: 1.81722
+[epoch:206, iter:6990] Loss: 0.00037 AngularLoss: 1.86119
+[epoch:206, iter:7000] Loss: 0.00035 AngularLoss: 1.85651
+Waiting Test...
+Test's AngularLoss is: 10.867
+
+Epoch: 207
+[epoch:207, iter:7010] Loss: 0.00042 AngularLoss: 2.03711
+[epoch:207, iter:7020] Loss: 0.00026 AngularLoss: 1.63699
+[epoch:207, iter:7030] Loss: 0.00043 AngularLoss: 2.12902
+Waiting Test...
+Test's AngularLoss is: 9.354
+
+Epoch: 208
+[epoch:208, iter:7040] Loss: 0.00046 AngularLoss: 2.16523
+[epoch:208, iter:7050] Loss: 0.00056 AngularLoss: 2.44724
+[epoch:208, iter:7060] Loss: 0.00059 AngularLoss: 2.53855
+[epoch:208, iter:7070] Loss: 0.00065 AngularLoss: 2.59324
+Waiting Test...
+Test's AngularLoss is: 10.672
+
+Epoch: 209
+[epoch:209, iter:7080] Loss: 0.00038 AngularLoss: 1.94684
+[epoch:209, iter:7090] Loss: 0.00037 AngularLoss: 1.81992
+[epoch:209, iter:7100] Loss: 0.00036 AngularLoss: 1.88130
+Waiting Test...
+Test's AngularLoss is: 9.463
+
+Epoch: 210
+[epoch:210, iter:7110] Loss: 0.00065 AngularLoss: 2.61878
+[epoch:210, iter:7120] Loss: 0.00056 AngularLoss: 2.45721
+[epoch:210, iter:7130] Loss: 0.00058 AngularLoss: 2.32164
+[epoch:210, iter:7140] Loss: 0.00046 AngularLoss: 2.14121
+Waiting Test...
+Test's AngularLoss is: 9.330
+
+Epoch: 211
+[epoch:211, iter:7150] Loss: 0.00066 AngularLoss: 2.55681
+[epoch:211, iter:7160] Loss: 0.00039 AngularLoss: 1.86097
+[epoch:211, iter:7170] Loss: 0.00058 AngularLoss: 2.44794
+Waiting Test...
+Test's AngularLoss is: 10.385
+
+Epoch: 212
+[epoch:212, iter:7180] Loss: 0.00037 AngularLoss: 1.79156
+[epoch:212, iter:7190] Loss: 0.00035 AngularLoss: 1.80774
+[epoch:212, iter:7200] Loss: 0.00047 AngularLoss: 2.20608
+Waiting Test...
+Test's AngularLoss is: 9.277
+
+Epoch: 213
+[epoch:213, iter:7210] Loss: 0.00073 AngularLoss: 2.72003
+[epoch:213, iter:7220] Loss: 0.00030 AngularLoss: 1.68315
+[epoch:213, iter:7230] Loss: 0.00032 AngularLoss: 1.73195
+[epoch:213, iter:7240] Loss: 0.00057 AngularLoss: 2.37100
+Waiting Test...
+Test's AngularLoss is: 9.544
+
+Epoch: 214
+[epoch:214, iter:7250] Loss: 0.00038 AngularLoss: 1.88592
+[epoch:214, iter:7260] Loss: 0.00036 AngularLoss: 1.81293
+[epoch:214, iter:7270] Loss: 0.00042 AngularLoss: 2.04910
+Waiting Test...
+Test's AngularLoss is: 10.809
+
+Epoch: 215
+[epoch:215, iter:7280] Loss: 0.00051 AngularLoss: 2.30108
+[epoch:215, iter:7290] Loss: 0.00042 AngularLoss: 2.02312
+[epoch:215, iter:7300] Loss: 0.00046 AngularLoss: 2.17453
+[epoch:215, iter:7310] Loss: 0.00042 AngularLoss: 2.03039
+Waiting Test...
+Test's AngularLoss is: 9.907
+
+Epoch: 216
+[epoch:216, iter:7320] Loss: 0.00047 AngularLoss: 2.17783
+[epoch:216, iter:7330] Loss: 0.00026 AngularLoss: 1.67727
+[epoch:216, iter:7340] Loss: 0.00043 AngularLoss: 1.91979
+Waiting Test...
+Test's AngularLoss is: 9.305
+
+Epoch: 217
+[epoch:217, iter:7350] Loss: 0.00057 AngularLoss: 2.35874
+[epoch:217, iter:7360] Loss: 0.00038 AngularLoss: 1.91427
+[epoch:217, iter:7370] Loss: 0.00034 AngularLoss: 1.70878
+Waiting Test...
+Test's AngularLoss is: 9.345
+
+Epoch: 218
+[epoch:218, iter:7380] Loss: 0.00041 AngularLoss: 1.93935
+[epoch:218, iter:7390] Loss: 0.00030 AngularLoss: 1.72616
+[epoch:218, iter:7400] Loss: 0.00057 AngularLoss: 2.27399
+[epoch:218, iter:7410] Loss: 0.00041 AngularLoss: 1.93621
+Waiting Test...
+Test's AngularLoss is: 9.191
+
+Epoch: 219
+[epoch:219, iter:7420] Loss: 0.00069 AngularLoss: 2.55939
+[epoch:219, iter:7430] Loss: 0.00051 AngularLoss: 2.26745
+[epoch:219, iter:7440] Loss: 0.00044 AngularLoss: 2.16607
+Waiting Test...
+Test's AngularLoss is: 10.948
+
+Epoch: 220
+[epoch:220, iter:7450] Loss: 0.00031 AngularLoss: 1.67559
+[epoch:220, iter:7460] Loss: 0.00044 AngularLoss: 1.97390
+[epoch:220, iter:7470] Loss: 0.00034 AngularLoss: 1.80059
+[epoch:220, iter:7480] Loss: 0.00042 AngularLoss: 2.03499
+Waiting Test...
+Test's AngularLoss is: 9.578
+
+Epoch: 221
+[epoch:221, iter:7490] Loss: 0.00046 AngularLoss: 2.03728
+[epoch:221, iter:7500] Loss: 0.00038 AngularLoss: 1.93630
+[epoch:221, iter:7510] Loss: 0.00035 AngularLoss: 1.88048
+Waiting Test...
+Test's AngularLoss is: 9.351
+
+Epoch: 222
+[epoch:222, iter:7520] Loss: 0.00059 AngularLoss: 2.46663
+[epoch:222, iter:7530] Loss: 0.00030 AngularLoss: 1.71935
+[epoch:222, iter:7540] Loss: 0.00037 AngularLoss: 1.82038
+Waiting Test...
+Test's AngularLoss is: 9.894
+
+Epoch: 223
+[epoch:223, iter:7550] Loss: 0.00036 AngularLoss: 1.74898
+[epoch:223, iter:7560] Loss: 0.00049 AngularLoss: 2.19263
+[epoch:223, iter:7570] Loss: 0.00041 AngularLoss: 2.05737
+[epoch:223, iter:7580] Loss: 0.00028 AngularLoss: 1.67694
+Waiting Test...
+Test's AngularLoss is: 9.243
+
+Epoch: 224
+[epoch:224, iter:7590] Loss: 0.00043 AngularLoss: 2.14571
+[epoch:224, iter:7600] Loss: 0.00038 AngularLoss: 1.94429
+[epoch:224, iter:7610] Loss: 0.00035 AngularLoss: 1.86805
+Waiting Test...
+Test's AngularLoss is: 9.641
+
+Epoch: 225
+[epoch:225, iter:7620] Loss: 0.00036 AngularLoss: 1.86361
+[epoch:225, iter:7630] Loss: 0.00039 AngularLoss: 1.94293
+[epoch:225, iter:7640] Loss: 0.00038 AngularLoss: 1.94458
+[epoch:225, iter:7650] Loss: 0.00077 AngularLoss: 2.90268
+Waiting Test...
+Test's AngularLoss is: 9.328
+
+Epoch: 226
+[epoch:226, iter:7660] Loss: 0.00035 AngularLoss: 1.88303
+[epoch:226, iter:7670] Loss: 0.00033 AngularLoss: 1.80562
+[epoch:226, iter:7680] Loss: 0.00034 AngularLoss: 1.80901
+Waiting Test...
+Test's AngularLoss is: 9.479
+
+Epoch: 227
+[epoch:227, iter:7690] Loss: 0.00033 AngularLoss: 1.82546
+[epoch:227, iter:7700] Loss: 0.00029 AngularLoss: 1.65666
+[epoch:227, iter:7710] Loss: 0.00034 AngularLoss: 1.80284
+Waiting Test...
+Test's AngularLoss is: 9.214
+
+Epoch: 228
+[epoch:228, iter:7720] Loss: 0.00044 AngularLoss: 2.08319
+[epoch:228, iter:7730] Loss: 0.00039 AngularLoss: 1.91375
+[epoch:228, iter:7740] Loss: 0.00043 AngularLoss: 2.02732
+[epoch:228, iter:7750] Loss: 0.00078 AngularLoss: 2.95019
+Waiting Test...
+Test's AngularLoss is: 9.748
+
+Epoch: 229
+[epoch:229, iter:7760] Loss: 0.00037 AngularLoss: 1.80747
+[epoch:229, iter:7770] Loss: 0.00045 AngularLoss: 2.11433
+[epoch:229, iter:7780] Loss: 0.00054 AngularLoss: 2.34630
+Waiting Test...
+Test's AngularLoss is: 9.421
+
+Epoch: 230
+[epoch:230, iter:7790] Loss: 0.00040 AngularLoss: 1.84464
+[epoch:230, iter:7800] Loss: 0.00075 AngularLoss: 2.76891
+[epoch:230, iter:7810] Loss: 0.00040 AngularLoss: 1.93897
+[epoch:230, iter:7820] Loss: 0.00042 AngularLoss: 2.01907
+Waiting Test...
+Test's AngularLoss is: 9.131
+
+Epoch: 231
+[epoch:231, iter:7830] Loss: 0.00027 AngularLoss: 1.59678
+[epoch:231, iter:7840] Loss: 0.00065 AngularLoss: 2.69950
+[epoch:231, iter:7850] Loss: 0.00041 AngularLoss: 2.00558
+Waiting Test...
+Test's AngularLoss is: 9.271
+
+Epoch: 232
+[epoch:232, iter:7860] Loss: 0.00031 AngularLoss: 1.64462
+[epoch:232, iter:7870] Loss: 0.00036 AngularLoss: 1.91090
+[epoch:232, iter:7880] Loss: 0.00033 AngularLoss: 1.75919
+Waiting Test...
+Test's AngularLoss is: 9.638
+
+Epoch: 233
+[epoch:233, iter:7890] Loss: 0.00051 AngularLoss: 2.22958
+[epoch:233, iter:7900] Loss: 0.00032 AngularLoss: 1.71807
+[epoch:233, iter:7910] Loss: 0.00032 AngularLoss: 1.81730
+[epoch:233, iter:7920] Loss: 0.00035 AngularLoss: 1.87505
+Waiting Test...
+Test's AngularLoss is: 9.657
+
+Epoch: 234
+[epoch:234, iter:7930] Loss: 0.00026 AngularLoss: 1.61489
+[epoch:234, iter:7940] Loss: 0.00033 AngularLoss: 1.74328
+[epoch:234, iter:7950] Loss: 0.00045 AngularLoss: 2.17714
+Waiting Test...
+Test's AngularLoss is: 9.347
+
+Epoch: 235
+[epoch:235, iter:7960] Loss: 0.00032 AngularLoss: 1.73606
+[epoch:235, iter:7970] Loss: 0.00030 AngularLoss: 1.63774
+[epoch:235, iter:7980] Loss: 0.00030 AngularLoss: 1.69428
+[epoch:235, iter:7990] Loss: 0.00045 AngularLoss: 2.21205
+Waiting Test...
+Test's AngularLoss is: 9.542
+
+Epoch: 236
+[epoch:236, iter:8000] Loss: 0.00040 AngularLoss: 2.00771
+[epoch:236, iter:8010] Loss: 0.00027 AngularLoss: 1.52449
+[epoch:236, iter:8020] Loss: 0.00030 AngularLoss: 1.72024
+Waiting Test...
+Test's AngularLoss is: 9.662
+
+Epoch: 237
+[epoch:237, iter:8030] Loss: 0.00024 AngularLoss: 1.54041
+[epoch:237, iter:8040] Loss: 0.00034 AngularLoss: 1.74494
+[epoch:237, iter:8050] Loss: 0.00036 AngularLoss: 1.74693
+Waiting Test...
+Test's AngularLoss is: 9.562
+
+Epoch: 238
+[epoch:238, iter:8060] Loss: 0.00078 AngularLoss: 2.88106
+[epoch:238, iter:8070] Loss: 0.00049 AngularLoss: 2.16663
+[epoch:238, iter:8080] Loss: 0.00033 AngularLoss: 1.66492
+[epoch:238, iter:8090] Loss: 0.00038 AngularLoss: 1.93062
+Waiting Test...
+Test's AngularLoss is: 9.123
+
+Epoch: 239
+[epoch:239, iter:8100] Loss: 0.00028 AngularLoss: 1.63513
+[epoch:239, iter:8110] Loss: 0.00035 AngularLoss: 1.90037
+[epoch:239, iter:8120] Loss: 0.00048 AngularLoss: 2.29843
+Waiting Test...
+Test's AngularLoss is: 9.608
+
+Epoch: 240
+[epoch:240, iter:8130] Loss: 0.00028 AngularLoss: 1.70738
+[epoch:240, iter:8140] Loss: 0.00031 AngularLoss: 1.75622
+[epoch:240, iter:8150] Loss: 0.00035 AngularLoss: 1.90030
+[epoch:240, iter:8160] Loss: 0.00074 AngularLoss: 2.91843
+Waiting Test...
+Test's AngularLoss is: 9.485
+
+Epoch: 241
+[epoch:241, iter:8170] Loss: 0.00030 AngularLoss: 1.63028
+[epoch:241, iter:8180] Loss: 0.00035 AngularLoss: 1.90552
+[epoch:241, iter:8190] Loss: 0.00037 AngularLoss: 1.85550
+Waiting Test...
+Test's AngularLoss is: 8.990
+
+Epoch: 242
+[epoch:242, iter:8200] Loss: 0.00043 AngularLoss: 2.02742
+[epoch:242, iter:8210] Loss: 0.00037 AngularLoss: 1.86230
+[epoch:242, iter:8220] Loss: 0.00035 AngularLoss: 1.80662
+Waiting Test...
+Test's AngularLoss is: 9.611
+
+Epoch: 243
+[epoch:243, iter:8230] Loss: 0.00109 AngularLoss: 3.49682
+[epoch:243, iter:8240] Loss: 0.00051 AngularLoss: 2.23651
+[epoch:243, iter:8250] Loss: 0.00040 AngularLoss: 1.97932
+[epoch:243, iter:8260] Loss: 0.00043 AngularLoss: 2.00057
+Waiting Test...
+Test's AngularLoss is: 9.449
+
+Epoch: 244
+[epoch:244, iter:8270] Loss: 0.00041 AngularLoss: 2.00848
+[epoch:244, iter:8280] Loss: 0.00035 AngularLoss: 1.75510
+[epoch:244, iter:8290] Loss: 0.00028 AngularLoss: 1.63819
+Waiting Test...
+Test's AngularLoss is: 8.895
+
+Epoch: 245
+[epoch:245, iter:8300] Loss: 0.00031 AngularLoss: 1.71797
+[epoch:245, iter:8310] Loss: 0.00046 AngularLoss: 2.16296
+[epoch:245, iter:8320] Loss: 0.00061 AngularLoss: 2.55932
+[epoch:245, iter:8330] Loss: 0.00052 AngularLoss: 2.26124
+Waiting Test...
+Test's AngularLoss is: 9.400
+
+Epoch: 246
+[epoch:246, iter:8340] Loss: 0.00038 AngularLoss: 1.91326
+[epoch:246, iter:8350] Loss: 0.00028 AngularLoss: 1.57760
+[epoch:246, iter:8360] Loss: 0.00029 AngularLoss: 1.74536
+Waiting Test...
+Test's AngularLoss is: 8.983
+
+Epoch: 247
+[epoch:247, iter:8370] Loss: 0.00023 AngularLoss: 1.50887
+[epoch:247, iter:8380] Loss: 0.00035 AngularLoss: 1.85346
+[epoch:247, iter:8390] Loss: 0.00026 AngularLoss: 1.56885
+Waiting Test...
+Test's AngularLoss is: 9.483
+
+Epoch: 248
+[epoch:248, iter:8400] Loss: 0.00057 AngularLoss: 2.36132
+[epoch:248, iter:8410] Loss: 0.00038 AngularLoss: 1.97333
+[epoch:248, iter:8420] Loss: 0.00029 AngularLoss: 1.68103
+[epoch:248, iter:8430] Loss: 0.00032 AngularLoss: 1.69878
+Waiting Test...
+Test's AngularLoss is: 9.514
+
+Epoch: 249
+[epoch:249, iter:8440] Loss: 0.00038 AngularLoss: 1.85886
+[epoch:249, iter:8450] Loss: 0.00044 AngularLoss: 2.12817
+[epoch:249, iter:8460] Loss: 0.00050 AngularLoss: 2.32470
+Waiting Test...
+Test's AngularLoss is: 8.982
+
+Epoch: 250
+[epoch:250, iter:8470] Loss: 0.00042 AngularLoss: 2.02382
+[epoch:250, iter:8480] Loss: 0.00051 AngularLoss: 2.18022
+[epoch:250, iter:8490] Loss: 0.00034 AngularLoss: 1.80931
+[epoch:250, iter:8500] Loss: 0.00030 AngularLoss: 1.76026
+Waiting Test...
+Test's AngularLoss is: 9.545
+
+Epoch: 251
+[epoch:251, iter:8510] Loss: 0.00039 AngularLoss: 2.03859
+[epoch:251, iter:8520] Loss: 0.00073 AngularLoss: 2.84336
+[epoch:251, iter:8530] Loss: 0.00031 AngularLoss: 1.74511
+Waiting Test...
+Test's AngularLoss is: 10.035
+
+Epoch: 252
+[epoch:252, iter:8540] Loss: 0.00039 AngularLoss: 2.07393
+[epoch:252, iter:8550] Loss: 0.00032 AngularLoss: 1.72553
+[epoch:252, iter:8560] Loss: 0.00055 AngularLoss: 2.42687
+Waiting Test...
+Test's AngularLoss is: 9.425
+
+Epoch: 253
+[epoch:253, iter:8570] Loss: 0.00035 AngularLoss: 1.86130
+[epoch:253, iter:8580] Loss: 0.00036 AngularLoss: 1.80677
+[epoch:253, iter:8590] Loss: 0.00027 AngularLoss: 1.63463
+[epoch:253, iter:8600] Loss: 0.00051 AngularLoss: 2.34614
+Waiting Test...
+Test's AngularLoss is: 9.144
+
+Epoch: 254
+[epoch:254, iter:8610] Loss: 0.00026 AngularLoss: 1.58779
+[epoch:254, iter:8620] Loss: 0.00026 AngularLoss: 1.57458
+[epoch:254, iter:8630] Loss: 0.00029 AngularLoss: 1.68811
+Waiting Test...
+Test's AngularLoss is: 9.294
+
+Epoch: 255
+[epoch:255, iter:8640] Loss: 0.00043 AngularLoss: 2.00022
+[epoch:255, iter:8650] Loss: 0.00029 AngularLoss: 1.73437
+[epoch:255, iter:8660] Loss: 0.00028 AngularLoss: 1.59872
+[epoch:255, iter:8670] Loss: 0.00045 AngularLoss: 2.17085
+Waiting Test...
+Test's AngularLoss is: 9.568
+
+Epoch: 256
+[epoch:256, iter:8680] Loss: 0.00035 AngularLoss: 1.86762
+[epoch:256, iter:8690] Loss: 0.00027 AngularLoss: 1.61451
+[epoch:256, iter:8700] Loss: 0.00035 AngularLoss: 1.90102
+Waiting Test...
+Test's AngularLoss is: 9.717
+
+Epoch: 257
+[epoch:257, iter:8710] Loss: 0.00024 AngularLoss: 1.47949
+[epoch:257, iter:8720] Loss: 0.00031 AngularLoss: 1.75439
+[epoch:257, iter:8730] Loss: 0.00037 AngularLoss: 1.90255
+Waiting Test...
+Test's AngularLoss is: 8.862
+
+Epoch: 258
+[epoch:258, iter:8740] Loss: 0.00031 AngularLoss: 1.79786
+[epoch:258, iter:8750] Loss: 0.00025 AngularLoss: 1.58156
+[epoch:258, iter:8760] Loss: 0.00030 AngularLoss: 1.75384
+[epoch:258, iter:8770] Loss: 0.00040 AngularLoss: 1.97700
+Waiting Test...
+Test's AngularLoss is: 9.115
+
+Epoch: 259
+[epoch:259, iter:8780] Loss: 0.00047 AngularLoss: 2.25830
+[epoch:259, iter:8790] Loss: 0.00032 AngularLoss: 1.72803
+[epoch:259, iter:8800] Loss: 0.00032 AngularLoss: 1.66083
+Waiting Test...
+Test's AngularLoss is: 10.761
+
+Epoch: 260
+[epoch:260, iter:8810] Loss: 0.00034 AngularLoss: 1.82008
+[epoch:260, iter:8820] Loss: 0.00034 AngularLoss: 1.77073
+[epoch:260, iter:8830] Loss: 0.00040 AngularLoss: 2.01047
+[epoch:260, iter:8840] Loss: 0.00039 AngularLoss: 2.00074
+Waiting Test...
+Test's AngularLoss is: 9.002
+
+Epoch: 261
+[epoch:261, iter:8850] Loss: 0.00051 AngularLoss: 2.21772
+[epoch:261, iter:8860] Loss: 0.00029 AngularLoss: 1.64908
+[epoch:261, iter:8870] Loss: 0.00035 AngularLoss: 1.76290
+Waiting Test...
+Test's AngularLoss is: 9.638
+
+Epoch: 262
+[epoch:262, iter:8880] Loss: 0.00029 AngularLoss: 1.66063
+[epoch:262, iter:8890] Loss: 0.00026 AngularLoss: 1.56529
+[epoch:262, iter:8900] Loss: 0.00090 AngularLoss: 3.05706
+Waiting Test...
+Test's AngularLoss is: 8.895
+
+Epoch: 263
+[epoch:263, iter:8910] Loss: 0.00024 AngularLoss: 1.46455
+[epoch:263, iter:8920] Loss: 0.00044 AngularLoss: 2.20365
+[epoch:263, iter:8930] Loss: 0.00034 AngularLoss: 1.81721
+[epoch:263, iter:8940] Loss: 0.00022 AngularLoss: 1.52878
+Waiting Test...
+Test's AngularLoss is: 8.970
+
+Epoch: 264
+[epoch:264, iter:8950] Loss: 0.00087 AngularLoss: 3.11484
+[epoch:264, iter:8960] Loss: 0.00043 AngularLoss: 2.11601
+[epoch:264, iter:8970] Loss: 0.00039 AngularLoss: 1.98303
+Waiting Test...
+Test's AngularLoss is: 9.103
+
+Epoch: 265
+[epoch:265, iter:8980] Loss: 0.00032 AngularLoss: 1.65159
+[epoch:265, iter:8990] Loss: 0.00037 AngularLoss: 1.89954
+[epoch:265, iter:9000] Loss: 0.00037 AngularLoss: 1.90142
+[epoch:265, iter:9010] Loss: 0.00049 AngularLoss: 2.31212
+Waiting Test...
+Test's AngularLoss is: 8.852
+
+Epoch: 266
+[epoch:266, iter:9020] Loss: 0.00040 AngularLoss: 2.00528
+[epoch:266, iter:9030] Loss: 0.00028 AngularLoss: 1.58595
+[epoch:266, iter:9040] Loss: 0.00024 AngularLoss: 1.46337
+Waiting Test...
+Test's AngularLoss is: 8.861
+
+Epoch: 267
+[epoch:267, iter:9050] Loss: 0.00028 AngularLoss: 1.58566
+[epoch:267, iter:9060] Loss: 0.00030 AngularLoss: 1.72434
+[epoch:267, iter:9070] Loss: 0.00029 AngularLoss: 1.65410
+Waiting Test...
+Test's AngularLoss is: 8.819
+
+Epoch: 268
+[epoch:268, iter:9080] Loss: 0.00026 AngularLoss: 1.59530
+[epoch:268, iter:9090] Loss: 0.00032 AngularLoss: 1.76922
+[epoch:268, iter:9100] Loss: 0.00027 AngularLoss: 1.58272
+[epoch:268, iter:9110] Loss: 0.00027 AngularLoss: 1.52957
+Waiting Test...
+Test's AngularLoss is: 9.490
+
+Epoch: 269
+[epoch:269, iter:9120] Loss: 0.00043 AngularLoss: 2.10085
+[epoch:269, iter:9130] Loss: 0.00038 AngularLoss: 1.90354
+[epoch:269, iter:9140] Loss: 0.00029 AngularLoss: 1.69360
+Waiting Test...
+Test's AngularLoss is: 8.813
+
+Epoch: 270
+[epoch:270, iter:9150] Loss: 0.00026 AngularLoss: 1.53992
+[epoch:270, iter:9160] Loss: 0.00038 AngularLoss: 1.78111
+[epoch:270, iter:9170] Loss: 0.00031 AngularLoss: 1.80185
+[epoch:270, iter:9180] Loss: 0.00027 AngularLoss: 1.59075
+Waiting Test...
+Test's AngularLoss is: 9.175
+
+Epoch: 271
+[epoch:271, iter:9190] Loss: 0.00028 AngularLoss: 1.63935
+[epoch:271, iter:9200] Loss: 0.00039 AngularLoss: 1.99065
+[epoch:271, iter:9210] Loss: 0.00023 AngularLoss: 1.52380
+Waiting Test...
+Test's AngularLoss is: 8.819
+
+Epoch: 272
+[epoch:272, iter:9220] Loss: 0.00030 AngularLoss: 1.75888
+[epoch:272, iter:9230] Loss: 0.00022 AngularLoss: 1.45040
+[epoch:272, iter:9240] Loss: 0.00040 AngularLoss: 1.98263
+Waiting Test...
+Test's AngularLoss is: 9.001
+
+Epoch: 273
+[epoch:273, iter:9250] Loss: 0.00024 AngularLoss: 1.53814
+[epoch:273, iter:9260] Loss: 0.00052 AngularLoss: 2.32924
+[epoch:273, iter:9270] Loss: 0.00034 AngularLoss: 1.79770
+[epoch:273, iter:9280] Loss: 0.00026 AngularLoss: 1.58647
+Waiting Test...
+Test's AngularLoss is: 8.825
+
+Epoch: 274
+[epoch:274, iter:9290] Loss: 0.00028 AngularLoss: 1.66663
+[epoch:274, iter:9300] Loss: 0.00040 AngularLoss: 2.00758
+[epoch:274, iter:9310] Loss: 0.00049 AngularLoss: 2.28601
+Waiting Test...
+Test's AngularLoss is: 9.584
+
+Epoch: 275
+[epoch:275, iter:9320] Loss: 0.00031 AngularLoss: 1.78855
+[epoch:275, iter:9330] Loss: 0.00032 AngularLoss: 1.65045
+[epoch:275, iter:9340] Loss: 0.00022 AngularLoss: 1.43308
+[epoch:275, iter:9350] Loss: 0.00024 AngularLoss: 1.48003
+Waiting Test...
+Test's AngularLoss is: 8.844
+
+Epoch: 276
+[epoch:276, iter:9360] Loss: 0.00027 AngularLoss: 1.59751
+[epoch:276, iter:9370] Loss: 0.00037 AngularLoss: 1.92507
+[epoch:276, iter:9380] Loss: 0.00023 AngularLoss: 1.46246
+Waiting Test...
+Test's AngularLoss is: 9.000
+
+Epoch: 277
+[epoch:277, iter:9390] Loss: 0.00037 AngularLoss: 1.89968
+[epoch:277, iter:9400] Loss: 0.00032 AngularLoss: 1.79124
+[epoch:277, iter:9410] Loss: 0.00029 AngularLoss: 1.69308
+Waiting Test...
+Test's AngularLoss is: 8.947
+
+Epoch: 278
+[epoch:278, iter:9420] Loss: 0.00023 AngularLoss: 1.42335
+[epoch:278, iter:9430] Loss: 0.00050 AngularLoss: 2.25186
+[epoch:278, iter:9440] Loss: 0.00036 AngularLoss: 1.85530
+[epoch:278, iter:9450] Loss: 0.00032 AngularLoss: 1.76435
+Waiting Test...
+Test's AngularLoss is: 9.053
+
+Epoch: 279
+[epoch:279, iter:9460] Loss: 0.00020 AngularLoss: 1.34503
+[epoch:279, iter:9470] Loss: 0.00029 AngularLoss: 1.71072
+[epoch:279, iter:9480] Loss: 0.00043 AngularLoss: 2.03964
+Waiting Test...
+Test's AngularLoss is: 8.865
+
+Epoch: 280
+[epoch:280, iter:9490] Loss: 0.00043 AngularLoss: 2.07252
+[epoch:280, iter:9500] Loss: 0.00043 AngularLoss: 2.16191
+[epoch:280, iter:9510] Loss: 0.00031 AngularLoss: 1.71611
+[epoch:280, iter:9520] Loss: 0.00024 AngularLoss: 1.52040
+Waiting Test...
+Test's AngularLoss is: 8.775
+
+Epoch: 281
+[epoch:281, iter:9530] Loss: 0.00027 AngularLoss: 1.59449
+[epoch:281, iter:9540] Loss: 0.00035 AngularLoss: 1.89704
+[epoch:281, iter:9550] Loss: 0.00022 AngularLoss: 1.44372
+Waiting Test...
+Test's AngularLoss is: 9.175
+
+Epoch: 282
+[epoch:282, iter:9560] Loss: 0.00028 AngularLoss: 1.54900
+[epoch:282, iter:9570] Loss: 0.00020 AngularLoss: 1.38641
+[epoch:282, iter:9580] Loss: 0.00025 AngularLoss: 1.51960
+Waiting Test...
+Test's AngularLoss is: 8.814
+
+Epoch: 283
+[epoch:283, iter:9590] Loss: 0.00033 AngularLoss: 1.78327
+[epoch:283, iter:9600] Loss: 0.00032 AngularLoss: 1.75236
+[epoch:283, iter:9610] Loss: 0.00040 AngularLoss: 2.03376
+[epoch:283, iter:9620] Loss: 0.00029 AngularLoss: 1.67836
+Waiting Test...
+Test's AngularLoss is: 8.828
+
+Epoch: 284
+[epoch:284, iter:9630] Loss: 0.00026 AngularLoss: 1.56851
+[epoch:284, iter:9640] Loss: 0.00037 AngularLoss: 1.88477
+[epoch:284, iter:9650] Loss: 0.00024 AngularLoss: 1.52392
+Waiting Test...
+Test's AngularLoss is: 9.847
+
+Epoch: 285
+[epoch:285, iter:9660] Loss: 0.00029 AngularLoss: 1.66703
+[epoch:285, iter:9670] Loss: 0.00043 AngularLoss: 2.11800
+[epoch:285, iter:9680] Loss: 0.00036 AngularLoss: 1.98853
+[epoch:285, iter:9690] Loss: 0.00034 AngularLoss: 1.86783
+Waiting Test...
+Test's AngularLoss is: 8.866
+
+Epoch: 286
+[epoch:286, iter:9700] Loss: 0.00032 AngularLoss: 1.76913
+[epoch:286, iter:9710] Loss: 0.00037 AngularLoss: 1.94988
+[epoch:286, iter:9720] Loss: 0.00028 AngularLoss: 1.66661
+Waiting Test...
+Test's AngularLoss is: 8.818
+
+Epoch: 287
+[epoch:287, iter:9730] Loss: 0.00030 AngularLoss: 1.67109
+[epoch:287, iter:9740] Loss: 0.00033 AngularLoss: 1.79526
+[epoch:287, iter:9750] Loss: 0.00024 AngularLoss: 1.56409
+Waiting Test...
+Test's AngularLoss is: 8.854
+
+Epoch: 288
+[epoch:288, iter:9760] Loss: 0.00045 AngularLoss: 2.23162
+[epoch:288, iter:9770] Loss: 0.00031 AngularLoss: 1.70459
+[epoch:288, iter:9780] Loss: 0.00041 AngularLoss: 2.04452
+[epoch:288, iter:9790] Loss: 0.00046 AngularLoss: 2.21899
+Waiting Test...
+Test's AngularLoss is: 9.484
+
+Epoch: 289
+[epoch:289, iter:9800] Loss: 0.00023 AngularLoss: 1.55774
+[epoch:289, iter:9810] Loss: 0.00021 AngularLoss: 1.42345
+[epoch:289, iter:9820] Loss: 0.00037 AngularLoss: 1.90245
+Waiting Test...
+Test's AngularLoss is: 8.959
+
+Epoch: 290
+[epoch:290, iter:9830] Loss: 0.00024 AngularLoss: 1.54367
+[epoch:290, iter:9840] Loss: 0.00027 AngularLoss: 1.52561
+[epoch:290, iter:9850] Loss: 0.00028 AngularLoss: 1.53773
+[epoch:290, iter:9860] Loss: 0.00035 AngularLoss: 1.89732
+Waiting Test...
+Test's AngularLoss is: 9.112
+
+Epoch: 291
+[epoch:291, iter:9870] Loss: 0.00044 AngularLoss: 2.06071
+[epoch:291, iter:9880] Loss: 0.00027 AngularLoss: 1.65906
+[epoch:291, iter:9890] Loss: 0.00036 AngularLoss: 1.93762
+Waiting Test...
+Test's AngularLoss is: 8.851
+
+Epoch: 292
+[epoch:292, iter:9900] Loss: 0.00033 AngularLoss: 1.79890
+[epoch:292, iter:9910] Loss: 0.00031 AngularLoss: 1.51077
+[epoch:292, iter:9920] Loss: 0.00027 AngularLoss: 1.62592
+Waiting Test...
+Test's AngularLoss is: 8.732
+
+Epoch: 293
+[epoch:293, iter:9930] Loss: 0.00040 AngularLoss: 2.06632
+[epoch:293, iter:9940] Loss: 0.00031 AngularLoss: 1.69416
+[epoch:293, iter:9950] Loss: 0.00041 AngularLoss: 2.04928
+[epoch:293, iter:9960] Loss: 0.00027 AngularLoss: 1.57412
+Waiting Test...
+Test's AngularLoss is: 8.590
+
+Epoch: 294
+[epoch:294, iter:9970] Loss: 0.00036 AngularLoss: 1.92153
+[epoch:294, iter:9980] Loss: 0.00029 AngularLoss: 1.65290
+[epoch:294, iter:9990] Loss: 0.00022 AngularLoss: 1.48373
+Waiting Test...
+Test's AngularLoss is: 9.228
+
+Epoch: 295
+[epoch:295, iter:10000] Loss: 0.00030 AngularLoss: 1.72036
+[epoch:295, iter:10010] Loss: 0.00053 AngularLoss: 2.45245
+[epoch:295, iter:10020] Loss: 0.00022 AngularLoss: 1.38364
+[epoch:295, iter:10030] Loss: 0.00026 AngularLoss: 1.62191
+Waiting Test...
+Test's AngularLoss is: 9.198
+
+Epoch: 296
+[epoch:296, iter:10040] Loss: 0.00036 AngularLoss: 1.76360
+[epoch:296, iter:10050] Loss: 0.00048 AngularLoss: 2.26161
+[epoch:296, iter:10060] Loss: 0.00025 AngularLoss: 1.50625
+Waiting Test...
+Test's AngularLoss is: 8.676
+
+Epoch: 297
+[epoch:297, iter:10070] Loss: 0.00022 AngularLoss: 1.46823
+[epoch:297, iter:10080] Loss: 0.00020 AngularLoss: 1.35067
+[epoch:297, iter:10090] Loss: 0.00029 AngularLoss: 1.62291
+Waiting Test...
+Test's AngularLoss is: 9.043
+
+Epoch: 298
+[epoch:298, iter:10100] Loss: 0.00021 AngularLoss: 1.46755
+[epoch:298, iter:10110] Loss: 0.00026 AngularLoss: 1.51448
+[epoch:298, iter:10120] Loss: 0.00028 AngularLoss: 1.64277
+[epoch:298, iter:10130] Loss: 0.00032 AngularLoss: 1.71465
+Waiting Test...
+Test's AngularLoss is: 9.100
+
+Epoch: 299
+[epoch:299, iter:10140] Loss: 0.00029 AngularLoss: 1.66388
+[epoch:299, iter:10150] Loss: 0.00020 AngularLoss: 1.45078
+[epoch:299, iter:10160] Loss: 0.00020 AngularLoss: 1.35890
+Waiting Test...
+Test's AngularLoss is: 8.926
+
+Epoch: 300
+[epoch:300, iter:10170] Loss: 0.00040 AngularLoss: 2.09567
+[epoch:300, iter:10180] Loss: 0.00075 AngularLoss: 2.93448
+[epoch:300, iter:10190] Loss: 0.00025 AngularLoss: 1.57633
+[epoch:300, iter:10200] Loss: 0.00058 AngularLoss: 2.47290
+Waiting Test...
+Test's AngularLoss is: 8.709
+Train has finished, total epoch is 300
+assets/model_saved/42baselinecolumbaseline.pt
+test loss: [12.595675357031444, 14.470432288154724, 13.44790526617141, 16.816163540794737, 16.929110952104843, 15.2239587583996, 13.395918127392966, 13.957747814844526, 12.655227940877278, 13.602102139790853, 12.61434024810791, 13.338966816493443, 13.467886172703334, 12.276082759433322, 12.437415107242645, 13.170952853853741, 12.549991279480949, 12.454655796232677, 13.33439413888114, 15.178593375190855, 13.385586576310414, 12.209281140887548, 13.850730492728097, 12.471819129217238, 12.09940224844312, 13.490416134425573, 14.472549652826219, 16.29442548479353, 12.155846443781778, 12.572008570716495, 12.337750576564243, 12.98448727320111, 11.96411055246989, 13.365635121057904, 12.253617728702606, 11.815535444229369, 11.957970108758836, 13.069134652273995, 15.155735210237049, 12.304916373358832, 11.697231040227981, 12.554627055819072, 12.177374012659467, 11.891531475612096, 13.75130426134382, 11.833451736086891, 11.767837518964495, 12.531258199782599, 13.07335372137645, 11.751044013008238, 12.219251216706775, 11.87539182027181, 11.750714113750155, 12.06305762215266, 11.942810333494156, 11.833487117101276, 11.704246955750481, 12.710575950864762, 11.4756014172993, 11.997082027859157, 11.6560255843874, 11.619949595133464, 11.592585833716013, 12.35334079681881, 11.3909223835052, 11.425421663920085, 11.729176789541093, 11.241523451426673, 12.096962625412713, 11.400150320265029, 12.29419243524945, 11.276518218630835, 11.44813052525596, 11.893853595067585, 11.334534674144926, 11.93464257739839, 11.795746928623744, 11.486669122605097, 11.071439204745822, 11.106595201038179, 11.237446737138052, 10.970743083651104, 12.864833941383967, 11.197522628420876, 11.115834221007331, 11.55141153305296, 10.921007217528327, 11.443138497973246, 10.967628437223889, 11.761554369245257, 10.903164957440088, 11.36281924959213, 10.743977242727128, 10.71367701212565, 11.052525411938865, 10.77063390762087, 11.363935127863808, 10.659025550115675, 10.760602029467385, 11.246365792410714, 10.734158263433548, 10.962926111978199, 10.96066845061287, 11.196302165682354, 10.499752131265307, 11.552365110488164, 10.708780069502573, 11.099421123928494, 10.795658029828752, 10.979269605364118, 10.634191250876775, 10.458947399078854, 10.486594419933501, 10.390226160685222, 10.737378208826458, 10.424306442624047, 10.918479665120442, 10.254107995411706, 10.319179803757441, 12.646139124915713, 10.985430688403902, 10.740170660473051, 10.458873419988723, 10.311880688742987, 10.36218582456074, 10.600020810081846, 11.249945547315809, 10.614505129011851, 10.35585453578404, 10.32656383574955, 10.220789274185423, 10.626458440508161, 10.539834270780048, 10.13037326146686, 11.587733224535745, 10.068823054480175, 10.100386203584216, 11.168927288963681, 10.277934777396066, 11.464602558802044, 11.828001595148965, 10.49128396654886, 10.124778054252504, 10.847310937548441, 10.117574414450024, 10.063365347726004, 10.305144366309756, 10.632289034525554, 12.816226413060749, 10.057013070848253, 10.3331807769291, 10.620015450734941, 9.905802411276197, 9.8660835889786, 11.078865163893926, 10.180498857044038, 9.937180729820614, 10.93649089449928, 9.900199119931175, 10.44116969759502, 9.936855600750636, 10.256153644985623, 10.860994661724757, 10.001973308987088, 10.012683351910303, 9.906720810542032, 10.513931608048697, 10.09713473244319, 10.46927292172871, 9.744519494677347, 9.709707898336744, 10.235705695379348, 10.063065677824474, 10.144683423117986, 9.73251622154599, 10.466994915916807, 9.623504742213658, 9.86398045978849, 9.82904282585023, 9.673581032525925, 9.922213921925378, 9.939387911841983, 9.945713540940059, 11.124706142364987, 9.513762859768338, 9.65671332404727, 9.790043795752148, 9.893635044400654, 10.157191963801308, 10.261954416547503, 9.997626216827877, 9.789123308090936, 10.260972535875108, 10.856934603736514, 9.38362389276898, 9.480461018880208, 9.83210735018291, 9.39537831866552, 9.439082495674255, 9.913594187176416, 9.728183795989505, 9.482285502600291, 9.323308912610251, 9.76284920102074, 9.581682894267733, 10.866505310421898, 9.354097683013432, 10.67235519590832, 9.462874657161652, 9.330180209326366, 10.3850619028485, 9.27681857578338, 9.544014106629387, 10.80932472955613, 9.906909449743846, 9.305434205796983, 9.345317723713224, 9.191155727325924, 10.947585229419527, 9.5784605662028, 9.351275641123454, 9.89407686990405, 9.242943609934004, 9.640686348203628, 9.328278007507324, 9.478531198047456, 9.214130356803773, 9.74796135796441, 9.421207386198498, 9.13110494098966, 9.270584073747907, 9.637688354007782, 9.657341433328295, 9.346602757166302, 9.541931670658172, 9.662425852578783, 9.561710875980438, 9.122634810190352, 9.607519735306028, 9.485121410309322, 8.990479838053385, 9.610914844331287, 9.449000356159512, 8.894987954033745, 9.399715711200049, 8.982590517922054, 9.483498529101174, 9.514013794187516, 8.982266784546868, 9.54530260358538, 10.035028331090533, 9.424792590065607, 9.143646232362778, 9.29372511303614, 9.567802942064073, 9.71685349297902, 8.86229066697378, 9.114598129514665, 10.760543540470184, 9.001937001546224, 9.638386454506525, 8.895327472989521, 8.970217603653197, 9.102769521077475, 8.851765225122845, 8.86148880670941, 8.819429073636494, 9.4897656007797, 8.81346345810663, 9.174839753044976, 8.818758372957744, 9.001218146672324, 8.825141490754627, 9.583616147722516, 8.843591086372497, 8.999712857443189, 8.947314034719316, 9.052814120943584, 8.865299907865978, 8.7749433190482, 9.174866626073443, 8.814444343324691, 8.827673577808199, 9.847444016592844, 8.865608223809136, 8.817963826618497, 8.853532789321173, 9.483804516262479, 8.959484466673835, 9.112494239201622, 8.851091542925154, 8.732441761077396, 8.589960316552057, 9.227731071351066, 9.19791554829431, 8.676453799898662, 9.042559188358368, 9.100018564254519, 8.926478516109405, 8.709483649844215]
+best loss: 8.589960316552057
+[8.589960316552057]
+AvgLoss: 8.589960098266602
