@@ -35,7 +35,7 @@ class GEFF(nn.Module):
         super(GEFF, self).__init__()
         sim = None
         if args.model == 'simclr':
-            path = 'assets/model_saved/simclr.pt'
+            path = 'assets/model_saved/simclr'+ args.dataset +'.pt'
             sim = torch.load(path)
             self.face_en = sim.face_en
         else:

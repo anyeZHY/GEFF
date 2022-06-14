@@ -134,7 +134,7 @@ def make_parser():
     # hyperparameters in Trainnig part
     parser.add_argument("--model", default="baseline", choices=['baseline', 'fuse', 'geff', 'febase', 'simclr'],
                         type=str)
-    parser.add_argument("--dataset", default="mpii", choices=['mpii', 'columbia'], type=str)
+    parser.add_argument("--dataset", default="mpii", choices=['mpii', 'columbia', 'both'], type=str)
     parser.add_argument("--cross_val_off", action="store_true", help="Cross Validation off")
     parser.add_argument("--warm", default=30, type=int)
     parser.add_argument("--epoch", default=20, type=int)

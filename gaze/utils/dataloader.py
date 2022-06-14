@@ -173,13 +173,22 @@ def make_transform():
 def load_data(args, BATCH_SIZE, val_size=128, transform_train=None, flip=0, person_id=9):
     use_mask = False if args is None else args.mask
     train_file, val_file, img_dir = 'assets/', 'assets/', 'assets/'
-    train, val = None, None
     if args is None or args.dataset == 'mpii':
         train, val = split_mpii(person_id)
         img_dir += 'MPIIFaceGaze/Image'
-    else:
+        img_dir_train = img_dir
+        img_dir_val = img_dir
+    elif args.dataset== 'columbia':
         train, val = split_columbia(person_id)
         img_dir += 'ColumbiaGazeCutSet'
+        img_dir_train = img_dir
+        img_dir_val = img_dir
+    else:
+        train, _ = split_mpii(id=7)
+        val, _ = split_columbia(id=42)
+        img_dir_train = img_dir + 'MPIIFaceGaze/Image'
+        img_dir_val = img_dir + 'ColumbiaGazeCutSet'
+
     if transform_train is None:
         transform_train = transforms.Compose([
             transforms.ToPILImage(),
@@ -189,8 +198,8 @@ def load_data(args, BATCH_SIZE, val_size=128, transform_train=None, flip=0, pers
         ])
     transform_eye, transform_val = make_transform()
 
-    train_set = Gaze(train, img_dir, transform_train, transform_eye, flip=flip, use_mask=use_mask)
-    val_set = Gaze(val, img_dir, transform_val, transform_eye, flip=0)
+    train_set = Gaze(train, img_dir_train, transform_train, transform_eye, flip=flip, use_mask=use_mask)
+    val_set = Gaze(val, img_dir_val, transform_val, transform_eye, flip=0)
 
     train_loader = torch.utils.data.DataLoader(train_set, batch_size=BATCH_SIZE, shuffle=True)
     val_loader = torch.utils.data.DataLoader(val_set, batch_size=val_size, shuffle=True)
