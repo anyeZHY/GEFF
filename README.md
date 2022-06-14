@@ -137,14 +137,6 @@ We design the framework of SimCLR in gaze estimation task:
 	SimCLR Framework For GEFF Model
 </p>
 
-
-
-We implement a **HEAVY** augmentation for datas, especially for the images of faces. Here's some examples:
-
-<p align="center">
-  <img src="figs/simclr_tran.png", width="30%"/></br>
-	Data Augmentation
-</p>
 Run the following command to get our pre-trained model:
 
 ```shell
@@ -181,12 +173,17 @@ Running logs are available at `logs/*`.
   <img src="figs/result.png", width="100%"/></br>
 	Ablation Studys on MPIIGaze Dataset
 </p>
-### For TAs (update soon)
+<p align="center">
+  <img src="figs/mpii-comp.png", width="100%"/></br>
+	Ablation Studys on MPIIGaze Dataset (SimCLR VS MLP VS ResNet)
+</p>
+
+### For TAs
 
 We provide a python file to test on the datas which are not access to students.
 
 ```shell
-$ python scipts/[updata soon].py --test --folders 10-14
+$ python scipts/test.py --test
 ```
 
 ## Acknowledgement
