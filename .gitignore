@@ -11,6 +11,7 @@ ColumbiaGazeCutSet/
 assets/model_saved/Unused
 gaze/tutorials/
 logs/old/
+scripts/tmp.py
 
 # MAC OS
 .DS_Store
