@@ -177,13 +177,17 @@ Running logs are available at `logs/*`.
   <img src="figs/mpii-comp.png", width="100%"/></br>
 	Ablation Studys on MPIIGaze Dataset (SimCLR VS MLP VS ResNet)
 </p>
+<p align="center">
+  <img src="figs/colum-comp.png", width="100%"/></br>
+	Ablation Studys on ColumbiaGaze Dataset
+</p>
 
 ### For TAs
 
 We provide a python file to test on the datas which are not access to students.
 
 ```shell
-$ python scipts/test.py --test
+$ python scipts/test.py
 ```
 
 ## Acknowledgement
