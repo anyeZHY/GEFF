@@ -26,7 +26,7 @@ def get_img(dir, path, mode='rgb'):
 
 
 # ============== Process .label >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
-def split_mpii(id: int):
+def split_mpii(id: int, start=0, end=10):
     """
     Split/resplit the data into training set, validation set and test set.
     """
@@ -35,7 +35,7 @@ def split_mpii(id: int):
     datapath = 'assets/MPIIFaceGaze/'
     train = pd.DataFrame(columns=column)
     val = pd.DataFrame(columns=column)
-    for i_label in range(10):
+    for i_label in range(start,end):
         labelpath = datapath + 'Label/p' + str(i_label).zfill(2) + '.label'
         df = pd.read_table(labelpath, delimiter=' ')
         df = df[column]

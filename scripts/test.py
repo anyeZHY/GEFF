@@ -14,14 +14,33 @@ from gaze.utils.make_loss import angular_error
 
 def make_parser():
     parser = argparse.ArgumentParser(description='Training Congfiguration')
-    parser.add_argument("--test", action="store_true")
-    parser.add_argument("--folder", default="10-14", type=str, help="Format: m-n where m is less than n")
     parser.add_argument("--adapt", action="store_true")
     parser.add_argument("--to", default="columbia", choices=['mpii', 'columbia'], type=str)
     return parser
 
-def domain_adaptation(args):
+
+def validate(val_loader, path):
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    model = torch.load(path, map_location=torch.device(device))
+    model.eval()
+
+    aug_loss_total = 0
+    total = 0
+    L = len(val_loader)
+    with torch.no_grad():
+        for i,data in enumerate(val_loader,1):
+            imgs, labels = data
+            labels = labels.to(device)
+            imgs = {name: imgs[name].to(device) for name in imgs}
+            gaze = model(imgs)
+            total += labels.size(0)
+            loss = angular_error(gaze, labels.float())
+            aug_loss_total += loss.item() * (labels.size(0))
+            print('\rTesting... %.03f' % (i/L*100) + '%', end='', flush=True)
+    print('\nTest\'s AngularLoss is: %.03f' % (aug_loss_total / total))
+
+
+def domain_adaptation(args):
     img_dir = 'assets/'
     if args.to=='columbia':
         val, _ = split_columbia(100)
@@ -34,30 +53,30 @@ def domain_adaptation(args):
     transform_eye, transform_val = make_transform()
     val_set = Gaze(val, img_dir_val, transform_val, transform_eye, flip=0)
     val_loader = torch.utils.data.DataLoader(val_set, batch_size=128, shuffle=True)
+    validate(val_loader, path)
 
-    model = torch.load(path, map_location=torch.device(device))
-    model.eval()
 
-    aug_loss_total = 0
-    total = 0
-    L = len(val_loader)
-    with torch.no_grad():
-        for i,data in enumerate(val_loader,1):
-            imgs, labels = data
-            imgs = {name: imgs[name].to(device) for name in imgs}
-            labels = labels.to(device)
-            gaze = model(imgs, args)
-            total += labels.size(0)
-            loss = angular_error(gaze, labels.float())
-            aug_loss_total += loss.item() * (labels.size(0))
-            print('\rTesting... %.03f' % (i/L*100) + '%', end='', flush=True)
-    print('\nTest\'s AngularLoss is: %.03f' % (aug_loss_total / total))
-    return 0
+
+def test():
+    img_dir = 'assets/'
+    img_dir_val = img_dir + 'MPIIFaceGaze/Image'
+    try:
+        val, _ = split_mpii(id=100, start=10, end=15)
+        transform_eye, transform_val = make_transform()
+        val_set = Gaze(val, img_dir_val, transform_val, transform_eye, flip=0)
+        val_loader = torch.utils.data.DataLoader(val_set, batch_size=128, shuffle=True)
+        path = 'assets/model_saved/Columbia/geffmfp_warm.pt'
+        validate(val_loader, path)
+    except (Exception, ):
+        print("Error: p10-p14 do not exist in MPII dataset.")
+
 
 def main():
     args = make_parser().parse_args()
     if args.adapt:
         domain_adaptation(args)
+    else:
+        test()
     return
 
 if __name__ == '__main__':
