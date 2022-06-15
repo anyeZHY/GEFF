@@ -54,9 +54,8 @@ assets
 
 [//]: # (Then you need preprocess ColumbiaGazeDataSet by the following command: &#40;~[ time ] hours&#41;)
 
-[//]: # ()
+[//]: #
 [//]: # (```shell)
-
 [//]: # ($ python gaze/utils/[ update soon ].py)
 [//]: # (```)
 
@@ -94,9 +93,10 @@ The GIF will be saved at `figs/gaze_demo.gif`:
 Our GEFF architecture is similar to PIXIE architecture:
 
 <p align="center">
-  <img src="figs/geff.png", width="100%"/></br>
+  <img src="figs/geff.png", width="50%"/></br>
 	Our GEFF Architecture
 </p>
+
 
 ### MPIIGaze
 
