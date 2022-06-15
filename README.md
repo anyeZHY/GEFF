@@ -52,11 +52,17 @@ assets
     └── ...
 ```
 
-Then you need preprocess ColumbiaGazeDataSet by the following command: (~[ time ] hours)
+[//]: # (Then you need preprocess ColumbiaGazeDataSet by the following command: &#40;~[ time ] hours&#41;)
 
-```shell
-$ python gaze/utils/[ update soon ].py
-```
+[//]: # ()
+[//]: # (```shell)
+
+[//]: # ($ python gaze/utils/[ update soon ].py)
+[//]: # (```)
+
+For the ColumbiaGaze dataset, we did some preprocess.
+You can download our preprocessed dataset from [ColumbiaGazeCutSet](https://jbox.sjtu.edu.cn/l/n102hw).
+Put it into `assets`. Now the folder `assets/` should look like:
 
 ```shell
 assets
@@ -64,7 +70,7 @@ assets
 │   └── ...
 ├── ColumbiaGazeDataSet/
 │   └── ...
-├── ColumbiaGazeDataSetCut/
+├── ColumbiaGazeCutSet/
 │   └── ...
 └── ...
 ```
@@ -87,7 +93,10 @@ The GIF will be saved at `figs/gaze_demo.gif`:
 
 Our GEFF architecture is similar to PIXIE architecture:
 
-[ image (update soon) ]
+<p align="center">
+  <img src="figs/geff.png", width="100%"/></br>
+	Our GEFF Architecture
+</p>
 
 ### MPIIGaze
 
