@@ -65,7 +65,7 @@ def test():
         transform_eye, transform_val = make_transform()
         val_set = Gaze(val, img_dir_val, transform_val, transform_eye, flip=0)
         val_loader = torch.utils.data.DataLoader(val_set, batch_size=128, shuffle=True)
-        path = 'assets/model_saved/Columbia/geffmfp_warm.pt'
+        path = 'assets/model_saved/MPII/geffrf_heavy.pt'
         validate(val_loader, path)
     except (Exception, ):
         print("Error: p10-p14 do not exist in MPII dataset.")
