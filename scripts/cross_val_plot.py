@@ -47,7 +47,7 @@ losses = {
         2.5233322798411053, 3.869793039957682, 3.079336062113444, 3.931205847422282, 3.364947898228963,
         4.2196826725006105, 3.9490752258300783, 5.207069086710612, 4.966465431213379, 5.019186856587728
     ],
-    'GEFF-RF (heavier data augmentation)':[
+    'GEFF-RF (heavier data-Aug)':[
         2.5276485888163247, 3.4206851921081545, 3.045332301457723, 3.63777263323466, 3.4291863441467285,
         4.1741627604166665, 3.839682412465413, 5.325767004648845, 5.113183091481527, 5.301839869181315
     ]
@@ -65,11 +65,11 @@ for i in range(len(losses)):
     plt.bar(index, loss, color=color)
     mean = np.mean(loss)
     plt.plot([-1,11], [mean, mean], '--')
-    plt.text(4.5, mean + 0.4, 'Mean: %0.3f' % mean, size=12)
+    plt.text(4.5, mean + 0.4, 'Mean: %0.3f' % mean, size=14)
     plt.xlim([0.5,10.5])
     plt.ylim([0,6.5])
     plt.ylabel(r'angular loss (degree)')
     plt.xlabel('personal ID')
-    plt.title(label)
+    plt.title(label, size=18)
 plt.savefig('figs/result.pdf')
 plt.savefig('figs/result.png')
