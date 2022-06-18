@@ -64,8 +64,15 @@ def test():
     transform_eye, transform_val = make_transform()
     val_set = Gaze(val, img_dir_val, transform_val, transform_eye, flip=0)
     val_loader = torch.utils.data.DataLoader(val_set, batch_size=128, shuffle=True)
-    path = 'assets/model_saved/MPII/geffrf_heavy.pt'
-    validate(val_loader, path)
+    path = [
+        # 'assets/model_saved/MPII/geffrf_heavay.pt',
+        # 'assets/model_saved/MPII/geffmf100.pt',
+        # 'assets/model_saved/MPII/Base.pt',
+        'assets/model_saved/MPII/geffsim.pt',
+    ]
+    for model_path in path:
+        print(model_path)
+        validate(val_loader, model_path)
     print("MPII dataset test finished successfully.")
 
 
