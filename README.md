@@ -8,9 +8,9 @@ The report of this project is available at: [(update soon)](somewhere).
 
 The "contributions" of this project are as follows:
 
-- Transfer [PIXIE](https://github.com/YadiraF/PIXIE) [CVPR 2021] model from 3D human body reconstruction to gaze estimation. Now the features of head fuse with that of eyes (we call our model as GEFF).
-- Implement [SimCLR](https://github.com/google-research/simclr) [ICML 2020] framework for training deep and complicated network (Currently the SimCLR framework was adapted for GEFF).
-- Augment datas. Flip the images horizontally. Swap the left eyes and the right eyes. Use masks to generalize our model.
+- Transfer [PIXIE](https://github.com/YadiraF/PIXIE) [CVPR 2021] model from 3D human body reconstruction to gaze estimation. Now the features of the head fuse with that of the eyes (we call our model GEFF).
+- Implement [SimCLR](https://github.com/google-research/simclr) [ICML 2020] framework for training deep and complicated networks (Currently the SimCLR framework was adapted for GEFF).
+- Augment data. Flip the images horizontally. Swap the left eyes and the right eyes. Use masks to generalize our model.
 
 <details>
   <summary>中文版介绍 (Chinese Version, For TAs)</summary><br>
@@ -37,12 +37,12 @@ $ conda env create -f environment.yaml
 $ conda activate geff
 ```
 
-### Download assets and process datas
+### Download assets and process data
 
 - For **SJTUers**, download the datasets from [Gaze2022](https://jbox.sjtu.edu.cn/v/link/view/d7dad40649094e1fb6c6a93678ef9512) whose access code is `mrte`.
 - Or download the datasets from [MPIIFaceGaze](https://github.com/hysts/pytorch_mpiigaze) and [ColumbiaGazeDataSet](https://www.cs.columbia.edu/CAVE/databases/columbia_gaze/).
 
-Put them into `assets`. Now the folder `assets/` should look like:
+Put them into `assets`. Now the folder `assets/` should look like this:
 
 ```
 assets
@@ -59,9 +59,9 @@ assets
 [//]: # ($ python gaze/utils/[ update soon ].py)
 [//]: # (```)
 
-For the ColumbiaGaze dataset, we did some preprocess.
+For the ColumbiaGaze dataset, we did some preprocessing.
 You can download our preprocessed dataset from [ColumbiaGazeCutSet](https://jbox.sjtu.edu.cn/l/n102hw).
-Put it into `assets`. Now the folder `assets/` should look like:
+Put it into `assets`. Now the folder `assets/` should look like this:
 
 ```shell
 assets
@@ -76,7 +76,7 @@ assets
 
 ## Demo
 
-We save our model at `assets/model_saved/`. You could run the demo to see the results on validation set.
+We save our model at `assets/model_saved/`. You could run the demo to see the results on the validation set.
 
 ```shell
 $ python scripts/gaze_demo.py
@@ -131,7 +131,7 @@ $ python res_train.py --lr 0.0001 --epoch 60 --print_every 10 --name MF \
 		--data_aug --flip 0.5
 ```
 
-Other optional command: `--eye_en resnet`, to use ResNet18 as the eyes' encoder; `--mask`, to implement masks on eyes.
+Other optional commands: `--eye_en resnet`, to use ResNet18 as the eyes' encoder; `--mask`, to implement masks on eyes.
 
 ### ColumbiaGaze
 
@@ -158,7 +158,7 @@ $ python simclr_train.py --name "DA" --tau 0.5 \
                          --multi_gpu --dataset "both"
 ```
 
-Since **large batch size** and long training time matters, we use **2 GPUs (Nvidia A6000)** when training. It may take ~**70** hours.
+Since **large batch size** and long training time matter, we use **2 GPUs (Nvidia A6000)** when training. It may take ~**70** hours.
 
 Then run the following script for a quick test.
 
@@ -172,7 +172,7 @@ $ python res_train.py --lr 0.0005 --epoch 100 --print_every 10
 
 ### Ablation Study
 
-**Nota Bene**: we use cross validation method to select our models. For **each fold**, we choose the **BEST** angular loss as its final result. I.e., 
+**Nota Bene**: we use cross-validation method to select our models. For **each fold**, we choose the **BEST** angular loss as its final result. I.e., 
 
 $$L(k_{fold})=\min_{i\in[epoch]}AugLoss_i(k_{fold}).$$
 
@@ -193,7 +193,7 @@ Running logs are available at `logs/*`.
 
 ### For TAs
 
-We provide a python file to test on the datas which are not access to students.
+We provide a python file to test on the data which are not accessible to students.
 
 ```shell
 $ python scipts/test.py
