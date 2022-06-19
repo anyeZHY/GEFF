@@ -1,10 +1,21 @@
-# GEFF: Gaze Estimation with Fused Features
-
+<h1 align="center">
+GEFF: Gaze Estimation with Fused Features
+</h1>
+<p align="center">
 Project of AI2611 Machine Learning, Shanghai Jiao Tong University.
+</p>
+<p align="center">
+  <a href='https://anyezhy.github.io/pdf/geff.pdf'>
+    <img src='https://img.shields.io/badge/Project%20Paper-PDF-blue?style=flat&logo=Googlescholar&logoColor=blue' alt='Paper PDF'>
+  </a>
+  <a href="https://pytorch.org/get-started/locally/">
+    <img alt="PyTorch" src="https://img.shields.io/badge/Pytorch-1.12.0-red?logo=pytorch&logoColor=red">
+  </a>
+</p>
 
 ## Introduction
 
-The report of this project is available at: [(update soon)](somewhere).
+The report of this project is available at: [GEFF](https://anyezhy.github.io/pdf/geff.pdf).
 
 The "contributions" of this project are as follows:
 
